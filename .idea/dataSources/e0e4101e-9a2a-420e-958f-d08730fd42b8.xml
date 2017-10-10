@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="postgres@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.4">
+    <root id="1"/>
+    <database id="2" parent="1" name="postgres">
+      <ObjectId>12669</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2017-10-10.11:30:52.703</IntrospectionTimestamp>
+      <IntrospectionStateNumber>898</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="5" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="6" parent="2" name="pg_temp_1">
+      <ObjectId>11848</ObjectId>
+    </schema>
+    <schema id="7" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11849</ObjectId>
+    </schema>
+    <schema id="8" parent="2" name="information_schema">
+      <ObjectId>12381</ObjectId>
+    </schema>
+    <table id="9" parent="3" name="forum">
+      <ObjectId>16424</ObjectId>
+      <StateNumber>898</StateNumber>
+    </table>
+    <table id="10" parent="3" name="users">
+      <ObjectId>16416</ObjectId>
+      <StateNumber>898</StateNumber>
+    </table>
+    <column id="11" parent="9" name="slug">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>898</StateNumber>
+    </column>
+    <column id="12" parent="9" name="title">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>898</StateNumber>
+    </column>
+    <column id="13" parent="9" name="postcount">
+      <Position>3</Position>
+      <DataType>bigint|0</DataType>
+      <StateNumber>898</StateNumber>
+    </column>
+    <column id="14" parent="9" name="threadcount">
+      <Position>4</Position>
+      <DataType>bigint|0</DataType>
+      <StateNumber>898</StateNumber>
+    </column>
+    <column id="15" parent="9" name="owner">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>898</StateNumber>
+    </column>
+    <index id="16" parent="9" name="forum_pkey">
+      <ObjectId>16430</ObjectId>
+      <ColNames>slug</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="9" name="forum_pkey">
+      <ObjectId>16431</ObjectId>
+      <ColNames>slug</ColNames>
+      <UnderlyingIndexName>forum_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="18" parent="9" name="forum_owner_fkey">
+      <ObjectId>16432</ObjectId>
+      <ColNames>owner</ColNames>
+      <RefTableId>16416</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>nickname</RefColNames>
+    </foreign-key>
+    <column id="19" parent="10" name="nickname">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>897</StateNumber>
+    </column>
+    <column id="20" parent="10" name="fullname">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>897</StateNumber>
+    </column>
+    <column id="21" parent="10" name="email">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>897</StateNumber>
+    </column>
+    <column id="22" parent="10" name="about">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>897</StateNumber>
+    </column>
+    <index id="23" parent="10" name="users_pkey">
+      <ObjectId>16422</ObjectId>
+      <ColNames>nickname</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="24" parent="10" name="users_pkey">
+      <ObjectId>16423</ObjectId>
+      <ColNames>nickname</ColNames>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
