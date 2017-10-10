@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
-    private final String nickname;
-    private final String about;
-    private final String email;
-    private final String fullname;
+    private  String nickname;
+    private  String about;
+    private  String email;
+    private  String fullname;
 
 
     @JsonCreator
@@ -39,5 +39,9 @@ public class User {
 
     public String getFullname() {
         return fullname;
+    }
+
+    public void setNickname(String nick) {
+        this.nickname = nick;
     }
 }

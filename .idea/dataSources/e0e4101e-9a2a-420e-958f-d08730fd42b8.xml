@@ -9,8 +9,8 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-10-10.11:30:52.703</IntrospectionTimestamp>
-      <IntrospectionStateNumber>898</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-10-10.14:16:40.802</IntrospectionTimestamp>
+      <IntrospectionStateNumber>934</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -30,55 +30,55 @@
       <ObjectId>12381</ObjectId>
     </schema>
     <table id="9" parent="3" name="forum">
-      <ObjectId>16424</ObjectId>
-      <StateNumber>898</StateNumber>
+      <ObjectId>16447</ObjectId>
+      <StateNumber>934</StateNumber>
     </table>
     <table id="10" parent="3" name="users">
-      <ObjectId>16416</ObjectId>
-      <StateNumber>898</StateNumber>
+      <ObjectId>16437</ObjectId>
+      <StateNumber>934</StateNumber>
     </table>
     <column id="11" parent="9" name="slug">
       <Position>1</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>898</StateNumber>
+      <StateNumber>934</StateNumber>
     </column>
     <column id="12" parent="9" name="title">
       <Position>2</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>898</StateNumber>
+      <StateNumber>934</StateNumber>
     </column>
     <column id="13" parent="9" name="postcount">
       <Position>3</Position>
       <DataType>bigint|0</DataType>
-      <StateNumber>898</StateNumber>
+      <StateNumber>934</StateNumber>
     </column>
     <column id="14" parent="9" name="threadcount">
       <Position>4</Position>
       <DataType>bigint|0</DataType>
-      <StateNumber>898</StateNumber>
+      <StateNumber>934</StateNumber>
     </column>
     <column id="15" parent="9" name="owner">
       <Position>5</Position>
       <DataType>text|0</DataType>
-      <StateNumber>898</StateNumber>
+      <StateNumber>934</StateNumber>
     </column>
     <index id="16" parent="9" name="forum_pkey">
-      <ObjectId>16430</ObjectId>
+      <ObjectId>16453</ObjectId>
       <ColNames>slug</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="17" parent="9" name="forum_pkey">
-      <ObjectId>16431</ObjectId>
+      <ObjectId>16454</ObjectId>
       <ColNames>slug</ColNames>
       <UnderlyingIndexName>forum_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="18" parent="9" name="forum_owner_fkey">
-      <ObjectId>16432</ObjectId>
+      <ObjectId>16455</ObjectId>
       <ColNames>owner</ColNames>
-      <RefTableId>16416</RefTableId>
+      <RefTableId>16437</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
@@ -88,35 +88,45 @@
       <Position>1</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>897</StateNumber>
+      <StateNumber>933</StateNumber>
     </column>
     <column id="20" parent="10" name="fullname">
       <Position>2</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>897</StateNumber>
+      <StateNumber>933</StateNumber>
     </column>
     <column id="21" parent="10" name="email">
       <Position>3</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>897</StateNumber>
+      <StateNumber>933</StateNumber>
     </column>
     <column id="22" parent="10" name="about">
       <Position>4</Position>
       <DataType>text|0</DataType>
-      <StateNumber>897</StateNumber>
+      <StateNumber>933</StateNumber>
     </column>
     <index id="23" parent="10" name="users_pkey">
-      <ObjectId>16422</ObjectId>
+      <ObjectId>16443</ObjectId>
       <ColNames>nickname</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="24" parent="10" name="users_pkey">
-      <ObjectId>16423</ObjectId>
+    <index id="24" parent="10" name="users_email_key">
+      <ObjectId>16445</ObjectId>
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="25" parent="10" name="users_pkey">
+      <ObjectId>16444</ObjectId>
       <ColNames>nickname</ColNames>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+    </key>
+    <key id="26" parent="10" name="users_email_key">
+      <ObjectId>16446</ObjectId>
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>users_email_key</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

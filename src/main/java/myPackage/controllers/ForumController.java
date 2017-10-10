@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import myPackage.models.Forum;
 
-@ResponseBody
 @RestController
 @RequestMapping("/forum")
 public class ForumController {
@@ -30,7 +29,7 @@ public class ForumController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(fdao.getForum(body.getSlug()).toString());
         }
     }
-    
+
     @RequestMapping(path = "/{slug}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<String> forumDetails( @PathVariable("slug") String sl) {
         Forum result = fdao.getForum(sl);
