@@ -8,12 +8,11 @@ public class Thread {
     private long votes;
     private long id;
     private final String slug;
-    private final String owner;
-    private final String forum;
+    private final String author;
+    private  String forum;
     private final String created;
     private final String message;
     private final String title;
-
 
 
     @JsonCreator
@@ -22,17 +21,21 @@ public class Thread {
             @JsonProperty("forum") String forum,
             @JsonProperty("title") String title,
             @JsonProperty("message") String message,
-            @JsonProperty("owner") String owner
+            @JsonProperty("author") String author,
+            @JsonProperty("id") long id,
+            @JsonProperty("votes") long votes,
+            @JsonProperty("created") String created
     ) {
-        this.id = 0;
+        this.id = id;
         this.slug = slug;
         this.forum = forum;
-        this.created = "";
+        this.created = created;
         this.message = message;
-        this.votes = 0;
+        this.votes = votes;
         this.title = title;
-        this.owner = owner;
+        this.author = author;
     }
+
 
     public long getVotes() {
         return votes;
@@ -54,8 +57,8 @@ public class Thread {
         return slug;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getAuthor() {
+        return author;
     }
 
     public String getForum() {
@@ -72,5 +75,9 @@ public class Thread {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setForum(String forum) {
+        this.forum = forum;
     }
 }
