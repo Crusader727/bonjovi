@@ -17,27 +17,27 @@ public class ForumController {
     }
 
     @RequestMapping(path = "/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> createForum(@RequestBody Forum body) {
+    public ResponseEntity<?> createForum(@RequestBody Forum body) {
         Integer result = fdao.createForum(body);
         if(result == 201) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(body.toString());
+            return ResponseEntity.status(HttpStatus.CREATED).body(body);
         }
         else if(result == 404) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cant find such User");
         }
         else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(fdao.getForum(body.getSlug()).toString());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(fdao.getForum(body.getSlug()));
         }
     }
 
     @RequestMapping(path = "/{slug}/details", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<String> forumDetails( @PathVariable("slug") String sl) {
+    public ResponseEntity<?> forumDetails( @PathVariable("slug") String sl) {
         Forum result = fdao.getForum(sl);
         if(result == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No such forum");
         }
         else {
-            return ResponseEntity.status(HttpStatus.OK).body(result.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(result);
         }
     }
 }

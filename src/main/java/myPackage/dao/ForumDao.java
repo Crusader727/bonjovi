@@ -36,7 +36,7 @@ public class ForumDao {
                         PreparedStatement.RETURN_GENERATED_KEYS);
                 pst.setString(1, body.getSlug());
                 pst.setString(2, body.getTitle());
-                pst.setString(3, body.getOwner());
+                pst.setString(3, body.getUser());
                 pst.setLong(4, body.getThreadCount());
                 pst.setLong(5, body.getPostCount());
                 return pst;

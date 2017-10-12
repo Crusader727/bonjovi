@@ -56,7 +56,7 @@ public class UserDao {
             template.update(con -> {
                 PreparedStatement pst = con.prepareStatement(
                         "update users set (fullname,about,email)=(?,?,?)" +
-                                " where lower(nickname)= (?)",
+                                " where nickname= ?",
                         PreparedStatement.RETURN_GENERATED_KEYS);
                 pst.setString(1, body.getFullname());
                 pst.setString(2, body.getAbout());
@@ -65,7 +65,6 @@ public class UserDao {
                 return pst;
             }, keyHolder);
         } catch (Exception e) {
-            //System.out.println("Forum Already Exist");
             return 409;
         }
         return 201;
@@ -74,7 +73,7 @@ public class UserDao {
     public User getUserByNick(String nickname) {
         try {
             final User fr = template.queryForObject(
-                    "SELECT * FROM users WHERE LOWER(nickname) = LOWER(?)",
+                    "SELECT * FROM users WHERE lower(nickname) = LOWER(?)",
                     new Object[]{nickname}, USER_MAPPER);
             return fr;
         } catch (DataAccessException e) {
