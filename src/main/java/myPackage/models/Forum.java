@@ -9,13 +9,13 @@ public class Forum {
     private final String slug;
     private  long threadCount;
     private final String title;
-    private final String user;
+    private String user;
 
     @JsonCreator
     public Forum(
             @JsonProperty("slug") String slug,
             @JsonProperty("title") String title,
-            @JsonProperty("user") String owner,
+            @JsonProperty("user") String user,
             @JsonProperty("postCount") long postCount,
             @JsonProperty("threadCount") long threadCount
     ) {
@@ -23,8 +23,9 @@ public class Forum {
         this.postCount = postCount;
         this.threadCount = threadCount;
         this.title = title;
-        this.user = owner;
+        this.user = user;
     }
+
 
     public long getPostCount() {
         return postCount;
@@ -52,5 +53,9 @@ public class Forum {
 
     public String getUser() {
         return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

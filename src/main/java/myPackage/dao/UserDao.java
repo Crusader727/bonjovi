@@ -55,8 +55,13 @@ public class UserDao {
         try {
             template.update(con -> {
                 PreparedStatement pst = con.prepareStatement(
-                        "update users set (fullname,about,email)=(?,?,?)" +
-                                " where nickname= ?",
+//                        "update users set (fullname,about,email)=(?,?,?)" +
+//                                " where LOWER(nickname) = LOWER(?)",
+                        "update users set" +
+                                "  fullname = COALESCE(?, fullname)," +
+                                "  about = COALESCE(?, about)," +
+                                "  email = COALESCE(?, email)" +
+                                "where LOWER(nickname) = LOWER(?)",
                         PreparedStatement.RETURN_GENERATED_KEYS);
                 pst.setString(1, body.getFullname());
                 pst.setString(2, body.getAbout());

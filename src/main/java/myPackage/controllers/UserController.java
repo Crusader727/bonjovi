@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.apache.regexp.internal.RE;
 import myPackage.dao.UserDao;
 import myPackage.dao.UserDao;
+import myPackage.models.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(usrs);
             }
             if (us2 != null && !us.getEmail().equals(us2.getEmail())) {
-                User[] usrs = {us,us2};
+                User[] usrs = {us, us2};
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(usrs);
             }
             User[] usrs2 = {us};
@@ -45,7 +46,7 @@ public class UserController {
     public ResponseEntity<?> userProfile(@PathVariable("nickname") String nick) {
         User result = udao.getUserByNick(nick);
         if (result == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No such User");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such user"));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
@@ -53,14 +54,18 @@ public class UserController {
 
     @RequestMapping(path = "/{nickname}/profile", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> changeProfile(@PathVariable("nickname") String nick, @RequestBody User body) {
+
         body.setNickname(nick);
         Integer result = udao.changeUser(body);
+//        if (body.getEmail() == null && result != 404) {
+//            return ResponseEntity.status(HttpStatus.OK).body(udao.getUserByNick(nick));
+//        } else
         if (result == 201) {
-            return ResponseEntity.status(HttpStatus.OK).body(body);
+            return ResponseEntity.status(HttpStatus.OK).body(udao.getUserByNick(nick));
         } else if (result == 404) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cant find such User");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Cant find such User"));
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflicting with another user");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new Message("Conflicting with another user"));
         }
     }
 }
