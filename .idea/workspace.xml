@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38beb54-e3c0-401b-82fd-ef732d1af4e2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/myPackage/dao/ThreadDao.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/controllers/ForumController.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/controllers/ForumController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/models/Thread.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/models/Thread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/dao/ThreadDao.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/dao/ThreadDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/models/Thread.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/models/Thread.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,13 +45,6 @@
         <item name="postgres" type="e3449647:DbNodeDescriptor" />
         <item name="public" type="e3449647:DbNodeDescriptor" />
       </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="postgres@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="postgres" type="e3449647:DbNodeDescriptor" />
-        <item name="public" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-      </path>
     </expand>
     <select />
   </component>
@@ -62,7 +53,7 @@
       <file leaf-file-name="Thread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/models/Thread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
+            <state relative-caret-position="660">
               <caret line="51" column="26" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -96,7 +87,7 @@
       <file leaf-file-name="Forum.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/models/Forum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
+            <state relative-caret-position="420">
               <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -124,7 +115,7 @@
       <file leaf-file-name="ForumDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
+            <state relative-caret-position="585">
               <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -139,15 +130,15 @@
       <file leaf-file-name="ThreadDao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="47" column="24" lean-forward="false" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="-438">
+              <caret line="71" column="33" lean-forward="false" selection-start-line="71" selection-start-column="18" selection-end-line="71" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1507827611000" expanded="true" signature="1166:1308" ph="insert into thread... " />
-                <marker date="1507827611000" expanded="true" signature="1166:1327" ph="insert into thread... " />
-                <marker date="1507827611000" expanded="true" signature="2272:2306" ph="SELECT * FRO... thread" />
-                <marker date="1507827611000" expanded="true" signature="2609:2658" ph="SELECT * FRO... thread" />
-                <marker date="1507827611000" expanded="true" signature="3008:3058" ph="select * fro... thread" />
+                <marker date="1507906627000" expanded="true" signature="1225:1367" ph="insert into thread... " />
+                <marker date="1507906627000" expanded="true" signature="1225:1386" ph="insert into thread... " />
+                <marker date="1507906627000" expanded="true" signature="2331:2365" ph="SELECT * FRO... thread" />
+                <marker date="1507906627000" expanded="true" signature="2668:2717" ph="SELECT * FRO... thread" />
+                <marker date="1507906627000" expanded="true" signature="3067:3117" ph="select * fro... thread" />
               </folding>
             </state>
           </provider>
@@ -156,8 +147,8 @@
       <file leaf-file-name="ForumController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="61" column="42" lean-forward="false" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+            <state relative-caret-position="152">
+              <caret line="65" column="87" lean-forward="false" selection-start-line="65" selection-start-column="72" selection-end-line="65" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,8 +159,8 @@
       <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="300">
+              <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -178,7 +169,7 @@
       <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4">
+            <state relative-caret-position="420">
               <caret line="39" column="16" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -233,8 +224,8 @@
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/models/Thread.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java" />
       </list>
     </option>
   </component>
@@ -267,6 +258,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -339,9 +331,8 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -473,12 +464,13 @@
       <workItem from="1507623101367" duration="9991000" />
       <workItem from="1507653038917" duration="12258000" />
       <workItem from="1507786639807" duration="1594000" />
-      <workItem from="1507798988290" duration="21228000" />
+      <workItem from="1507798988290" duration="21282000" />
+      <workItem from="1507904195939" duration="2677000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60826000" />
+    <option name="totallyTimeSpent" value="63557000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -508,7 +500,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32748538" sideWeight="0.48783976" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14878398" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1509299" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12517883" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -842,7 +834,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/models/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
+        <state relative-caret-position="660">
           <caret line="51" column="26" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -874,7 +866,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
+        <state relative-caret-position="420">
           <caret line="39" column="16" lean-forward="false" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -882,17 +874,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
+        <state relative-caret-position="585">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -903,9 +887,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.0.0.RC4/spring-jdbc-5.0.0.RC4-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="744" column="23" lean-forward="false" selection-start-line="744" selection-start-column="23" selection-end-line="744" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/models/Forum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
+        <state relative-caret-position="420">
           <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -929,18 +920,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.0.0.RC4/spring-jdbc-5.0.0.RC4-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="744" column="23" lean-forward="false" selection-start-line="744" selection-start-column="23" selection-end-line="744" selection-end-column="23" />
+        <state relative-caret-position="300">
+          <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/ForumController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="61" column="42" lean-forward="false" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+        <state relative-caret-position="152">
+          <caret line="65" column="87" lean-forward="false" selection-start-line="65" selection-start-column="72" selection-end-line="65" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -949,15 +940,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="47" column="24" lean-forward="false" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+        <state relative-caret-position="-438">
+          <caret line="71" column="33" lean-forward="false" selection-start-line="71" selection-start-column="18" selection-end-line="71" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1507827611000" expanded="true" signature="1166:1308" ph="insert into thread... " />
-            <marker date="1507827611000" expanded="true" signature="1166:1327" ph="insert into thread... " />
-            <marker date="1507827611000" expanded="true" signature="2272:2306" ph="SELECT * FRO... thread" />
-            <marker date="1507827611000" expanded="true" signature="2609:2658" ph="SELECT * FRO... thread" />
-            <marker date="1507827611000" expanded="true" signature="3008:3058" ph="select * fro... thread" />
+            <marker date="1507906627000" expanded="true" signature="1225:1367" ph="insert into thread... " />
+            <marker date="1507906627000" expanded="true" signature="1225:1386" ph="insert into thread... " />
+            <marker date="1507906627000" expanded="true" signature="2331:2365" ph="SELECT * FRO... thread" />
+            <marker date="1507906627000" expanded="true" signature="2668:2717" ph="SELECT * FRO... thread" />
+            <marker date="1507906627000" expanded="true" signature="3067:3117" ph="select * fro... thread" />
           </folding>
         </state>
       </provider>

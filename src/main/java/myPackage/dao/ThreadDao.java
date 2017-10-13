@@ -1,6 +1,8 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,7 +97,7 @@ public class ThreadDao {
             if (desc != null && desc) {
                 myStr += " desc ";
             }
-            if(limit != null) {
+            if (limit != null) {
                 myStr += " limit ? ";
                 myObj.add(limit);
             }
@@ -114,6 +116,8 @@ public class ThreadDao {
         String owner = res.getString("owner");
         String forum = res.getString("forum");
         String created = res.getString("created");
+//        Timestamp timestamp = res.getTimestamp("created");
+//        LocalDateTime date = timestamp.toLocalDateTime();
         String message = res.getString("message");
         String title = res.getString("title");
         return new Thread(slug, forum, title, message, owner, id, votes, created);

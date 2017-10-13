@@ -74,7 +74,7 @@ public class ForumController {
                                         @RequestParam(value = "desc", required = false) Boolean desc) {
         Object[] res = tdao.getThreads(forum, limit, since, desc);
         if (res != null && res.length > 0) {
-            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(forum, limit, since, desc));
+            return ResponseEntity.status(HttpStatus.OK).body(res);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
         }
