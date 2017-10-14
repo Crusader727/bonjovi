@@ -48,6 +48,7 @@ public class PostDao {
                     return pst;
                 }, keyHolder);
                 body.setId(keyHolder.getKey().intValue());
+                body.setCreated(bodyList.get(0).getCreated());
             }
             return 201;
         } catch (Exception e) {

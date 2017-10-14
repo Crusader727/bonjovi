@@ -89,4 +89,11 @@ public class Thread {
     public String getCreated() {
         return created;
     }
+
+    public void voteIncr() {
+        this.votes++;
+    }
+    public void voteDecr() {
+        this.votes--;
+    }
 }
