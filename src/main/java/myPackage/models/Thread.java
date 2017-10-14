@@ -2,14 +2,18 @@ package myPackage.models;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 public class Thread {
     private long votes;
     private long id;
     private final String slug;
     private final String author;
-    private  String forum;
+    private String forum;
     private final String created;
     private final String message;
     private final String title;
@@ -24,12 +28,17 @@ public class Thread {
             @JsonProperty("author") String author,
             @JsonProperty("id") long id,
             @JsonProperty("votes") long votes,
-            @JsonProperty("created") String created
+            @JsonProperty("created") Timestamp created
     ) {
         this.id = id;
         this.slug = slug;
         this.forum = forum;
-        this.created = created;
+        if (created == null) {
+            this.created = null;//ZonedDateTime.now().toLocalDateTime().toString();
+        } else {
+            this.created = created.toInstant().toString();
+
+        }
         this.message = message;
         this.votes = votes;
         this.title = title;
@@ -65,10 +74,6 @@ public class Thread {
         return forum;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -79,5 +84,9 @@ public class Thread {
 
     public void setForum(String forum) {
         this.forum = forum;
+    }
+
+    public String getCreated() {
+        return created;
     }
 }

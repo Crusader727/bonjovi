@@ -80,7 +80,21 @@ public class ThreadDao {
         }
     }
 
+    public boolean getThreadByForum(String forum) {
+            final List<Thread>  th = template.query(
+                    "SELECT * FROM thread WHERE lower(forum) = lower(?)",
+                    new Object[]{forum}, THREAD_MAPPER);
+
+            if(th.isEmpty()) {
+                return false;
+            }
+            return true;
+    }
+
     public Object[] getThreads(String forum, Integer limit, String since, Boolean desc) {
+        if(!getThreadByForum(forum)) {
+            return null;
+        }
         try {
             List<Object> myObj = new ArrayList<>();
             String myStr = "select * from thread where lower(forum) = lower(?) ";
@@ -101,6 +115,7 @@ public class ThreadDao {
                 myStr += " limit ? ";
                 myObj.add(limit);
             }
+            //System.out.println(myStr + " s: " + since + " l: " + limit + " f:" + forum);
             List<Thread> result = template.query(myStr
                     , myObj.toArray(), THREAD_MAPPER);
             return result.toArray();
@@ -115,7 +130,7 @@ public class ThreadDao {
         String slug = res.getString("slug");
         String owner = res.getString("owner");
         String forum = res.getString("forum");
-        String created = res.getString("created");
+        Timestamp created = res.getTimestamp("created");
 //        Timestamp timestamp = res.getTimestamp("created");
 //        LocalDateTime date = timestamp.toLocalDateTime();
         String message = res.getString("message");

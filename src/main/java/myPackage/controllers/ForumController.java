@@ -59,6 +59,7 @@ public class ForumController {
         Integer[] result = tdao.createThread(body);
         if (result[0] == 201) {
             body.setId(result[1]);
+            body.setForum(fdao.getForum(forum).getSlug());
             return ResponseEntity.status(HttpStatus.CREATED).body(body);
         } else if (result[0] == 404) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("Cant find such User or thread"));
@@ -73,7 +74,7 @@ public class ForumController {
                                         @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "desc", required = false) Boolean desc) {
         Object[] res = tdao.getThreads(forum, limit, since, desc);
-        if (res != null && res.length > 0) {
+        if (res != null) {
             return ResponseEntity.status(HttpStatus.OK).body(res);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
