@@ -163,10 +163,10 @@ public class ThreadDao {
                 pst.setLong(3, body.getId());
                 return pst;
             }, keyHolder);
+            return 200;
         } catch (Exception e) {
             return 409;
         }
-        return 200;
     }
 
     public Integer chagenThread(Thread body) {

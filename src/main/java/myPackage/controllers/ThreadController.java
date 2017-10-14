@@ -2,6 +2,7 @@ package myPackage.controllers;
 
 import myPackage.dao.PostDao;
 import myPackage.dao.ThreadDao;
+import myPackage.dao.UserDao;
 import myPackage.models.*;
 import myPackage.models.Thread;
 import org.springframework.http.HttpStatus;
@@ -15,51 +16,53 @@ import java.util.ArrayList;
 public class ThreadController {
     private final ThreadDao tdao;
     private final PostDao pdao;
+    private final UserDao udao;
 
-    public ThreadController(ThreadDao tdao, PostDao pdao) {
+    public ThreadController(ThreadDao tdao, PostDao pdao, UserDao udao) {
         this.tdao = tdao;
         this.pdao = pdao;
+        this.udao = udao;
     }
 
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createPost(@PathVariable("slug_or_id") String slug_or_id,
-                                             @RequestBody ArrayList<Post> bodyList) {
+                                        @RequestBody ArrayList<Post> bodyList) {
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
-           buf =  tdao.getThreadById(key.id);
+            buf = tdao.getThreadById(key.id);
+        } else {
+            buf = tdao.getThreadBySlug(key.slug);
         }
-        else {
-            buf =  tdao.getThreadBySlug(key.slug);
-        }
-        if(buf == null) {
+        if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-        for (Post body: bodyList) {
+        for (Post body : bodyList) {
             body.setForum(buf.getForum());
             body.setThread(buf.getId());
         }
-         pdao.createPosts(bodyList);
-            return ResponseEntity.status(HttpStatus.CREATED).body(bodyList);
+        pdao.createPosts(bodyList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bodyList);
 
     }
 
     @RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
-                                        @RequestBody Vote body) {
+                                  @RequestBody Vote body) {
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
-            buf =  tdao.getThreadById(key.id);
+            buf = tdao.getThreadById(key.id);
+        } else {
+            buf = tdao.getThreadBySlug(key.slug);
         }
-        else {
-            buf =  tdao.getThreadBySlug(key.slug);
-        }
-        if(buf == null) {
+        if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
+        if (udao.getUserByNick(body.getNickname()) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
+        }
         tdao.vote(buf, body);
-
         return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadBySlug(buf.getSlug()));
 
     }
@@ -69,12 +72,11 @@ public class ThreadController {
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
-            buf =  tdao.getThreadById(key.id);
+            buf = tdao.getThreadById(key.id);
+        } else {
+            buf = tdao.getThreadBySlug(key.slug);
         }
-        else {
-            buf =  tdao.getThreadBySlug(key.slug);
-        }
-        if(buf == null) {
+        if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
         return ResponseEntity.status(HttpStatus.OK).body(buf);
@@ -85,18 +87,17 @@ public class ThreadController {
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
-            buf =  tdao.getThreadById(key.id);
+            buf = tdao.getThreadById(key.id);
+        } else {
+            buf = tdao.getThreadBySlug(key.slug);
         }
-        else {
-            buf =  tdao.getThreadBySlug(key.slug);
-        }
-        if(buf == null) {
+        if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-        if(body.getMessage() != null) {
+        if (body.getMessage() != null) {
             buf.setMessage(body.getMessage());
         }
-        if(body.getTitle() != null) {
+        if (body.getTitle() != null) {
             buf.setTitle(body.getTitle());
         }
         tdao.chagenThread(buf);
