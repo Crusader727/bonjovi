@@ -169,6 +169,27 @@ public class ThreadDao {
         return 200;
     }
 
+    public Integer chagenThread(Thread body) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+            template.update(con -> {
+                PreparedStatement pst = con.prepareStatement(
+                        "update thread set" +
+                                "  message = COALESCE(?, message)," +
+                                "  title = COALESCE(?, title)" +
+                                "where tid = ?",
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                pst.setString(1, body.getMessage());
+                pst.setString(2, body.getTitle());
+                pst.setLong(3, body.getId());
+                return pst;
+            }, keyHolder);
+        } catch (Exception e) {
+            return 409;
+        }
+        return 201;
+    }
+
     private static final RowMapper<Thread> THREAD_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");
         Long id = res.getLong("tid");

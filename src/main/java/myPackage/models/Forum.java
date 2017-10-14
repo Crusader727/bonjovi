@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Forum {
-    private  long postCount;
+    private  long posts;
     private final String slug;
-    private  long threadCount;
+    private  long threads;
     private final String title;
     private String user;
 
@@ -20,31 +20,31 @@ public class Forum {
             @JsonProperty("threadCount") long threadCount
     ) {
         this.slug = slug;
-        this.postCount = postCount;
-        this.threadCount = threadCount;
+        this.posts = postCount;
+        this.threads = threadCount;
         this.title = title;
         this.user = user;
     }
 
 
-    public long getPostCount() {
-        return postCount;
+    public long getPosts() {
+        return posts;
     }
 
-    public void setPostCount(long postCount) {
-        this.postCount = postCount;
+    public void setPosts(long posts) {
+        this.posts = posts;
     }
 
     public String getSlug() {
         return slug;
     }
 
-    public long getThreadCount() {
-        return threadCount;
+    public long getThreads() {
+        return threads;
     }
 
-    public void setThreadCount(long threadCount) {
-        this.threadCount = threadCount;
+    public void setThreads(long threads) {
+        this.threads = threads;
     }
 
     public String getTitle() {

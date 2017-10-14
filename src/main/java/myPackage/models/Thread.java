@@ -15,8 +15,8 @@ public class Thread {
     private final String author;
     private String forum;
     private final String created;
-    private final String message;
-    private final String title;
+    private String message;
+    private String title;
 
 
     @JsonCreator
@@ -93,7 +93,16 @@ public class Thread {
     public void voteIncr() {
         this.votes++;
     }
+
     public void voteDecr() {
         this.votes--;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -45,6 +45,7 @@ public class ForumController {
 
     @RequestMapping(path = "/{slug}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> forumDetails(@PathVariable("slug") String sl) {
+        fdao.updateForum(sl);
         Forum result = fdao.getForum(sl);
         if (result == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such forum"));
@@ -80,4 +81,5 @@ public class ForumController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
         }
     }
+
 }

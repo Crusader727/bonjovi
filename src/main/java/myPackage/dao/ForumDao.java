@@ -37,8 +37,8 @@ public class ForumDao {
                 pst.setString(1, body.getSlug());
                 pst.setString(2, body.getTitle());
                 pst.setString(3, body.getUser());
-                pst.setLong(4, body.getThreadCount());
-                pst.setLong(5, body.getPostCount());
+                pst.setLong(4, body.getThreads());
+                pst.setLong(5, body.getPosts());
                 return pst;
             }, keyHolder);
         } catch (DuplicateKeyException e) {
@@ -62,6 +62,24 @@ public class ForumDao {
         }
     }
 
+    public void updateForum(String slug) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+            template.update(con -> {
+                PreparedStatement pst = con.prepareStatement(
+                        "update forum set " +
+                                "postCount = COALESCE((select count(*) from post where lower(forum) = lower(?)), postCount), " +
+                                "threadCount = COALESCE((select count(*) from thread where lower(forum) = lower(?)), threadCount) " +
+                                "where lower(slug) = lower(?);",
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                pst.setString(1, slug);
+                pst.setString(2, slug);
+                pst.setString(3, slug);
+                return pst;
+            }, keyHolder);
+        } catch (DataAccessException e) {
+        }
+    }
 
     private static final RowMapper<Forum> FORUM_MAPPER = (res, num) -> {
         String slug = res.getString("slug");

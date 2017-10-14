@@ -80,5 +80,28 @@ public class ThreadController {
         return ResponseEntity.status(HttpStatus.OK).body(buf);
     }
 
+    @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> postDetails(@PathVariable("slug_or_id") String slug_or_id, @RequestBody Thread body) {
+        SlugOrID key = new SlugOrID(slug_or_id);
+        Thread buf;
+        if (key.IsLong) {
+            buf =  tdao.getThreadById(key.id);
+        }
+        else {
+            buf =  tdao.getThreadBySlug(key.slug);
+        }
+        if(buf == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+        }
+        if(body.getMessage() != null) {
+            buf.setMessage(body.getMessage());
+        }
+        if(body.getTitle() != null) {
+            buf.setTitle(body.getTitle());
+        }
+        tdao.chagenThread(buf);
+        return ResponseEntity.status(HttpStatus.OK).body(buf);
+    }
+
 }
 
