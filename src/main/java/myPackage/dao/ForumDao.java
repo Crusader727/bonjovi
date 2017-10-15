@@ -3,9 +3,11 @@ package myPackage.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import myPackage.models.Forum;
+import myPackage.models.User;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -80,7 +82,39 @@ public class ForumDao {
         } catch (DataAccessException e) {
         }
     }
-
+    public Object[] getUsers(String forum, Integer limit, String since, Boolean desc) {
+        //WORLING HERE**************
+        try {
+            List<Object> myObj = new ArrayList<>();
+            String myStr = "select DISTINCT * from (select DISTINCT u1.* from users u1 JOIN post p1 on (lower(p1.forum) = lower(?) and lower(u1.nickname) = lower(p1.owner)) " +
+                    "UNION " +
+                    "select DISTINCT u2.* from users u2 JOIN thread t1 on (lower(t1.forum) = lower(?) and lower(u2.nickname) = lower(t1.owner))) as ff ";
+            myObj.add(forum);
+            myObj.add(forum);
+            if (since != null) {
+                if (desc != null && desc) {
+                    myStr += " where ff.nickname < ?::citext ";
+                } else {
+                    myStr += " where ff.nickname > ?::citext ";
+                }
+                myObj.add(since);
+            }
+            myStr += " order by ff.nickname ";
+            if (desc != null && desc) {
+                myStr += " desc ";
+            }
+            if (limit != null) {
+                myStr += " limit ? ";
+                myObj.add(limit);
+            }
+            List<User> result = template.query(myStr
+                    , myObj.toArray(), USER_MAPPER);
+            return result.toArray();
+        } catch (DataAccessException e) {
+            System.out.println("da acses in get users");
+            return null;
+        }
+    }
     private static final RowMapper<Forum> FORUM_MAPPER = (res, num) -> {
         String slug = res.getString("slug");
         String title = res.getString("title");
@@ -88,5 +122,16 @@ public class ForumDao {
         Long threadCount = res.getLong("threadCount");
         String owner = res.getString("owner");
         return new Forum(slug, title, owner, postCount, threadCount);
+    };
+
+    private static final RowMapper<User> USER_MAPPER = (res, num) -> {
+        String nickname = res.getString("nickname");
+        String email = res.getString("email");
+        String fullname = res.getString("fullname");
+        String about = res.getString("about");
+        if (res.wasNull()) {
+            about = null;
+        }
+        return new User(nickname, about, email, fullname);
     };
 }

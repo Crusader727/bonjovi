@@ -28,7 +28,7 @@ public class ServiceController {
 
     @RequestMapping(path = "/clear", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> clearDB() {
-        sdao.truncateDB();
+       // sdao.truncateDB();
         return ResponseEntity.status(HttpStatus.OK).body("CLEARED!!!");
     }
 }
