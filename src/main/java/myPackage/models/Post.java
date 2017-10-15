@@ -12,8 +12,8 @@ public class Post {
     private long id;
     private long parent;
     private String author;
-    private final String message;
-    private boolean isedited;
+    private String message;
+    private boolean isEdited;
     private String forum;
     private String created;
     private long thread;
@@ -35,13 +35,13 @@ public class Post {
         this.forum = forum;
         if (created == null) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            this.created = timestamp.toInstant().toString() ;
+            this.created = timestamp.toInstant().toString();
         } else {
             this.created = created.toInstant().toString();
 
         }
         this.message = message;
-        this.isedited = isedited;
+        this.isEdited = isedited;
         this.thread = thread;
         this.author = author;
     }
@@ -75,12 +75,16 @@ public class Post {
         return message;
     }
 
-    public boolean isIsedited() {
-        return isedited;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setIsedited(boolean isedited) {
-        this.isedited = isedited;
+    public boolean getIsEdited() {
+        return isEdited;
+    }
+
+    public void setEdited(boolean edited) {
+        isEdited = edited;
     }
 
     public String getForum() {
@@ -95,15 +99,15 @@ public class Post {
         return created;
     }
 
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
     public long getThread() {
         return thread;
     }
 
     public void setThread(long thread) {
         this.thread = thread;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
     }
 }

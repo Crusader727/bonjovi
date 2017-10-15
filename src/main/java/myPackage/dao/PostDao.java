@@ -46,7 +46,7 @@ public class PostDao {
                             PreparedStatement.RETURN_GENERATED_KEYS);
                     pst.setLong(1, body.getParent());
                     pst.setLong(2, body.getThread());
-                    pst.setBoolean(3, body.isIsedited());
+                    pst.setBoolean(3, body.getIsEdited());
                     pst.setString(4, body.getAuthor());
                     pst.setString(5, body.getMessage());
                     pst.setString(6, body.getForum());
@@ -72,6 +72,21 @@ public class PostDao {
         } catch (DataAccessException e) {
             return null;
         }
+    }
+
+    public void changePost(Post body) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(con -> {
+            PreparedStatement pst = con.prepareStatement(
+                    "update post set" +
+                            "  message = COALESCE(?, message), " +
+                            "  isedited = COALESCE(true, isedited) " +
+                            "where id = ?",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            pst.setString(1, body.getMessage());
+            pst.setLong(2, body.getId());
+            return pst;
+        }, keyHolder);
     }
 
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
