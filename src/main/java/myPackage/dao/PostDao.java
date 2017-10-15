@@ -3,9 +3,11 @@ package myPackage.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Pos;
 import myPackage.models.Forum;
 import myPackage.models.Post;
 import myPackage.models.User;
@@ -32,7 +34,11 @@ public class PostDao {
     public Integer createPosts(ArrayList<Post> bodyList) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
-            for (Post body: bodyList) {
+            for (Post body : bodyList) {
+                Post chuf = getPostById(body.getParent());
+                if ((chuf == null && body.getParent() != 0) || (chuf != null && chuf.getThread() != body.getThread())) {
+                    return 409;
+                }
                 template.update(con -> {
                     PreparedStatement pst = con.prepareStatement(
                             "insert into post(parent, threadid, isedited, owner, message, forum, created)"
@@ -52,7 +58,31 @@ public class PostDao {
             }
             return 201;
         } catch (Exception e) {
-            return 409;
+            return 404;
         }
     }
+
+
+    public Post getPostById(long id) {
+        try {
+            final Post pst = template.queryForObject(
+                    "SELECT * FROM post WHERE id = ?",
+                    new Object[]{id}, POST_MAPPER);
+            return pst;
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
+    private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
+        Long id = res.getLong("id");
+        Long parent = res.getLong("parent");
+        Long threadid = res.getLong("threadid");
+        boolean isedited = res.getBoolean("isedited");
+        String owner = res.getString("owner");
+        String message = res.getString("message");
+        String forum = res.getString("forum");
+        Timestamp created = res.getTimestamp("created");
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created);
+    };
 }
