@@ -195,7 +195,7 @@ public class ThreadDao {
     //*****************************//
     public List<Post> getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
         List<Object> myObj = new ArrayList<>();
-        if (sort.equals("flat") || sort == null) {
+        if (sort == null || sort.equals("flat")) {
             String myStr = "select * from post where threadid = ?";
             myObj.add(threadId);
             if (since != null) {
@@ -246,25 +246,27 @@ public class ThreadDao {
 
         } else {
             //WORKING HERE
-            String myStr = "select * from post where threadid = ?";
+            String myStr = "select * from post where threadid = ? ";
             myObj.add(threadId);
             if (since != null) {
-            // if (desc != null && desc) {
-            // myStr += " and path < (select path from post where id = ?) ";
-            // } else {
-            // myStr += " and path > (select path from post where id = ?) ";
-            // }
-                myStr += " and path[1] like ANY (select id from post where parent = 0 and id > ? limit ? ) ";
+                if (desc != null && desc) {
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? limit ? ) ";
+
+                } else {
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? limit ? ) ";
+                }
                 myObj.add(since);
+                myObj.add(threadId);
                 myObj.add(limit);
             } else if (limit != null) {
-                myStr += " and path[1] like ANY (select id  from post where parent = 0 limit ? ) ";
+                myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? limit ? ) ";
+                myObj.add(threadId);
                 myObj.add(limit);
             }
 
             myStr += " order by path ";
             if (desc != null && desc) {
-                myStr += " desc, id desc ";
+                myStr += " desc ";
             }
 
             List<Post> result = template.query(myStr

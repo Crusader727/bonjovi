@@ -5,15 +5,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/dao/PostDao.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/dao/PostDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/dao/ThreadDao.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/dao/ThreadDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/myPackage/models/Post.class" afterPath="$PROJECT_DIR$/target/classes/myPackage/models/Post.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/myPackage/models/Post.java" afterPath="$PROJECT_DIR$/src/main/java/myPackage/models/Post.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,8 +51,8 @@
       <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="305">
+              <caret line="58" column="94" lean-forward="false" selection-start-line="58" selection-start-column="94" selection-end-line="58" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -75,29 +70,29 @@
       <file leaf-file-name="ThreadDao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="260" column="37" lean-forward="false" selection-start-line="260" selection-start-column="37" selection-end-line="260" selection-end-column="37" />
+            <state relative-caret-position="389">
+              <caret line="269" column="13" lean-forward="true" selection-start-line="269" selection-start-column="13" selection-end-line="269" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1508187601000" expanded="true" signature="1308:1450" ph="insert into thread... " />
-                <marker date="1508187601000" expanded="true" signature="1308:1469" ph="insert into thread... " />
-                <marker date="1508187601000" expanded="true" signature="2414:2448" ph="SELECT * FRO... thread" />
-                <marker date="1508187601000" expanded="true" signature="2751:2800" ph="SELECT * FRO... thread" />
-                <marker date="1508187601000" expanded="true" signature="3083:3133" ph="SELECT * FRO... thread" />
-                <marker date="1508187601000" expanded="true" signature="3541:3591" ph="select * fro... thread" />
-                <marker date="1508187601000" expanded="true" signature="4737:4805" ph="SELECT * FRO... vote" />
-                <marker date="1508187601000" expanded="true" signature="5026:5076" ph="update threa... " />
-                <marker date="1508187601000" expanded="true" signature="5103:5165" ph="insert into vote... " />
-                <marker date="1508187601000" expanded="true" signature="5245:5295" ph="update threa... " />
-                <marker date="1508187601000" expanded="true" signature="5322:5385" ph="insert into vote... " />
-                <marker date="1508187601000" expanded="true" signature="5472:5522" ph="update threa... " />
-                <marker date="1508187601000" expanded="true" signature="5549:5624" ph="update vote " />
-                <marker date="1508187601000" expanded="true" signature="5713:5763" ph="update threa... " />
-                <marker date="1508187601000" expanded="true" signature="5790:5866" ph="update vote " />
-                <marker date="1508187601000" expanded="true" signature="6675:6877" ph="update threa... " />
-                <marker date="1508187601000" expanded="true" signature="7514:7551" ph="select * fro... post" />
-                <marker date="1508187601000" expanded="true" signature="8361:8398" ph="select * fro... post" />
-                <marker date="1508187601000" expanded="true" signature="9230:9267" ph="select * fro... post" />
+                <marker date="1508188640000" expanded="true" signature="1308:1450" ph="insert into thread... " />
+                <marker date="1508188640000" expanded="true" signature="1308:1469" ph="insert into thread... " />
+                <marker date="1508188640000" expanded="true" signature="2414:2448" ph="SELECT * FRO... thread" />
+                <marker date="1508188640000" expanded="true" signature="2751:2800" ph="SELECT * FRO... thread" />
+                <marker date="1508188640000" expanded="true" signature="3083:3133" ph="SELECT * FRO... thread" />
+                <marker date="1508188640000" expanded="true" signature="3541:3591" ph="select * fro... thread" />
+                <marker date="1508188640000" expanded="true" signature="4737:4805" ph="SELECT * FRO... vote" />
+                <marker date="1508188640000" expanded="true" signature="5026:5076" ph="update threa... " />
+                <marker date="1508188640000" expanded="true" signature="5103:5165" ph="insert into vote... " />
+                <marker date="1508188640000" expanded="true" signature="5245:5295" ph="update threa... " />
+                <marker date="1508188640000" expanded="true" signature="5322:5385" ph="insert into vote... " />
+                <marker date="1508188640000" expanded="true" signature="5472:5522" ph="update threa... " />
+                <marker date="1508188640000" expanded="true" signature="5549:5624" ph="update vote " />
+                <marker date="1508188640000" expanded="true" signature="5713:5763" ph="update threa... " />
+                <marker date="1508188640000" expanded="true" signature="5790:5866" ph="update vote " />
+                <marker date="1508188640000" expanded="true" signature="6675:6877" ph="update threa... " />
+                <marker date="1508188640000" expanded="true" signature="7514:7551" ph="select * fro... post" />
+                <marker date="1508188640000" expanded="true" signature="8361:8398" ph="select * fro... post" />
+                <marker date="1508188640000" expanded="true" signature="9230:9267" ph="select * fro... post" />
               </folding>
             </state>
           </provider>
@@ -193,9 +188,9 @@
         <option value="$PROJECT_DIR$/src/main/java/myPackage/controllers/ThreadController.java" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ServiceDao.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console_1.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/models/Post.java" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java" />
       </list>
     </option>
@@ -447,7 +442,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120076000" />
+    <option name="totallyTimeSpent" value="121496000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -481,6 +476,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3377193" sideWeight="0.48783976" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24248926" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -510,7 +506,6 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3377193" sideWeight="0.48783976" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24248926" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -961,13 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/2112e553/e0e4101e-9a2a-420e-958f-d08730fd42b8/postgres.public.post">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -982,39 +970,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://table:/2112e553/e0e4101e-9a2a-420e-958f-d08730fd42b8/postgres.public.post">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="305">
+          <caret line="58" column="94" lean-forward="false" selection-start-line="58" selection-start-column="94" selection-end-line="58" selection-end-column="94" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ThreadDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="260" column="37" lean-forward="false" selection-start-line="260" selection-start-column="37" selection-end-line="260" selection-end-column="37" />
+        <state relative-caret-position="389">
+          <caret line="269" column="13" lean-forward="true" selection-start-line="269" selection-start-column="13" selection-end-line="269" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1508187601000" expanded="true" signature="1308:1450" ph="insert into thread... " />
-            <marker date="1508187601000" expanded="true" signature="1308:1469" ph="insert into thread... " />
-            <marker date="1508187601000" expanded="true" signature="2414:2448" ph="SELECT * FRO... thread" />
-            <marker date="1508187601000" expanded="true" signature="2751:2800" ph="SELECT * FRO... thread" />
-            <marker date="1508187601000" expanded="true" signature="3083:3133" ph="SELECT * FRO... thread" />
-            <marker date="1508187601000" expanded="true" signature="3541:3591" ph="select * fro... thread" />
-            <marker date="1508187601000" expanded="true" signature="4737:4805" ph="SELECT * FRO... vote" />
-            <marker date="1508187601000" expanded="true" signature="5026:5076" ph="update threa... " />
-            <marker date="1508187601000" expanded="true" signature="5103:5165" ph="insert into vote... " />
-            <marker date="1508187601000" expanded="true" signature="5245:5295" ph="update threa... " />
-            <marker date="1508187601000" expanded="true" signature="5322:5385" ph="insert into vote... " />
-            <marker date="1508187601000" expanded="true" signature="5472:5522" ph="update threa... " />
-            <marker date="1508187601000" expanded="true" signature="5549:5624" ph="update vote " />
-            <marker date="1508187601000" expanded="true" signature="5713:5763" ph="update threa... " />
-            <marker date="1508187601000" expanded="true" signature="5790:5866" ph="update vote " />
-            <marker date="1508187601000" expanded="true" signature="6675:6877" ph="update threa... " />
-            <marker date="1508187601000" expanded="true" signature="7514:7551" ph="select * fro... post" />
-            <marker date="1508187601000" expanded="true" signature="8361:8398" ph="select * fro... post" />
-            <marker date="1508187601000" expanded="true" signature="9230:9267" ph="select * fro... post" />
+            <marker date="1508188640000" expanded="true" signature="1308:1450" ph="insert into thread... " />
+            <marker date="1508188640000" expanded="true" signature="1308:1469" ph="insert into thread... " />
+            <marker date="1508188640000" expanded="true" signature="2414:2448" ph="SELECT * FRO... thread" />
+            <marker date="1508188640000" expanded="true" signature="2751:2800" ph="SELECT * FRO... thread" />
+            <marker date="1508188640000" expanded="true" signature="3083:3133" ph="SELECT * FRO... thread" />
+            <marker date="1508188640000" expanded="true" signature="3541:3591" ph="select * fro... thread" />
+            <marker date="1508188640000" expanded="true" signature="4737:4805" ph="SELECT * FRO... vote" />
+            <marker date="1508188640000" expanded="true" signature="5026:5076" ph="update threa... " />
+            <marker date="1508188640000" expanded="true" signature="5103:5165" ph="insert into vote... " />
+            <marker date="1508188640000" expanded="true" signature="5245:5295" ph="update threa... " />
+            <marker date="1508188640000" expanded="true" signature="5322:5385" ph="insert into vote... " />
+            <marker date="1508188640000" expanded="true" signature="5472:5522" ph="update threa... " />
+            <marker date="1508188640000" expanded="true" signature="5549:5624" ph="update vote " />
+            <marker date="1508188640000" expanded="true" signature="5713:5763" ph="update threa... " />
+            <marker date="1508188640000" expanded="true" signature="5790:5866" ph="update vote " />
+            <marker date="1508188640000" expanded="true" signature="6675:6877" ph="update threa... " />
+            <marker date="1508188640000" expanded="true" signature="7514:7551" ph="select * fro... post" />
+            <marker date="1508188640000" expanded="true" signature="8361:8398" ph="select * fro... post" />
+            <marker date="1508188640000" expanded="true" signature="9230:9267" ph="select * fro... post" />
           </folding>
         </state>
       </provider>
