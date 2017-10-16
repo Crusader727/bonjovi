@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import myPackage.models.Post;
 import myPackage.models.Vote;
 import org.springframework.dao.*;
 
@@ -190,6 +191,38 @@ public class ThreadDao {
         return 201;
     }
 
+    //*****************************//
+    public List<Post>  getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
+        List<Object> myObj = new ArrayList<>();
+        String myStr = "select * from post where threadid = ?";
+        myObj.add(threadId);
+        if (since != null) {
+            if (desc != null && desc) {
+                myStr += " and id < ?";
+            } else {
+                myStr += " and id > ?";
+            }
+            myObj.add(since);
+        }
+        myStr += " order by created ";
+        if (desc != null && desc) {
+            myStr += " desc, id desc ";
+        }
+        else {
+            myStr += ", id";
+        }
+        if (limit != null) {
+            myStr += " limit ? ";
+            myObj.add(limit);
+        }
+
+        List<Post> result = template.query(myStr
+                , myObj.toArray(), POST_MAPPER);
+        return result;
+
+    }
+    //*****************************//
+
     private static final RowMapper<Thread> THREAD_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");
         Long id = res.getLong("tid");
@@ -206,5 +239,16 @@ public class ThreadDao {
         Integer threadid = res.getInt("threadid");
         String nickname = res.getString("nickname");
         return new Vote(nickname, votes, threadid);
+    };
+    private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
+        Long id = res.getLong("id");
+        Long parent = res.getLong("parent");
+        Long threadid = res.getLong("threadid");
+        boolean isedited = res.getBoolean("isedited");
+        String owner = res.getString("owner");
+        String message = res.getString("message");
+        String forum = res.getString("forum");
+        Timestamp created = res.getTimestamp("created");
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created);
     };
 }

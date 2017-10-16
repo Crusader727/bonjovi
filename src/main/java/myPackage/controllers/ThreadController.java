@@ -1,5 +1,6 @@
 package myPackage.controllers;
 
+import com.sun.org.apache.regexp.internal.RE;
 import myPackage.dao.PostDao;
 import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
@@ -108,6 +109,26 @@ public class ThreadController {
         tdao.chagenThread(buf);
         return ResponseEntity.status(HttpStatus.OK).body(buf);
     }
+
+    @RequestMapping(path = "/{slug_or_id}/posts", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getPosts(@PathVariable("slug_or_id") String slug_or_id,
+                                      @RequestParam(value = "limit", required = false) Integer limit,
+                                      @RequestParam(value = "sort", required = false) String sort,
+                                      @RequestParam(value = "desc", required = false) boolean desc,
+                                      @RequestParam(value = "since", required = false) Integer since) {
+        SlugOrID key = new SlugOrID(slug_or_id);
+        Thread buf;
+        if (key.IsLong) {
+            buf = tdao.getThreadById(key.id);
+        } else {
+            buf = tdao.getThreadBySlug(key.slug);
+        }
+        if (buf == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf.getId(),limit,since,sort,desc));
+    }
+
 
 }
 

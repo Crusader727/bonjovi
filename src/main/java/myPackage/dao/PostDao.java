@@ -35,10 +35,12 @@ public class PostDao {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             for (Post body : bodyList) {
+                body.setCreated(bodyList.get(0).getCreated());
                 Post chuf = getPostById(body.getParent());
                 if ((chuf == null && body.getParent() != 0) || (chuf != null && chuf.getThread() != body.getThread())) {
                     return 409;
                 }
+                ///NEED TO CREATE PATH
                 template.update(con -> {
                     PreparedStatement pst = con.prepareStatement(
                             "insert into post(parent, threadid, isedited, owner, message, forum, created)"
@@ -54,7 +56,6 @@ public class PostDao {
                     return pst;
                 }, keyHolder);
                 body.setId(keyHolder.getKey().intValue());
-                body.setCreated(bodyList.get(0).getCreated());
             }
             return 201;
         } catch (Exception e) {

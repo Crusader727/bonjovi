@@ -83,7 +83,6 @@ public class ForumDao {
         }
     }
     public Object[] getUsers(String forum, Integer limit, String since, Boolean desc) {
-        //WORLING HERE**************
         try {
             List<Object> myObj = new ArrayList<>();
             String myStr = "select DISTINCT * from (select DISTINCT u1.* from users u1 JOIN post p1 on (lower(p1.forum) = lower(?) and lower(u1.nickname) = lower(p1.owner)) " +

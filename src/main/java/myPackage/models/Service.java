@@ -56,3 +56,43 @@ public class Service {
         this.thread = thread;
     }
 }
+//    CREATE EXTENSION IF NOT EXISTS citext;
+//    create table users(
+//        nickname citext primary key,
+//        fullname text not null,
+//        email citext not null UNIQUE ,
+//        about text
+//);
+//    create table forum(
+//        slug citext primary key,
+//        title text not null,
+//        postCount bigint,
+//        threadCount bigint,
+//        owner citext references users(nickname)
+//);
+//        create table thread(
+//        tid SERIAL PRIMARY KEY ,
+//        slug citext  unique ,
+//        owner citext references users(nickname),
+//        forum citext references forum(slug),
+//        created TIMESTAMP WITH TIME ZONE,
+//        message text not null,
+//        title text not null,
+//        votes bigint
+//        );
+//
+//        create table post (
+//        id SERIAL PRIMARY KEY ,
+//        parent integer default 0,
+//        owner citext references users(nickname),
+//        message text,
+//        isedited BOOLEAN,
+//        forum citext references forum(slug),
+//        created TIMESTAMP WITH TIME ZONE,
+//        threadid integer references thread(tid)
+//        );
+//        create table vote (
+//        nickname citext references users(nickname),
+//        threadid integer references thread(tid),
+//        votes int
+//        );
