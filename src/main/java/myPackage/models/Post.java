@@ -5,10 +5,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.tools.corba.se.idl.constExpr.Times;
 
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.TimeZone;
 
 public class Post {
+    public Object[] getPath() {
+        return path;
+    }
+
+    public void setPath(Object[] path) {
+        this.path = path;
+    }
+
     private long id;
     private long parent;
     private String author;
@@ -17,7 +26,7 @@ public class Post {
     private String forum;
     private String created;
     private long thread;
-    private String path;
+    private Object[] path;
 
 
     @JsonCreator
@@ -30,7 +39,7 @@ public class Post {
             @JsonProperty("message") String message,
             @JsonProperty("forum") String forum,
             @JsonProperty("created") Timestamp created,
-            @JsonProperty("path") String path
+            @JsonProperty("path") Object[] path
     ) {
         this.id = id;
         this.parent = parent;
@@ -114,11 +123,6 @@ public class Post {
         this.thread = thread;
     }
 
-    public String getPath() {
-        return path;
-    }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+
 }

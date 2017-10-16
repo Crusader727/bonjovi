@@ -1,10 +1,8 @@
 package myPackage.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -100,15 +98,18 @@ public class PostDao {
                             "where id = ?",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             if (body.getParent() == 0) {
-                pst.setString(1, String.valueOf(body.getId()));
+                pst.setArray(1, con.createArrayOf("INT", new Object[]{body.getId()}));//String.valueOf(body.getId()));
             } else {
-                pst.setString(1, chuf.getPath() + "-" + String.valueOf(body.getId()));
+                ArrayList arr = new ArrayList<Object>(Arrays.asList(chuf.getPath()));
+                arr.add(body.getId());
+                pst.setArray(1, con.createArrayOf("INT", arr.toArray()));//chuf.getPath() + "-" + String.valueOf(body.getId()));
             }
             pst.setLong(2, body.getId());
             return pst;
         }, keyHolder);
 
     }
+
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
         Long parent = res.getLong("parent");
@@ -117,8 +118,8 @@ public class PostDao {
         String owner = res.getString("owner");
         String message = res.getString("message");
         String forum = res.getString("forum");
-        String path = res.getString("path");
+        Array path = res.getArray("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created, path);
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
     };
 }

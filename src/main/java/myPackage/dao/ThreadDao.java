@@ -1,5 +1,6 @@
 package myPackage.dao;
 
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -219,7 +220,7 @@ public class ThreadDao {
             List<Post> result = template.query(myStr
                     , myObj.toArray(), POST_MAPPER);
             return result;
-        } else if(sort.equals("tree")) {
+        } else if (sort.equals("tree")) {
             String myStr = "select * from post where threadid = ?";
             myObj.add(threadId);
             if (since != null) {
@@ -244,8 +245,33 @@ public class ThreadDao {
             return result;
 
         } else {
-            return null;
+            //WORKING HERE
+            String myStr = "select * from post where threadid = ?";
+            myObj.add(threadId);
+            if (since != null) {
+            // if (desc != null && desc) {
+            // myStr += " and path < (select path from post where id = ?) ";
+            // } else {
+            // myStr += " and path > (select path from post where id = ?) ";
+            // }
+                myStr += " and path[1] like ANY (select id from post where parent = 0 and id > ? limit ? ) ";
+                myObj.add(since);
+                myObj.add(limit);
+            } else if (limit != null) {
+                myStr += " and path[1] like ANY (select id  from post where parent = 0 limit ? ) ";
+                myObj.add(limit);
+            }
+
+            myStr += " order by path ";
+            if (desc != null && desc) {
+                myStr += " desc, id desc ";
+            }
+
+            List<Post> result = template.query(myStr
+                    , myObj.toArray(), POST_MAPPER);
+            return result;
         }
+
 
     }
     //*****************************//
@@ -275,8 +301,8 @@ public class ThreadDao {
         String owner = res.getString("owner");
         String message = res.getString("message");
         String forum = res.getString("forum");
-        String path = res.getString("path");
+        Array path = res.getArray("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created, path);
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
     };
 }
