@@ -56,6 +56,7 @@ public class PostDao {
                     return pst;
                 }, keyHolder);
                 body.setId(keyHolder.getKey().intValue());
+                setPostsPath(chuf, body);
             }
             return 201;
         } catch (Exception e) {
@@ -90,6 +91,24 @@ public class PostDao {
         }, keyHolder);
     }
 
+    public void setPostsPath(Post chuf, Post body) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(con -> {
+            PreparedStatement pst = con.prepareStatement(
+                    "update post set" +
+                            "  path = ? " +
+                            "where id = ?",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            if (body.getParent() == 0) {
+                pst.setString(1, String.valueOf(body.getId()));
+            } else {
+                pst.setString(1, chuf.getPath() + "-" + String.valueOf(body.getId()));
+            }
+            pst.setLong(2, body.getId());
+            return pst;
+        }, keyHolder);
+
+    }
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
         Long parent = res.getLong("parent");
@@ -98,7 +117,8 @@ public class PostDao {
         String owner = res.getString("owner");
         String message = res.getString("message");
         String forum = res.getString("forum");
+        String path = res.getString("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created);
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created, path);
     };
 }

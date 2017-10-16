@@ -192,33 +192,60 @@ public class ThreadDao {
     }
 
     //*****************************//
-    public List<Post>  getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
+    public List<Post> getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
         List<Object> myObj = new ArrayList<>();
-        String myStr = "select * from post where threadid = ?";
-        myObj.add(threadId);
-        if (since != null) {
-            if (desc != null && desc) {
-                myStr += " and id < ?";
-            } else {
-                myStr += " and id > ?";
+        if (sort.equals("flat") || sort == null) {
+            String myStr = "select * from post where threadid = ?";
+            myObj.add(threadId);
+            if (since != null) {
+                if (desc != null && desc) {
+                    myStr += " and id < ?";
+                } else {
+                    myStr += " and id > ?";
+                }
+                myObj.add(since);
             }
-            myObj.add(since);
-        }
-        myStr += " order by created ";
-        if (desc != null && desc) {
-            myStr += " desc, id desc ";
-        }
-        else {
-            myStr += ", id";
-        }
-        if (limit != null) {
-            myStr += " limit ? ";
-            myObj.add(limit);
-        }
+            myStr += " order by created ";
+            if (desc != null && desc) {
+                myStr += " desc, id desc ";
+            } else {
+                myStr += ", id";
+            }
+            if (limit != null) {
+                myStr += " limit ? ";
+                myObj.add(limit);
+            }
 
-        List<Post> result = template.query(myStr
-                , myObj.toArray(), POST_MAPPER);
-        return result;
+            List<Post> result = template.query(myStr
+                    , myObj.toArray(), POST_MAPPER);
+            return result;
+        } else if(sort.equals("tree")) {
+            String myStr = "select * from post where threadid = ?";
+            myObj.add(threadId);
+            if (since != null) {
+                if (desc != null && desc) {
+                    myStr += " and path < (select path from post where id = ?) ";
+                } else {
+                    myStr += " and path > (select path from post where id = ?) ";
+                }
+                myObj.add(since);
+            }
+            myStr += " order by path ";
+            if (desc != null && desc) {
+                myStr += " desc, id desc ";
+            }
+            if (limit != null) {
+                myStr += " limit ? ";
+                myObj.add(limit);
+            }
+
+            List<Post> result = template.query(myStr
+                    , myObj.toArray(), POST_MAPPER);
+            return result;
+
+        } else {
+            return null;
+        }
 
     }
     //*****************************//
@@ -248,7 +275,8 @@ public class ThreadDao {
         String owner = res.getString("owner");
         String message = res.getString("message");
         String forum = res.getString("forum");
+        String path = res.getString("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created);
+        return new Post(id, parent, threadid, isedited, owner, message, forum, created, path);
     };
 }
