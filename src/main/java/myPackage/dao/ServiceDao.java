@@ -35,17 +35,3 @@ public class ServiceDao {
         );
     }
 }
-//    WITH RECURSIVE tree
-//AS
-//        (
-//                SELECT
-//                        id, parent, id::text AS path
-//                        FROM post WHERE parent = 0
-//                        UNION
-//                        SELECT
-//                        f1.id, f1.parent, tree.path || '-' || f1.id::text AS path
-//                        FROM
-//                        tree
-//                        JOIN post f1 ON f1.parent = tree.id
-//        )
-//SELECT * FROM tree ORDER BY path ;

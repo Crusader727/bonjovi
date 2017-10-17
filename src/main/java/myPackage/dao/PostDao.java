@@ -3,17 +3,12 @@ package myPackage.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import javafx.geometry.Pos;
-import myPackage.models.Forum;
 import myPackage.models.Post;
-import myPackage.models.User;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,7 +33,6 @@ public class PostDao {
                 if ((chuf == null && body.getParent() != 0) || (chuf != null && chuf.getThread() != body.getThread())) {
                     return 409;
                 }
-                ///NEED TO CREATE PATH
                 template.update(con -> {
                     PreparedStatement pst = con.prepareStatement(
                             "insert into post(parent, threadid, isedited, owner, message, forum, created)"

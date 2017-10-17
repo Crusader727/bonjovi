@@ -5,13 +5,10 @@ import myPackage.dao.PostDao;
 import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
 import myPackage.models.*;
-import myPackage.models.Thread;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/post")

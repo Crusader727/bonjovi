@@ -8,6 +8,7 @@ public class Vote {
     private String nickname;
     private long voice;
     private Integer threadid;
+
     @JsonCreator
     public Vote(
             @JsonProperty("nickname") String nickname,

@@ -1,8 +1,6 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,10 +41,8 @@ public class ForumDao {
                 return pst;
             }, keyHolder);
         } catch (DuplicateKeyException e) {
-            //System.out.println("Forum Already Exist");
             return 409;
         } catch (DataAccessException e) {
-            //System.out.println("Wrong User");
             return 404;
         }
         return 201;
@@ -82,6 +77,7 @@ public class ForumDao {
         } catch (DataAccessException e) {
         }
     }
+
     public Object[] getUsers(String forum, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
@@ -114,6 +110,7 @@ public class ForumDao {
             return null;
         }
     }
+
     private static final RowMapper<Forum> FORUM_MAPPER = (res, num) -> {
         String slug = res.getString("slug");
         String title = res.getString("title");

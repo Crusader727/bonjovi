@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Forum {
-    private  long posts;
+    private long posts;
     private final String slug;
-    private  long threads;
+    private long threads;
     private final String title;
     private String user;
 

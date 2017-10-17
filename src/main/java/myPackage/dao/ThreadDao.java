@@ -3,9 +3,7 @@ package myPackage.dao;
 import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import myPackage.models.Post;
@@ -118,7 +116,6 @@ public class ThreadDao {
                 myStr += " limit ? ";
                 myObj.add(limit);
             }
-            //System.out.println(myStr + " s: " + since + " l: " + limit + " f:" + forum);
             List<Thread> result = template.query(myStr
                     , myObj.toArray(), THREAD_MAPPER);
             return result.toArray();
@@ -259,7 +256,11 @@ public class ThreadDao {
                 myObj.add(threadId);
                 myObj.add(limit);
             } else if (limit != null) {
-                myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? limit ? ) ";
+                if (desc != null && desc) {
+                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id desc limit ? ) ";
+                } else {
+                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id limit ? ) ";
+                }
                 myObj.add(threadId);
                 myObj.add(limit);
             }

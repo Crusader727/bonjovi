@@ -3,11 +3,8 @@ package myPackage.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.tools.corba.se.idl.constExpr.Times;
 
-import java.sql.Array;
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
 public class Post {
     public Object[] getPath() {
@@ -122,7 +119,6 @@ public class Post {
     public void setThread(long thread) {
         this.thread = thread;
     }
-
 
 
 }

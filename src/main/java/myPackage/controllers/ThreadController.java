@@ -1,6 +1,5 @@
 package myPackage.controllers;
 
-import com.sun.org.apache.regexp.internal.RE;
 import myPackage.dao.PostDao;
 import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
@@ -45,7 +44,7 @@ public class ThreadController {
         Integer res = pdao.createPosts(bodyList);
         if (res == 409) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new Message("cant find parent"));
-        } else if(res == 404) {
+        } else if (res == 404) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such user"));
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(bodyList);
@@ -126,7 +125,7 @@ public class ThreadController {
         if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf.getId(),limit,since,sort,desc));
+        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf.getId(), limit, since, sort, desc));
     }
 
 

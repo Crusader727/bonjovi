@@ -1,6 +1,5 @@
 package myPackage.controllers;
 
-import com.sun.org.apache.regexp.internal.RE;
 import myPackage.dao.ForumDao;
 import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
@@ -85,10 +84,10 @@ public class ForumController {
 
     @RequestMapping(path = "/{forum}/users", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getUsers(@PathVariable String forum,
-                                        @RequestParam(value = "limit", required = false) Integer limit,
-                                        @RequestParam(value = "since", required = false) String since,
-                                        @RequestParam(value = "desc", required = false) Boolean desc) {
-        if(fdao.getForum(forum) == null){
+                                      @RequestParam(value = "limit", required = false) Integer limit,
+                                      @RequestParam(value = "since", required = false) String since,
+                                      @RequestParam(value = "desc", required = false) Boolean desc) {
+        if (fdao.getForum(forum) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
         }
         return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(forum, limit, since, desc));

@@ -1,17 +1,12 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
-import myPackage.models.Forum;
 import myPackage.models.User;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
@@ -48,15 +43,13 @@ public class UserDao {
     }
 
     public Integer changeUser(User body) {
-        if(getUserByNick(body.getNickname()) == null) {
+        if (getUserByNick(body.getNickname()) == null) {
             return 404;
         }
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             template.update(con -> {
                 PreparedStatement pst = con.prepareStatement(
-//                        "update users set (fullname,about,email)=(?,?,?)" +
-//                                " where LOWER(nickname) = LOWER(?)",
                         "update users set" +
                                 "  fullname = COALESCE(?, fullname)," +
                                 "  about = COALESCE(?, about)," +

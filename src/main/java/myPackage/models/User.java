@@ -3,14 +3,13 @@ package myPackage.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class User {
 
-    private  String about;
-    private  String email;
-    private  String fullname;
-    private  String nickname;
+    private String about;
+    private String email;
+    private String fullname;
+    private String nickname;
 
 
     @JsonCreator
@@ -25,8 +24,6 @@ public class User {
         this.email = email;
         this.fullname = fullname;
     }
-
-
 
 
     public String getAbout() {

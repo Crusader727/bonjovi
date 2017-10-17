@@ -1,8 +1,6 @@
 package myPackage.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.regexp.internal.RE;
-import myPackage.dao.UserDao;
+
 import myPackage.dao.UserDao;
 import myPackage.models.Message;
 import org.springframework.http.HttpStatus;
@@ -57,9 +55,6 @@ public class UserController {
 
         body.setNickname(nick);
         Integer result = udao.changeUser(body);
-//        if (body.getEmail() == null && result != 404) {
-//            return ResponseEntity.status(HttpStatus.OK).body(udao.getUserByNick(nick));
-//        } else
         if (result == 201) {
             return ResponseEntity.status(HttpStatus.OK).body(udao.getUserByNick(nick));
         } else if (result == 404) {
