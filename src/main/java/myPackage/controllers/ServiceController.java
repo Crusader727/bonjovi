@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/api/service")
 public class ServiceController {
     private final ServiceDao sdao;
 

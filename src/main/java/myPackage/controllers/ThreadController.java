@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/thread")
+@RequestMapping("/api/thread")
 public class ThreadController {
     private final ThreadDao tdao;
     private final PostDao pdao;

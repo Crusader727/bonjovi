@@ -88,6 +88,7 @@ public class Post {
         this.message = message;
     }
 
+    @JsonProperty("isEdited")
     public boolean getIsEdited() {
         return isEdited;
     }

@@ -13,7 +13,7 @@ import myPackage.models.Forum;
 import myPackage.models.Thread;
 
 @RestController
-@RequestMapping("/forum")
+@RequestMapping("/api/forum")
 public class ForumController {
     private final ForumDao fdao;
     private final ThreadDao tdao;
