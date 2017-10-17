@@ -12,10 +12,10 @@ public class Service {
 
     @JsonCreator
     public Service(
-            @JsonProperty("slug") long user,
-            @JsonProperty("title") long post,
-            @JsonProperty("user") long forum,
-            @JsonProperty("postCount") long thread
+            @JsonProperty("user") long user,
+            @JsonProperty("post") long post,
+            @JsonProperty("forum") long forum,
+            @JsonProperty("thread") long thread
     ) {
         this.post = post;
         this.forum = forum;

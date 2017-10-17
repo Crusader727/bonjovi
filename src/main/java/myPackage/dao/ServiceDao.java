@@ -20,7 +20,7 @@ public class ServiceDao {
     public myPackage.models.Service getInfo() {
         return new myPackage.models.Service(template.queryForObject(
                 "select count(*) from users;",
-                new Object[]{}, Long.class) + 1, template.queryForObject(
+                new Object[]{}, Long.class) , template.queryForObject(
                 "select count(*) from post;",
                 new Object[]{}, Long.class), template.queryForObject(
                 "select count(*) from forum;",
