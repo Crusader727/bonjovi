@@ -8,11 +8,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-@Transactional
+//@Transactional
 public class UserDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -21,7 +22,7 @@ public class UserDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
-
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer createUser(User body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -41,7 +42,7 @@ public class UserDao {
         }
         return 201;
     }
-
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer changeUser(User body) {
         if (getUserByNick(body.getNickname()) == null) {
             return 404;
@@ -67,7 +68,6 @@ public class UserDao {
         }
         return 201;
     }
-
     public User getUserByNick(String nickname) {
         try {
             final User fr = template.queryForObject(

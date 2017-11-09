@@ -15,11 +15,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-@Transactional
+//@Transactional
 public class ThreadDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -28,7 +29,7 @@ public class ThreadDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
-
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Integer[] createThread(Thread body) {
         Integer[] result = {0, 0};
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -59,7 +60,7 @@ public class ThreadDao {
         }
     }
 
-    public Thread getThreadById(Integer id) {
+    public Thread getThreadById(long id) {
         try {
             final Thread th = template.queryForObject(
                     "SELECT * FROM thread WHERE tid = ?",
@@ -123,7 +124,7 @@ public class ThreadDao {
             return null;
         }
     }
-
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer vote(Thread body, Vote vt) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         final String st;
@@ -168,6 +169,7 @@ public class ThreadDao {
         }
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer chagenThread(Thread body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
