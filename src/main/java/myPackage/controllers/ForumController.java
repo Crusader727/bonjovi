@@ -55,7 +55,7 @@ public class ForumController {
 
     @RequestMapping(path = "/{forum}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createThread(@RequestBody Thread body, @PathVariable("forum") String forum) {
-        System.out.println(body + " " + forum + " vote of thread");
+//        System.out.println(body + " " + forum + " vote of thread");
 
         body.setForum(forum);
         Integer[] result = tdao.createThread(body);
@@ -75,7 +75,7 @@ public class ForumController {
                                         @RequestParam(value = "limit", required = false) Integer limit,
                                         @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "desc", required = false) Boolean desc) {
-        System.out.println(forum + " sort threads");
+//        System.out.println(forum + " sort threads");
 
         Object[] res = tdao.getThreads(forum, limit, since, desc);
         if (res != null) {

@@ -27,7 +27,7 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createPost(@PathVariable("slug_or_id") String slug_or_id,
                                         @RequestBody ArrayList<Post> bodyList) {
-        System.out.println(slug_or_id + " create post");
+//        System.out.println(slug_or_id + " create post");
 
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
@@ -56,7 +56,7 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
                                   @RequestBody Vote body) {
-        System.out.println(  slug_or_id + " vote of thread");
+//        System.out.println(  slug_or_id + " vote of thread");
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -77,7 +77,7 @@ public class ThreadController {
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
-        System.out.println(slug_or_id + " getDetails of thread");
+//        System.out.println(slug_or_id + " getDetails of thread");
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -93,7 +93,7 @@ public class ThreadController {
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> postDetails(@PathVariable("slug_or_id") String slug_or_id, @RequestBody Thread body) {
-        System.out.println(body + " " + slug_or_id + " setDetails of thread");
+//        System.out.println(body + " " + slug_or_id + " setDetails of thread");
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -120,7 +120,7 @@ public class ThreadController {
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "desc", required = false) boolean desc,
                                       @RequestParam(value = "since", required = false) Integer since) {
-        System.out.println(slug_or_id + "  sort of posts");
+//        System.out.println(slug_or_id + "  sort of posts");
 
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
