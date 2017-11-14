@@ -34,8 +34,44 @@ CREATE TABLE post (
   threadid INTEGER REFERENCES thread (tid),
   path     INT []
 );
+
 CREATE TABLE vote (
   nickname CITEXT REFERENCES users (nickname),
   threadid INTEGER REFERENCES thread (tid),
   votes    INT
 );
+CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
+  ON vote (lower(nickname), threadid);
+
+CREATE OR REPLACE FUNCTION vote()
+  RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF (TG_OP = 'INSERT')
+  THEN
+    UPDATE thread
+    SET votes = votes + new.votes
+    WHERE thread.tid = new.threadid;
+    RETURN new;
+  ELSE
+    IF new.votes != old.votes
+    THEN
+      UPDATE thread
+      SET votes = votes + (new.votes * 2)
+      WHERE thread.tid = new.threadid;
+      RETURN new;
+    END IF;
+    RETURN new;
+  END IF;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS vote_trigger
+ON vote;
+
+CREATE TRIGGER vote_trigger
+AFTER INSERT OR UPDATE
+  ON vote
+FOR EACH ROW
+EXECUTE PROCEDURE vote();

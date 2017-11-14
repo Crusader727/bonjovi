@@ -140,17 +140,17 @@ public class ThreadDao {
         }
 
         if (vote == null && vt.getVoice() == 1) {
-            st = "update thread set votes = votes + 1  where tid = ? ;" +
-                    "insert into vote (nickname, threadid, votes) values (?, ?, 1 );";
+//            st = "update thread set votes = votes + 1  where tid = ? ;" +
+            st = "insert into vote (nickname, threadid, votes) values (?, ?, 1 );";
         } else if (vote == null && vt.getVoice() == -1) {
-            st = "update thread set votes = votes - 1  where tid = ? ;" +
-                    "insert into vote (nickname, threadid, votes) values (?, ?, -1 );";
+//            st = "update thread set votes = votes - 1  where tid = ? ;" +
+            st = "insert into vote (nickname, threadid, votes) values (?, ?, -1 );";
         } else if (vt.getVoice() == 1 && vote.getVoice() != 1) {
-            st = "update thread set votes = votes + 2  where tid = ? ;" +
-                    "update vote set votes = 1 where lower(nickname) = lower(?) and threadid = ?;";
+//            st = "update thread set votes = votes + 2  where tid = ? ;" +
+            st = "update vote set votes = 1 where lower(nickname) = lower(?) and threadid = ?;";
         } else if (vt.getVoice() == -1 && vote.getVoice() != -1) {
-            st = "update thread set votes = votes - 2  where tid = ? ;" +
-                    "update vote set votes = -1 where lower(nickname) = lower(?) and threadid = ?;";
+//            st = "update thread set votes = votes - 2  where tid = ? ;" +
+            st = "update vote set votes = -1 where lower(nickname) = lower(?) and threadid = ?;";
         } else {
             return 200;
         }
@@ -160,9 +160,9 @@ public class ThreadDao {
                 PreparedStatement pst = con.prepareStatement(
                         st,
                         PreparedStatement.RETURN_GENERATED_KEYS);
-                pst.setLong(1, body.getId());
-                pst.setString(2, vt.getNickname());
-                pst.setLong(3, body.getId());
+//                pst.setLong(1, body.getId());
+                pst.setString(1, vt.getNickname());
+                pst.setLong(2, body.getId());
                 return pst;
             }, keyHolder);
             return 200;
