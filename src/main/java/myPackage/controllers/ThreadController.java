@@ -70,8 +70,8 @@ public class ThreadController {
         if (udao.getUserByNick(body.getNickname()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
         }
-        tdao.vote(buf, body);
-        return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadById(buf.getId()));
+        buf.setVotes(buf.getVotes() + tdao.vote(buf, body) * body.getVoice());
+        return ResponseEntity.status(HttpStatus.OK).body(buf);
 
     }
 

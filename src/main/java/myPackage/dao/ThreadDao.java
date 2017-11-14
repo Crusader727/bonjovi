@@ -138,37 +138,33 @@ public class ThreadDao {
         } catch (Exception ex) {
             vote = null;
         }
-
-        if (vote == null && vt.getVoice() == 1) {
-//            st = "update thread set votes = votes + 1  where tid = ? ;" +
-            st = "insert into vote (nickname, threadid, votes) values (?, ?, 1 );";
-        } else if (vote == null && vt.getVoice() == -1) {
-//            st = "update thread set votes = votes - 1  where tid = ? ;" +
-            st = "insert into vote (nickname, threadid, votes) values (?, ?, -1 );";
-        } else if (vt.getVoice() == 1 && vote.getVoice() != 1) {
-//            st = "update thread set votes = votes + 2  where tid = ? ;" +
-            st = "update vote set votes = 1 where lower(nickname) = lower(?) and threadid = ?;";
-        } else if (vt.getVoice() == -1 && vote.getVoice() != -1) {
-//            st = "update thread set votes = votes - 2  where tid = ? ;" +
-            st = "update vote set votes = -1 where lower(nickname) = lower(?) and threadid = ?;";
-        } else {
-            return 200;
-        }
-
-        try {
+        if (vote == null) {
             template.update(con -> {
                 PreparedStatement pst = con.prepareStatement(
-                        st,
+                        "insert into vote (nickname, threadid, votes) values (?, ?, ? );",
                         PreparedStatement.RETURN_GENERATED_KEYS);
-//                pst.setLong(1, body.getId());
                 pst.setString(1, vt.getNickname());
                 pst.setLong(2, body.getId());
+                pst.setLong(3, vt.getVoice());
                 return pst;
             }, keyHolder);
-            return 200;
-        } catch (Exception e) {
-            return 409;
+            return 1;
+        } else  {
+            if(vote.getVoice() == vt.getVoice()) {
+                return 0;
+            }
+            final long idd = vote.getId();
+            template.update(con -> {
+                PreparedStatement pst = con.prepareStatement(
+                        "update vote set votes = ? where id = ?;",
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                pst.setLong(1, vt.getVoice());
+                pst.setLong(2, idd);
+                return pst;
+            }, keyHolder);
+            return 2;
         }
+
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -294,9 +290,10 @@ public class ThreadDao {
     };
     private static final RowMapper<Vote> VOTE_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");
+        long id = res.getLong("id");
         Integer threadid = res.getInt("threadid");
         String nickname = res.getString("nickname");
-        return new Vote(nickname, votes, threadid);
+        return new Vote(id, nickname, votes, threadid);
     };
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
