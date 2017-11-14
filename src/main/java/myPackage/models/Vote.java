@@ -9,15 +9,17 @@ public class Vote {
     private long voice;
     private Integer threadid;
     private long id;
+    private long userid;
 
     @JsonCreator
     public Vote(
             @JsonProperty("id") long id,
-
+            @JsonProperty("userid") long userid,
             @JsonProperty("nickname") String nickname,
             @JsonProperty("voice") long voice,
             @JsonProperty("threadid") Integer tid
     ) {
+        this.userid = userid;
         this.id = id;
         this.nickname = nickname;
         this.voice = voice;
@@ -54,5 +56,13 @@ public class Vote {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(long userid) {
+        this.userid = userid;
     }
 }

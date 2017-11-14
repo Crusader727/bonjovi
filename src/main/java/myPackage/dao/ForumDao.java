@@ -25,6 +25,7 @@ public class ForumDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer createForum(Forum body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -122,6 +123,7 @@ public class ForumDao {
     };
 
     private static final RowMapper<User> USER_MAPPER = (res, num) -> {
+        long id = res.getLong("id");
         String nickname = res.getString("nickname");
         String email = res.getString("email");
         String fullname = res.getString("fullname");
@@ -129,6 +131,6 @@ public class ForumDao {
         if (res.wasNull()) {
             about = null;
         }
-        return new User(nickname, about, email, fullname);
+        return new User(id, nickname, about, email, fullname);
     };
 }

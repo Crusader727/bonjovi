@@ -10,15 +10,17 @@ public class User {
     private String email;
     private String fullname;
     private String nickname;
-
+    private long id;
 
     @JsonCreator
     public User(
+            @JsonProperty("id") long id,
             @JsonProperty("nickname") String nickname,
             @JsonProperty("about") String about,
             @JsonProperty("email") String email,
             @JsonProperty("fullname") String fullname
     ) {
+        this.id = id;
         this.nickname = nickname;
         this.about = about;
         this.email = email;
@@ -44,5 +46,13 @@ public class User {
 
     public void setNickname(String nick) {
         this.nickname = nick;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

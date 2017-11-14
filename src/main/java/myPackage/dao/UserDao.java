@@ -92,6 +92,7 @@ public class UserDao {
 
 
     private static final RowMapper<User> USER_MAPPER = (res, num) -> {
+        long id = res.getLong("id");
         String nickname = res.getString("nickname");
         String email = res.getString("email");
         String fullname = res.getString("fullname");
@@ -99,6 +100,6 @@ public class UserDao {
         if (res.wasNull()) {
             about = null;
         }
-        return new User(nickname, about, email, fullname);
+        return new User(id, nickname, about, email, fullname);
     };
 }

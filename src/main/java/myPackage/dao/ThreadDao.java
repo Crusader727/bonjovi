@@ -127,30 +127,30 @@ public class ThreadDao {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Integer vote(Thread body, Vote vt) {
+    public Integer vote(Thread body, Vote vt, long userid) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         final String st;
         Vote vote = null;
         try {
             vote = template.queryForObject(
-                    "SELECT * FROM vote WHERE lower(nickname) = lower(?) and threadid = ?;",
-                    new Object[]{vt.getNickname(), body.getId()}, VOTE_MAPPER);
+                    "SELECT * FROM vote WHERE userid = ? and threadid = ?;",
+                    new Object[]{userid, body.getId()}, VOTE_MAPPER);
         } catch (Exception ex) {
             vote = null;
         }
         if (vote == null) {
             template.update(con -> {
                 PreparedStatement pst = con.prepareStatement(
-                        "insert into vote (nickname, threadid, votes) values (?, ?, ? );",
+                        "insert into vote (userid, threadid, votes) values (?, ?, ? );",
                         PreparedStatement.RETURN_GENERATED_KEYS);
-                pst.setString(1, vt.getNickname());
+                pst.setLong(1, userid);
                 pst.setLong(2, body.getId());
                 pst.setLong(3, vt.getVoice());
                 return pst;
             }, keyHolder);
             return 1;
-        } else  {
-            if(vote.getVoice() == vt.getVoice()) {
+        } else {
+            if (vote.getVoice() == vt.getVoice()) {
                 return 0;
             }
             final long idd = vote.getId();
@@ -292,8 +292,9 @@ public class ThreadDao {
         long votes = res.getLong("votes");
         long id = res.getLong("id");
         Integer threadid = res.getInt("threadid");
-        String nickname = res.getString("nickname");
-        return new Vote(id, nickname, votes, threadid);
+        String nickname = null;
+        Integer userid = res.getInt("userid");
+        return new Vote(id, userid, nickname, votes, threadid);
     };
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
