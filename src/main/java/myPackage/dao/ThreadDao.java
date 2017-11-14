@@ -29,6 +29,7 @@ public class ThreadDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
+
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Integer[] createThread(Thread body) {
         Integer[] result = {0, 0};
@@ -124,6 +125,7 @@ public class ThreadDao {
             return null;
         }
     }
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer vote(Thread body, Vote vt) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -249,10 +251,10 @@ public class ThreadDao {
             myObj.add(threadId);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? order by id desc limit ? ) ";
 
                 } else {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? order by id limit ? ) ";
                 }
                 myObj.add(since);
                 myObj.add(threadId);
@@ -266,12 +268,10 @@ public class ThreadDao {
                 myObj.add(threadId);
                 myObj.add(limit);
             }
-
             myStr += " order by path ";
             if (desc != null && desc) {
                 myStr += " desc ";
             }
-
             List<Post> result = template.query(myStr
                     , myObj.toArray(), POST_MAPPER);
             return result;
