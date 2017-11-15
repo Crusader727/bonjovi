@@ -27,8 +27,6 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createPost(@PathVariable("slug_or_id") String slug_or_id,
                                         @RequestBody ArrayList<Post> bodyList) {
-//        System.out.println(slug_or_id + " create post");
-
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -53,34 +51,38 @@ public class ThreadController {
 
     }
 
-    @RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
-                                  @RequestBody Vote body) {
-//        System.out.println(  slug_or_id + " vote of thread");
-        SlugOrID key = new SlugOrID(slug_or_id);
-        Thread buf;
-        if (key.IsLong) {
-            buf = tdao.getThreadById(key.id);
-        } else {
-            buf = tdao.getThreadBySlug(key.slug);
-        }
-        if (buf == null) {
+@RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
+                              @RequestBody Vote body) {
+    SlugOrID key = new SlugOrID(slug_or_id);
+    Boolean flag  = false;
+    if (key.IsLong) {
+        flag = tdao.vote(key.id, null, body);
+    } else {
+        flag = tdao.vote(null, key.slug, body);
+    }
+    Thread thread;
+    if(key.IsLong) {
+        thread = tdao.getThreadById(key.id);
+    } else {
+        thread = tdao.getThreadBySlug(key.slug);
+    }
+    if(flag) {
+            return ResponseEntity.status(HttpStatus.OK).body(thread);
+    } else {
+        if (thread == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-//        User user = udao.getUserByNick(body.getNickname());
         User user = udao.getUserIDbyNick(body.getNickname());
-
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
         }
-        buf.setVotes(buf.getVotes() + tdao.vote(buf, body, user.getId()) * body.getVoice());
-        return ResponseEntity.status(HttpStatus.OK).body(buf);
-
     }
+    return ResponseEntity.status(HttpStatus.OK).body(thread);
+}
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
-//        System.out.println(slug_or_id + " getDetails of thread");
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -96,7 +98,6 @@ public class ThreadController {
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> postDetails(@PathVariable("slug_or_id") String slug_or_id, @RequestBody Thread body) {
-//        System.out.println(body + " " + slug_or_id + " setDetails of thread");
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
         if (key.IsLong) {
@@ -123,7 +124,6 @@ public class ThreadController {
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "desc", required = false) boolean desc,
                                       @RequestParam(value = "since", required = false) Integer since) {
-//        System.out.println(slug_or_id + "  sort of posts");
 
         SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;

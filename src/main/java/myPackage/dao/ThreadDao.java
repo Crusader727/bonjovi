@@ -126,46 +126,93 @@ public class ThreadDao {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Integer vote(Thread body, Vote vt, long userid) {
-        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-        final String st;
-        Vote vote = null;
-        try {
-            vote = template.queryForObject(
-                    "SELECT * FROM vote WHERE userid = ? and threadid = ?;",
-                    new Object[]{userid, body.getId()}, VOTE_MAPPER);
-        } catch (Exception ex) {
-            vote = null;
-        }
-        if (vote == null) {
-            template.update(con -> {
-                PreparedStatement pst = con.prepareStatement(
-                        "insert into vote (userid, threadid, votes) values (?, ?, ? );",
-                        PreparedStatement.RETURN_GENERATED_KEYS);
-                pst.setLong(1, userid);
-                pst.setLong(2, body.getId());
-                pst.setLong(3, vt.getVoice());
-                return pst;
-            }, keyHolder);
-            return 1;
-        } else {
-            if (vote.getVoice() == vt.getVoice()) {
-                return 0;
-            }
-            final long idd = vote.getId();
-            template.update(con -> {
-                PreparedStatement pst = con.prepareStatement(
-                        "update vote set votes = ? where id = ?;",
-                        PreparedStatement.RETURN_GENERATED_KEYS);
-                pst.setLong(1, vt.getVoice());
-                pst.setLong(2, idd);
-                return pst;
-            }, keyHolder);
-            return 2;
-        }
+//    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    public Integer vote(Thread body, Vote vt, long userid) {
+//        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+//        final String st;
+//        Vote vote = null;
+//        try {
+//            vote = template.queryForObject(
+//                    "SELECT * FROM vote WHERE userid = ? and threadid = ?;",
+//                    new Object[]{userid, body.getId()}, VOTE_MAPPER);
+//        } catch (Exception ex) {
+//            vote = null;
+//        }
+//        if (vote == null) {
+//            template.update(con -> {
+//                PreparedStatement pst = con.prepareStatement(
+//                        "insert into vote (userid, threadid, votes) values (?, ?, ? );",
+//                        PreparedStatement.RETURN_GENERATED_KEYS);
+//                pst.setLong(1, userid);
+//                pst.setLong(2, body.getId());
+//                pst.setLong(3, vt.getVoice());
+//                return pst;
+//            }, keyHolder);
+//            return 1;
+//        } else {
+//            if (vote.getVoice() == vt.getVoice()) {
+//                return 0;
+//            }
+//            final long idd = vote.getId();
+//            template.update(con -> {
+//                PreparedStatement pst = con.prepareStatement(
+//                        "update vote set votes = ? where id = ?;",
+//                        PreparedStatement.RETURN_GENERATED_KEYS);
+//                pst.setLong(1, vt.getVoice());
+//                pst.setLong(2, idd);
+//                return pst;
+//            }, keyHolder);
+//            return 2;
+//        }
+//
+//    }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public Boolean vote(Integer tid, String slug, Vote vt) {
+        try {
+            GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+            if (slug == null) {
+                template.update(con -> {
+                    PreparedStatement pst = con.prepareStatement(
+                            "INSERT INTO vote (userid, threadid, votes)" +
+                                    "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+                                    " ?, " +
+                                    "    ? " +
+                                    "    ON CONFLICT (userid, threadid)" +
+                                    "    DO UPDATE SET votes = EXCLUDED.votes;",
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+                    pst.setString(1, vt.getNickname());
+                    pst.setLong(2, tid);
+                    pst.setLong(3, vt.getVoice());
+                    return pst;
+                }, keyHolder);
+            } else {
+                template.update(con -> {
+                    PreparedStatement pst = con.prepareStatement(
+                            "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+                                    "                                                    FROM users " +
+                                    "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+                                    "                                                                                                      FROM thread " +
+                                    "                                                                                                      WHERE " +
+                                    "                                                                                                        lower(slug) = " +
+                                    "                                                                                                        lower(?)), " +
+                                    "                                                   (?)) " +
+                                    "ON CONFLICT (userid, threadid) " +
+                                    "  DO UPDATE SET votes = EXCLUDED.votes;",
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+                    pst.setString(1, vt.getNickname());
+                    pst.setString(2, slug);
+                    pst.setLong(3, vt.getVoice());
+                    return pst;
+                }, keyHolder);
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
+
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer chagenThread(Thread body) {

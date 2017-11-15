@@ -1,4 +1,3 @@
-
 CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TABLE users (
@@ -24,6 +23,13 @@ CREATE TABLE forum (
   threadCount BIGINT,
   owner       CITEXT REFERENCES users (nickname)
 );
+
+
+CREATE UNIQUE INDEX IF NOT EXISTS forum_slug
+  ON forum (lower(slug));
+CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_owner
+  ON forum (lower(slug), lower(owner));
+
 CREATE TABLE thread (
   tid     SERIAL PRIMARY KEY,
   slug    CITEXT UNIQUE,
@@ -38,7 +44,8 @@ CREATE TABLE thread (
 
 CREATE UNIQUE INDEX IF NOT EXISTS thread_slug
   ON thread (lower(slug));
-
+CREATE UNIQUE INDEX IF NOT EXISTS thread_slug_id
+  ON thread (lower(slug), tid);
 CREATE INDEX IF NOT EXISTS thread_forum
   ON thread (forum);
 
@@ -62,10 +69,11 @@ CREATE TABLE post (
 
 CREATE TABLE vote (
   id       SERIAL PRIMARY KEY,
-  userid   INTEGER,
-  threadid INTEGER,
+  userid   INTEGER NOT NULL REFERENCES users (id),
+  threadid INTEGER NOT NULL REFERENCES thread (tid),
   votes    INT
 );
+
 CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
   ON vote (userid, threadid);
 
@@ -101,6 +109,10 @@ AFTER INSERT OR UPDATE
   ON vote
 FOR EACH ROW
 EXECUTE PROCEDURE vote();
+
+
+
+
 
 
 
