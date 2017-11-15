@@ -67,7 +67,9 @@ public class ThreadController {
         if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-        User user = udao.getUserByNick(body.getNickname());
+//        User user = udao.getUserByNick(body.getNickname());
+        User user = udao.getUserIDbyNick(body.getNickname());
+
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
         }

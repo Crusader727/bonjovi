@@ -1,10 +1,22 @@
+
 CREATE EXTENSION IF NOT EXISTS citext;
+
 CREATE TABLE users (
-  nickname CITEXT PRIMARY KEY,
-  fullname TEXT   NOT NULL,
-  email    CITEXT NOT NULL UNIQUE,
+  id       SERIAL PRIMARY KEY,
+  nickname CITEXT UNIQUE NOT NULL,
+  fullname TEXT          NOT NULL,
+  email    CITEXT        NOT NULL UNIQUE,
   about    TEXT
 );
+CREATE INDEX IF NOT EXISTS users_nickname_id
+  ON users (lower(nickname), id);
+CREATE UNIQUE INDEX IF NOT EXISTS users_nickname
+  ON users (lower(nickname));
+CREATE UNIQUE INDEX IF NOT EXISTS users_email
+  ON users (email);
+CREATE INDEX IF NOT EXISTS users_nickname_email
+  ON users (nickname, email);
+
 CREATE TABLE forum (
   slug        CITEXT PRIMARY KEY,
   title       TEXT NOT NULL,
@@ -23,6 +35,19 @@ CREATE TABLE thread (
   votes   BIGINT
 );
 
+
+CREATE UNIQUE INDEX IF NOT EXISTS thread_slug
+  ON thread (lower(slug));
+
+CREATE INDEX IF NOT EXISTS thread_forum
+  ON thread (forum);
+
+CREATE INDEX IF NOT EXISTS thread_created
+  ON thread (created);
+
+CREATE INDEX IF NOT EXISTS thread_forum_created
+  ON thread (forum, created);
+
 CREATE TABLE post (
   id       SERIAL PRIMARY KEY,
   parent   INTEGER DEFAULT 0,
@@ -36,12 +61,13 @@ CREATE TABLE post (
 );
 
 CREATE TABLE vote (
-  nickname CITEXT REFERENCES users (nickname),
-  threadid INTEGER REFERENCES thread (tid),
+  id       SERIAL PRIMARY KEY,
+  userid   INTEGER,
+  threadid INTEGER,
   votes    INT
 );
 CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
-  ON vote (lower(nickname), threadid);
+  ON vote (userid, threadid);
 
 CREATE OR REPLACE FUNCTION vote()
   RETURNS TRIGGER
@@ -75,3 +101,6 @@ AFTER INSERT OR UPDATE
   ON vote
 FOR EACH ROW
 EXECUTE PROCEDURE vote();
+
+
+

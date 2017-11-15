@@ -78,7 +78,16 @@ public class UserDao {
             return null;
         }
     }
-
+    public User getUserIDbyNick(String nickname) {
+        try {
+            final User fr = template.queryForObject(
+                    "SELECT id FROM users WHERE lower(nickname) = LOWER(?)",
+                    new Object[]{nickname}, USER_MAPPER_ID);
+            return fr;
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
     public User getUserByEmail(String mail) {
         try {
             final User fr = template.queryForObject(
@@ -101,5 +110,9 @@ public class UserDao {
             about = null;
         }
         return new User(id, nickname, about, email, fullname);
+    };
+    private static final RowMapper<User> USER_MAPPER_ID = (res, num) -> {
+        long id = res.getLong("id");
+        return new User(id, null, null, null, null);
     };
 }
