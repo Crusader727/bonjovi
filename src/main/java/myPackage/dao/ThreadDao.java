@@ -167,44 +167,62 @@ public class ThreadDao {
 //
 //    }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Boolean vote(Integer tid, String slug, Vote vt) {
         try {
-            GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+//            GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
             if (slug == null) {
-                template.update(con -> {
-                    PreparedStatement pst = con.prepareStatement(
-                            "INSERT INTO vote (userid, threadid, votes)" +
-                                    "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
-                                    " ?, " +
-                                    "    ? " +
-                                    "    ON CONFLICT (userid, threadid)" +
-                                    "    DO UPDATE SET votes = EXCLUDED.votes;",
-                            PreparedStatement.RETURN_GENERATED_KEYS);
-                    pst.setString(1, vt.getNickname());
-                    pst.setLong(2, tid);
-                    pst.setLong(3, vt.getVoice());
-                    return pst;
-                }, keyHolder);
+                String sql = "INSERT INTO vote (userid, threadid, votes)" +
+                        "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+                        " ?, " +
+                        "    ? " +
+                        "    ON CONFLICT (userid, threadid)" +
+                        "    DO UPDATE SET votes = EXCLUDED.votes;";
+                template.update(sql, vt.getNickname(), tid, vt.getVoice());
+//                template.update(con -> {
+//                    PreparedStatement pst = con.prepareStatement(
+//                            "INSERT INTO vote (userid, threadid, votes)" +
+//                                    "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+//                                    " ?, " +
+//                                    "    ? " +
+//                                    "    ON CONFLICT (userid, threadid)" +
+//                                    "    DO UPDATE SET votes = EXCLUDED.votes;",
+//                            PreparedStatement.RETURN_GENERATED_KEYS);
+//                    pst.setString(1, vt.getNickname());
+//                    pst.setLong(2, tid);
+//                    pst.setLong(3, vt.getVoice());
+//                    return pst;
+//                });
             } else {
-                template.update(con -> {
-                    PreparedStatement pst = con.prepareStatement(
-                            "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
-                                    "                                                    FROM users " +
-                                    "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
-                                    "                                                                                                      FROM thread " +
-                                    "                                                                                                      WHERE " +
-                                    "                                                                                                        lower(slug) = " +
-                                    "                                                                                                        lower(?)), " +
-                                    "                                                   (?)) " +
-                                    "ON CONFLICT (userid, threadid) " +
-                                    "  DO UPDATE SET votes = EXCLUDED.votes;",
-                            PreparedStatement.RETURN_GENERATED_KEYS);
-                    pst.setString(1, vt.getNickname());
-                    pst.setString(2, slug);
-                    pst.setLong(3, vt.getVoice());
-                    return pst;
-                }, keyHolder);
+                String sql ="INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+                        "                                                    FROM users " +
+                        "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+                        "                                                                                                      FROM thread " +
+                        "                                                                                                      WHERE " +
+                        "                                                                                                        lower(slug) = " +
+                        "                                                                                                        lower(?)), " +
+                        "                                                   (?)) " +
+                        "ON CONFLICT (userid, threadid) " +
+                        "  DO UPDATE SET votes = EXCLUDED.votes;";
+                template.update(sql, vt.getNickname(), slug, vt.getVoice());
+//                template.update(con -> {
+//                    PreparedStatement pst = con.prepareStatement(
+//                            "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+//                                    "                                                    FROM users " +
+//                                    "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+//                                    "                                                                                                      FROM thread " +
+//                                    "                                                                                                      WHERE " +
+//                                    "                                                                                                        lower(slug) = " +
+//                                    "                                                                                                        lower(?)), " +
+//                                    "                                                   (?)) " +
+//                                    "ON CONFLICT (userid, threadid) " +
+//                                    "  DO UPDATE SET votes = EXCLUDED.votes;",
+//                            PreparedStatement.RETURN_GENERATED_KEYS);
+//                    pst.setString(1, vt.getNickname());
+//                    pst.setString(2, slug);
+//                    pst.setLong(3, vt.getVoice());
+//                    return pst;
+//                });
             }
 
             return true;
