@@ -67,6 +67,15 @@ CREATE TABLE post (
   path     INT []
 );
 
+CREATE INDEX IF NOT EXISTS post_id
+  ON post (threadid, id, created);
+
+CREATE INDEX IF NOT EXISTS post_id_path
+  ON post (threadid, path, id);
+
+  CREATE INDEX IF NOT EXISTS post_id_threadid
+  ON post (id, threadid);
+
 CREATE TABLE vote (
   id       SERIAL PRIMARY KEY,
   userid   INTEGER NOT NULL REFERENCES users (id),

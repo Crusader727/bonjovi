@@ -67,6 +67,29 @@ CREATE TABLE post (
   path     INT []
 );
 
+-- CREATE INDEX IF NOT EXISTS post_id_forum
+--   ON post (id, forum);
+--
+-- CREATE INDEX IF NOT EXISTS post_id_threadid
+--   ON post (id, threadid);
+--
+-- CREATE INDEX IF NOT EXISTS post_id_owner
+--   ON post (id, owner);
+--
+-- CREATE INDEX IF NOT EXISTS post_id_parent_threadid
+--   ON post (id, threadid, parent);
+--
+-- CREATE INDEX IF NOT EXISTS post_threadid_id
+--   ON post (threadid, id);
+--
+-- CREATE INDEX IF NOT EXISTS post_parent_threadid
+--   ON post (parent, threadid, path);
+
+
+
+
+
+
 CREATE TABLE vote (
   id       SERIAL PRIMARY KEY,
   userid   INTEGER NOT NULL REFERENCES users (id),
