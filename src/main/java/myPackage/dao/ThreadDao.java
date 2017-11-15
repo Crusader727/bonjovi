@@ -30,7 +30,8 @@ public class ThreadDao {
         this.namedTemplate = namedTemplate;
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+//    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer[] createThread(Thread body) {
         Integer[] result = {0, 0};
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();

@@ -67,28 +67,14 @@ CREATE TABLE post (
   path     INT []
 );
 
--- CREATE INDEX IF NOT EXISTS post_id_forum
---   ON post (id, forum);
---
--- CREATE INDEX IF NOT EXISTS post_id_threadid
---   ON post (id, threadid);
---
--- CREATE INDEX IF NOT EXISTS post_id_owner
---   ON post (id, owner);
---
--- CREATE INDEX IF NOT EXISTS post_id_parent_threadid
---   ON post (id, threadid, parent);
---
--- CREATE INDEX IF NOT EXISTS post_threadid_id
---   ON post (threadid, id);
---
--- CREATE INDEX IF NOT EXISTS post_parent_threadid
---   ON post (parent, threadid, path);
+CREATE INDEX IF NOT EXISTS post_id
+  ON post (threadid, id, created);
 
+CREATE INDEX IF NOT EXISTS post_id_path
+  ON post (threadid, path, id);
 
-
-
-
+  CREATE INDEX IF NOT EXISTS post_id_threadid
+  ON post (id, threadid);
 
 CREATE TABLE vote (
   id       SERIAL PRIMARY KEY,
@@ -133,6 +119,51 @@ AFTER INSERT OR UPDATE
 FOR EACH ROW
 EXECUTE PROCEDURE vote();
 
+
+-- for forum details
+
+CREATE OR REPLACE FUNCTION forum_threads_inc()
+  RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE forum
+  SET threadCount = threadCount + 1
+  WHERE forum.slug = new.forum;
+  RETURN new;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trigger_forum_threads_inc
+ON thread;
+
+CREATE TRIGGER trigger_forum_threads_inc
+BEFORE INSERT
+  ON thread
+FOR EACH ROW
+EXECUTE PROCEDURE forum_threads_inc();
+
+
+CREATE OR REPLACE FUNCTION forum_posts_inc()
+  RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE forum
+  SET postCount = postCount + 1
+  WHERE forum.slug = new.forum;
+  RETURN new;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trigger_forum_posts_inc
+ON thread;
+
+CREATE TRIGGER trigger_forum_posts_inc
+BEFORE INSERT
+  ON post
+FOR EACH ROW
+EXECUTE PROCEDURE forum_posts_inc();
 
 
 

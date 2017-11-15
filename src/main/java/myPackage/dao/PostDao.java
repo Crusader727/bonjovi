@@ -24,7 +24,8 @@ public class PostDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+//    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer createPosts(ArrayList<Post> bodyList) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {

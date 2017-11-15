@@ -120,6 +120,51 @@ FOR EACH ROW
 EXECUTE PROCEDURE vote();
 
 
+-- for forum details
+
+CREATE OR REPLACE FUNCTION forum_threads_inc()
+  RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE forum
+  SET threadCount = threadCount + 1
+  WHERE forum.slug = new.forum;
+  RETURN new;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trigger_forum_threads_inc
+ON thread;
+
+CREATE TRIGGER trigger_forum_threads_inc
+BEFORE INSERT
+  ON thread
+FOR EACH ROW
+EXECUTE PROCEDURE forum_threads_inc();
+
+
+CREATE OR REPLACE FUNCTION forum_posts_inc()
+  RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE forum
+  SET postCount = postCount + 1
+  WHERE forum.slug = new.forum;
+  RETURN new;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trigger_forum_posts_inc
+ON thread;
+
+CREATE TRIGGER trigger_forum_posts_inc
+BEFORE INSERT
+  ON post
+FOR EACH ROW
+EXECUTE PROCEDURE forum_posts_inc();
+
 
 
 
