@@ -83,20 +83,17 @@ public class ForumDao {
     public Object[] getUsers(String forum, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
-            String myStr = "select DISTINCT * from (select DISTINCT u1.* from users u1 JOIN post p1 on (lower(p1.forum) = lower(?) and lower(u1.nickname) = lower(p1.owner)) " +
-                    "UNION " +
-                    "select DISTINCT u2.* from users u2 JOIN thread t1 on (lower(t1.forum) = lower(?) and lower(u2.nickname) = lower(t1.owner))) as ff ";
-            myObj.add(forum);
+            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE lower(slug) = lower(?)";
             myObj.add(forum);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " where ff.nickname < ?::citext ";
+                    myStr += " AND nickname < ?::citext ";
                 } else {
-                    myStr += " where ff.nickname > ?::citext ";
+                    myStr += " AND nickname > ?::citext ";
                 }
                 myObj.add(since);
             }
-            myStr += " order by ff.nickname ";
+            myStr += " order by nickname ";
             if (desc != null && desc) {
                 myStr += " desc ";
             }

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-//@Transactional
 public class PostDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -24,7 +23,7 @@ public class PostDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
-//    @Transactional(isolation = Isolation.REPEATABLE_READ)
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Integer createPosts(ArrayList<Post> bodyList) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -69,6 +68,7 @@ public class PostDao {
             return null;
         }
     }
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -84,6 +84,7 @@ public class PostDao {
             return pst;
         }, keyHolder);
     }
+
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void setPostsPath(Post chuf, Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();

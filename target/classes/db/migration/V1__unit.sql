@@ -11,10 +11,7 @@ CREATE INDEX IF NOT EXISTS users_nickname_id
   ON users (lower(nickname), id);
 CREATE UNIQUE INDEX IF NOT EXISTS users_nickname
   ON users (lower(nickname));
-CREATE UNIQUE INDEX IF NOT EXISTS users_email
-  ON users (email);
-CREATE INDEX IF NOT EXISTS users_nickname_email
-  ON users (nickname, email);
+
 
 CREATE TABLE forum (
   slug        CITEXT PRIMARY KEY,
@@ -41,19 +38,13 @@ CREATE TABLE thread (
   votes   BIGINT
 );
 
-
 CREATE UNIQUE INDEX IF NOT EXISTS thread_slug
   ON thread (lower(slug));
-CREATE UNIQUE INDEX IF NOT EXISTS thread_slug_id
-  ON thread (lower(slug), tid);
-CREATE INDEX IF NOT EXISTS thread_forum
-  ON thread (forum);
+CREATE UNIQUE INDEX IF NOT EXISTS thread_id_slug
+  ON thread (tid, lower(slug));
+CREATE INDEX IF NOT EXISTS thread_forum_owner
+  ON thread (lower(owner), lower(forum));
 
-CREATE INDEX IF NOT EXISTS thread_created
-  ON thread (created);
-
-CREATE INDEX IF NOT EXISTS thread_forum_created
-  ON thread (forum, created);
 
 CREATE TABLE post (
   id       SERIAL PRIMARY KEY,
@@ -66,14 +57,15 @@ CREATE TABLE post (
   threadid INTEGER REFERENCES thread (tid),
   path     INT []
 );
-
+CREATE INDEX IF NOT EXISTS post_forum_owner
+  ON post (lower(owner), lower(forum));
 CREATE INDEX IF NOT EXISTS post_id
   ON post (threadid, id, created);
 
 CREATE INDEX IF NOT EXISTS post_id_path
   ON post (threadid, path, id);
 
-  CREATE INDEX IF NOT EXISTS post_id_threadid
+CREATE INDEX IF NOT EXISTS post_id_threadid
   ON post (id, threadid);
 
 CREATE TABLE vote (
@@ -85,6 +77,20 @@ CREATE TABLE vote (
 
 CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
   ON vote (userid, threadid);
+
+-- for getUsers
+CREATE TABLE users_on_forum (
+  id       SERIAL PRIMARY KEY,
+  nickname CITEXT,
+  fullname TEXT ,
+  email    CITEXT ,
+  about    TEXT,
+  slug     CITEXT,
+  UNIQUE (nickname, slug)
+);
+CREATE INDEX IF NOT EXISTS index_users_on_forum
+  ON users_on_forum (lower(nickname), lower(slug));
+
 
 CREATE OR REPLACE FUNCTION vote()
   RETURNS TRIGGER
@@ -119,8 +125,7 @@ AFTER INSERT OR UPDATE
 FOR EACH ROW
 EXECUTE PROCEDURE vote();
 
-
--- for forum details
+-- vote ended for forum details
 
 CREATE OR REPLACE FUNCTION forum_threads_inc()
   RETURNS TRIGGER
@@ -130,14 +135,25 @@ BEGIN
   UPDATE forum
   SET threadCount = threadCount + 1
   WHERE forum.slug = new.forum;
+  INSERT INTO users_on_forum (nickname, slug, fullname, email, about)
+    (SELECT
+       new.owner,
+       new.forum,
+       u.fullname,
+       u.email,
+       u.about
+     FROM users u
+     WHERE lower(new.owner) = lower(u.nickname)
+     )
+  ON CONFLICT DO NOTHING;
   RETURN new;
 END;
 $$;
 
-DROP TRIGGER IF EXISTS trigger_forum_threads_inc
+DROP TRIGGER IF EXISTS t_forum_threads_inc
 ON thread;
 
-CREATE TRIGGER trigger_forum_threads_inc
+CREATE TRIGGER t_forum_threads_inc
 BEFORE INSERT
   ON thread
 FOR EACH ROW
@@ -152,18 +168,32 @@ BEGIN
   UPDATE forum
   SET postCount = postCount + 1
   WHERE forum.slug = new.forum;
+  INSERT INTO users_on_forum (nickname, slug, fullname, email, about)
+    (SELECT
+       new.owner,
+       new.forum,
+       u.fullname,
+       u.email,
+       u.about
+     FROM users u
+     WHERE lower(new.owner) = lower(u.nickname)
+    )
+  ON CONFLICT DO NOTHING;
   RETURN new;
 END;
 $$;
 
-DROP TRIGGER IF EXISTS trigger_forum_posts_inc
+DROP TRIGGER IF EXISTS t_forum_posts_inc
 ON thread;
 
-CREATE TRIGGER trigger_forum_posts_inc
+CREATE TRIGGER t_forum_posts_inc
 BEFORE INSERT
   ON post
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
+
+
+
 
 
 
