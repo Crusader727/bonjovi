@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 public class Thread {
     private long votes;
     private long id;
+    private long forumid;
     private final String slug;
     private final String author;
     private String forum;
@@ -28,8 +29,11 @@ public class Thread {
             @JsonProperty("author") String author,
             @JsonProperty("id") long id,
             @JsonProperty("votes") long votes,
-            @JsonProperty("created") Timestamp created
-    ) {
+            @JsonProperty("created") Timestamp created,
+            @JsonProperty("forumid") long forumid
+
+            ) {
+        this.forumid = forumid;
         this.id = id;
         this.slug = slug;
         this.forum = forum;
@@ -104,5 +108,13 @@ public class Thread {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public long getForumid() {
+        return forumid;
+    }
+
+    public void setForumid(long forumid) {
+        this.forumid = forumid;
     }
 }

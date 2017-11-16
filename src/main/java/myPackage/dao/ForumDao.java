@@ -60,6 +60,16 @@ public class ForumDao {
             return null;
         }
     }
+    public Forum getForumById(Long id) {
+        try {
+            final Forum fr = template.queryForObject(
+                    "SELECT * FROM forum WHERE id = ?;",
+                    new Object[]{id}, FORUM_MAPPER);
+            return fr;
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
 
     public void updateForum(String slug) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -80,11 +90,11 @@ public class ForumDao {
         }
     }
 
-    public Object[] getUsers(String forum, Integer limit, String since, Boolean desc) {
+    public Object[] getUsers(Long forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
-            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE lower(slug) = lower(?)";
-            myObj.add(forum);
+            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ";
+            myObj.add(forumid);
             if (since != null) {
                 if (desc != null && desc) {
                     myStr += " AND nickname < ?::citext ";
@@ -105,7 +115,6 @@ public class ForumDao {
                     , myObj.toArray(), USER_MAPPER);
             return result.toArray();
         } catch (DataAccessException e) {
-            System.out.println("da acses in get users");
             return null;
         }
     }
@@ -114,9 +123,10 @@ public class ForumDao {
         String slug = res.getString("slug");
         String title = res.getString("title");
         Long postCount = res.getLong("postCount");
+        Long id = res.getLong("id");
         Long threadCount = res.getLong("threadCount");
         String owner = res.getString("owner");
-        return new Forum(slug, title, owner, postCount, threadCount);
+        return new Forum(id,slug, title, owner, postCount, threadCount);
     };
 
     private static final RowMapper<User> USER_MAPPER = (res, num) -> {

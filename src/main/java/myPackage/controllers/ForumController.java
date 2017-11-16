@@ -74,11 +74,11 @@ public class ForumController {
                                         @RequestParam(value = "limit", required = false) Integer limit,
                                         @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "desc", required = false) Boolean desc) {
-        Object[] res = tdao.getThreads(forum, limit, since, desc);
-        if (res != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(res);
+        Forum fr = fdao.getForum(forum);
+        if (fr != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fr.getId(), limit, since, desc));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such forum"));
         }
     }
 
@@ -88,10 +88,11 @@ public class ForumController {
                                       @RequestParam(value = "limit", required = false) Integer limit,
                                       @RequestParam(value = "since", required = false) String since,
                                       @RequestParam(value = "desc", required = false) Boolean desc) {
-        if (fdao.getForum(forum) == null) {
+        Forum fr = fdao.getForum(forum);
+        if (fr == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(forum, limit, since, desc));
+        return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fr.getId(), limit, since, desc));
     }
 
 }

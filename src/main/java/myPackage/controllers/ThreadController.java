@@ -40,6 +40,7 @@ public class ThreadController {
         for (Post body : bodyList) {
             body.setForum(buf.getForum());
             body.setThread(buf.getId());
+            body.setForumid(buf.getForumid());
         }
         Integer res = pdao.createPosts(bodyList);
         if (res == 409) {

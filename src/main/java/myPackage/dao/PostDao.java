@@ -36,8 +36,8 @@ public class PostDao {
                 }
                 template.update(con -> {
                     PreparedStatement pst = con.prepareStatement(
-                            "insert into post(parent, threadid, isedited, owner, message, forum, created)"
-                                    + " values(?,?,?,?,?,?,?::timestamptz)" + " returning id",
+                            "insert into post(parent, threadid, isedited, owner, message, forum, created, forumid)"
+                                    + " values(?,?,?,?,?,?,?::timestamptz,?)" + " returning id",
                             PreparedStatement.RETURN_GENERATED_KEYS);
                     pst.setLong(1, body.getParent());
                     pst.setLong(2, body.getThread());
@@ -46,6 +46,7 @@ public class PostDao {
                     pst.setString(5, body.getMessage());
                     pst.setString(6, body.getForum());
                     pst.setString(7, body.getCreated());
+                    pst.setLong(8, body.getForumid());
                     return pst;
                 }, keyHolder);
                 body.setId(keyHolder.getKey().intValue());
@@ -109,6 +110,7 @@ public class PostDao {
 
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
+        Long forumid = res.getLong("forumid");
         Long parent = res.getLong("parent");
         Long threadid = res.getLong("threadid");
         boolean isedited = res.getBoolean("isedited");
@@ -117,6 +119,6 @@ public class PostDao {
         String forum = res.getString("forum");
         Array path = res.getArray("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
+        return new Post(id,forumid, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
     };
 }

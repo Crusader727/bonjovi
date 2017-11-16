@@ -8,17 +8,20 @@ public class Forum {
     private long posts;
     private final String slug;
     private long threads;
+    private long id;
     private final String title;
     private String user;
 
     @JsonCreator
     public Forum(
+            @JsonProperty("id") long id,
             @JsonProperty("slug") String slug,
             @JsonProperty("title") String title,
             @JsonProperty("user") String user,
             @JsonProperty("postCount") long postCount,
             @JsonProperty("threadCount") long threadCount
     ) {
+        this.id = id;
         this.slug = slug;
         this.posts = postCount;
         this.threads = threadCount;
@@ -57,5 +60,13 @@ public class Forum {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

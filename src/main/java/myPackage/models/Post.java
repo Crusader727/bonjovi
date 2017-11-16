@@ -16,6 +16,7 @@ public class Post {
     }
 
     private long id;
+    private long forumid;
     private long parent;
     private String author;
     private String message;
@@ -29,6 +30,7 @@ public class Post {
     @JsonCreator
     public Post(
             @JsonProperty("id") long id,
+            @JsonProperty("forumid") long forumid,
             @JsonProperty("parent") long parent,
             @JsonProperty("thread") long thread,
             @JsonProperty("isedited") boolean isedited,
@@ -38,6 +40,7 @@ public class Post {
             @JsonProperty("created") Timestamp created,
             @JsonProperty("path") Object[] path
     ) {
+        this.forumid = forumid;
         this.id = id;
         this.parent = parent;
         this.forum = forum;
@@ -122,4 +125,11 @@ public class Post {
     }
 
 
+    public long getForumid() {
+        return forumid;
+    }
+
+    public void setForumid(long forumid) {
+        this.forumid = forumid;
+    }
 }

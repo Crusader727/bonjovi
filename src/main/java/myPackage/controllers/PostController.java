@@ -55,8 +55,8 @@ public class PostController {
                 if (st.equals("user")) {
                     dt.setAuthor(udao.getUserByNick(buf.getAuthor()));
                 } else if (st.equals("forum")) {
-//                    fdao.updateForum(buf.getForum());
-                    dt.setForum(fdao.getForum(buf.getForum()));
+//                    dt.setForum(fdao.getForum(buf.getForum()));
+                    dt.setForum(fdao.getForumById(buf.getForumid()));
                 } else if (st.equals("thread")) {
                     dt.setThread(tdao.getThreadById((int) buf.getThread()));
                 }

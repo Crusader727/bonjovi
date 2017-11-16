@@ -95,14 +95,14 @@ public class ThreadDao {
         return true;
     }
 
-    public Object[] getThreads(String forum, Integer limit, String since, Boolean desc) {
-        if (!getThreadByForum(forum)) {
-            return null;
-        }
+    public Object[] getThreads(Long forumid, Integer limit, String since, Boolean desc) {
+//        if (!getThreadByForum(forum)) {
+//            return null;
+//        }
         try {
             List<Object> myObj = new ArrayList<>();
-            String myStr = "select * from thread where lower(forum) = lower(?) ";
-            myObj.add(forum);
+            String myStr = "select * from thread where forumid = ? ";
+            myObj.add(forumid);
             if (since != null) {
                 if (desc != null && desc) {
                     myStr += " and created <= ?::timestamptz ";
@@ -273,13 +273,14 @@ public class ThreadDao {
     private static final RowMapper<Thread> THREAD_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");
         Long id = res.getLong("tid");
+        Long forumid = res.getLong("forumid");
         String slug = res.getString("slug");
         String owner = res.getString("owner");
         String forum = res.getString("forum");
         Timestamp created = res.getTimestamp("created");
         String message = res.getString("message");
         String title = res.getString("title");
-        return new Thread(slug, forum, title, message, owner, id, votes, created);
+        return new Thread(slug, forum, title, message, owner, id, votes, created, forumid);
     };
     private static final RowMapper<Vote> VOTE_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");
@@ -291,6 +292,7 @@ public class ThreadDao {
     };
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
+        Long forumid = res.getLong("forumid");
         Long parent = res.getLong("parent");
         Long threadid = res.getLong("threadid");
         boolean isedited = res.getBoolean("isedited");
@@ -299,6 +301,6 @@ public class ThreadDao {
         String forum = res.getString("forum");
         Array path = res.getArray("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
+        return new Post(id, forumid, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
     };
 }
