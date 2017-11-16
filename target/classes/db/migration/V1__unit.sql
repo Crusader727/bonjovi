@@ -26,6 +26,8 @@ CREATE TABLE forum (
 
 CREATE UNIQUE INDEX IF NOT EXISTS forum_slug
         ON forum (lower(slug));
+CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_id
+        ON forum (lower(slug), id);
 -- CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_owner
 --   ON forum (lower(slug), lower(owner));
 CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_owner
@@ -75,17 +77,15 @@ CREATE TABLE post (
         path     INT []
 );
 -- CREATE INDEX IF NOT EXISTS post_forum_owner
---   ON post (lower(owner), lower(forum));
-CREATE INDEX IF NOT EXISTS post_forum_owner
-        ON post (lower(owner), forumid);
+--         ON post (lower(owner), forumid);
 CREATE INDEX IF NOT EXISTS post_id
         ON post (threadid, id, created);
 
 CREATE INDEX IF NOT EXISTS post_id_path
         ON post (threadid, path, id);
 
-CREATE INDEX IF NOT EXISTS post_id_threadid
-        ON post (id, threadid);
+-- CREATE INDEX IF NOT EXISTS post_id_threadid
+--         ON post (id, threadid);
 
 CREATE TABLE vote (
         id       SERIAL PRIMARY KEY,
