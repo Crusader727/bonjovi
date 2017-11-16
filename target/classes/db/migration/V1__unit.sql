@@ -46,6 +46,11 @@ CREATE INDEX IF NOT EXISTS thread_forum_owner
   ON thread (lower(owner), lower(forum));
 
 
+CREATE  INDEX IF NOT EXISTS thread_forum
+  ON thread (lower(forum));
+  CREATE  INDEX IF NOT EXISTS thread_forum_created
+  ON thread (lower(forum), created);
+
 CREATE TABLE post (
   id       SERIAL PRIMARY KEY,
   parent   INTEGER DEFAULT 0,
@@ -82,14 +87,14 @@ CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
 CREATE TABLE users_on_forum (
   id       SERIAL PRIMARY KEY,
   nickname CITEXT,
-  fullname TEXT ,
-  email    CITEXT ,
+  fullname TEXT,
+  email    CITEXT,
   about    TEXT,
   slug     CITEXT,
   UNIQUE (nickname, slug)
 );
 CREATE INDEX IF NOT EXISTS index_users_on_forum
-  ON users_on_forum (lower(nickname), lower(slug));
+  ON users_on_forum ( lower(slug),lower(nickname));
 
 
 CREATE OR REPLACE FUNCTION vote()
@@ -125,7 +130,8 @@ AFTER INSERT OR UPDATE
 FOR EACH ROW
 EXECUTE PROCEDURE vote();
 
--- vote ended for forum details
+-- vote ended
+-- for forum details
 
 CREATE OR REPLACE FUNCTION forum_threads_inc()
   RETURNS TRIGGER
@@ -143,8 +149,7 @@ BEGIN
        u.email,
        u.about
      FROM users u
-     WHERE lower(new.owner) = lower(u.nickname)
-     )
+     WHERE lower(new.owner) = lower(u.nickname))
   ON CONFLICT DO NOTHING;
   RETURN new;
 END;
@@ -176,8 +181,7 @@ BEGIN
        u.email,
        u.about
      FROM users u
-     WHERE lower(new.owner) = lower(u.nickname)
-    )
+     WHERE lower(new.owner) = lower(u.nickname))
   ON CONFLICT DO NOTHING;
   RETURN new;
 END;

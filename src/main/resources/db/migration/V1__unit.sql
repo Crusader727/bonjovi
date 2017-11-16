@@ -46,6 +46,11 @@ CREATE INDEX IF NOT EXISTS thread_forum_owner
   ON thread (lower(owner), lower(forum));
 
 
+CREATE  INDEX IF NOT EXISTS thread_forum
+  ON thread (lower(forum));
+  CREATE  INDEX IF NOT EXISTS thread_forum_created
+  ON thread (lower(forum), created);
+
 CREATE TABLE post (
   id       SERIAL PRIMARY KEY,
   parent   INTEGER DEFAULT 0,
@@ -89,7 +94,7 @@ CREATE TABLE users_on_forum (
   UNIQUE (nickname, slug)
 );
 CREATE INDEX IF NOT EXISTS index_users_on_forum
-  ON users_on_forum (lower(nickname), lower(slug));
+  ON users_on_forum ( lower(slug),lower(nickname));
 
 
 CREATE OR REPLACE FUNCTION vote()
