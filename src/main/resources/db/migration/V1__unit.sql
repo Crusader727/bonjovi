@@ -155,7 +155,7 @@ BEGIN
         new.forumid = (SELECT id from forum where lower(forum.slug) = lower(new.forum));
         UPDATE forum
         SET threadCount = threadCount + 1
-        WHERE forum.slug = new.forum;
+        WHERE forum.id = new.forumid;
         INSERT INTO users_on_forum (nickname, forumid, fullname, email, about)
                 (SELECT
                          new.owner,
@@ -190,7 +190,7 @@ AS $$
 BEGIN
         UPDATE forum
         SET postCount = postCount + 1
-        WHERE forum.slug = new.forum;
+        WHERE forum.id = new.forumid;
         INSERT INTO users_on_forum (nickname, forumid, fullname, email, about)
                 (SELECT
                          new.owner,

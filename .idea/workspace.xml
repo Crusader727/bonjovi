@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38beb54-e3c0-401b-82fd-ef732d1af4e2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_metadata_/metadata.values.at" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8/_src_/database/postgres/schema/public.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1__unit.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1__unit.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -63,8 +55,28 @@
       <file leaf-file-name="V1__unit.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="84" column="37" lean-forward="true" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
+            <state relative-caret-position="201">
+              <caret line="157" column="36" lean-forward="false" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="62" lean-forward="true" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/ThreadController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1794">
+              <caret line="138" column="66" lean-forward="true" selection-start-line="138" selection-start-column="66" selection-end-line="138" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -96,59 +108,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="62" lean-forward="true" selection-start-line="3" selection-start-column="62" selection-end-line="3" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/PostController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="47" column="33" lean-forward="false" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThreadController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/ThreadController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="940">
-              <caret line="138" column="66" lean-forward="true" selection-start-line="138" selection-start-column="66" selection-end-line="138" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ForumDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="95" column="111" lean-forward="false" selection-start-line="95" selection-start-column="28" selection-end-line="95" selection-end-column="111" />
-              <folding>
-                <marker date="1510846839000" expanded="true" signature="1244:1360" ph="insert into forum... " />
-                <marker date="1510846839000" expanded="true" signature="2036:2084" ph="SELECT * FRO... forum" />
-                <marker date="1510846839000" expanded="true" signature="2378:2410" ph="SELECT * FRO... forum" />
-                <marker date="1510846839000" expanded="true" signature="2820:3165" ph="update forum... " />
-                <marker date="1510846839000" expanded="true" signature="2896:2951" ph="select count... post" />
-                <marker date="1510846839000" expanded="true" signature="3027:3084" ph="select count... thread" />
-                <marker date="1510846839000" expanded="true" signature="3651:3716" ph="SELECT DISTI... users_on_forum" />
-                <marker date="1510846839000" expanded="true" signature="3651:3733" ph="SELECT DISTI... users_on_forum" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PostDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
+            <state relative-caret-position="718">
               <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
               <folding>
                 <marker date="1510847739000" expanded="true" signature="1540:1721" ph="insert into post... " />
@@ -234,8 +197,8 @@
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" />
       </list>
     </option>
   </component>
@@ -504,12 +467,12 @@
       <workItem from="1510595699748" duration="3630000" />
       <workItem from="1510637837706" duration="2299000" />
       <workItem from="1510733177136" duration="18702000" />
-      <workItem from="1510821566877" duration="12107000" />
+      <workItem from="1510821566877" duration="12516000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176996000" />
+    <option name="totallyTimeSpent" value="177405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -532,7 +495,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25146198" sideWeight="0.5214592" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.47854078" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.47854078" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -981,11 +944,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/PostController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+        <state relative-caret-position="334">
+          <caret line="47" column="33" lean-forward="false" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="718">
+          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+          <folding>
+            <marker date="1510847739000" expanded="true" signature="1540:1721" ph="insert into post... " />
+            <marker date="1510847739000" expanded="true" signature="2645:2676" ph="SELECT * FRO... post" />
+            <marker date="1510847739000" expanded="true" signature="3113:3311" ph="update post " />
+            <marker date="1510847739000" expanded="true" signature="3808:3912" ph="update post " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1015,37 +991,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/ThreadController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
+        <state relative-caret-position="1794">
           <caret line="138" column="66" lean-forward="true" selection-start-line="138" selection-start-column="66" selection-end-line="138" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/controllers/PostController.java">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e0e4101e-9a2a-420e-958f-d08730fd42b8/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="47" column="33" lean-forward="false" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        <state relative-caret-position="195">
+          <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/myPackage/dao/PostDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
-          <folding>
-            <marker date="1510847739000" expanded="true" signature="1540:1721" ph="insert into post... " />
-            <marker date="1510847739000" expanded="true" signature="2645:2676" ph="SELECT * FRO... post" />
-            <marker date="1510847739000" expanded="true" signature="3113:3311" ph="update post " />
-            <marker date="1510847739000" expanded="true" signature="3808:3912" ph="update post " />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="84" column="37" lean-forward="true" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
+        <state relative-caret-position="201">
+          <caret line="157" column="36" lean-forward="false" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
           <folding />
         </state>
       </provider>
