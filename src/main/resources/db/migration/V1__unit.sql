@@ -53,8 +53,15 @@ CREATE TABLE thread (
 --
 -- CREATE INDEX IF NOT EXISTS thread_forum
 --         ON thread (forumid);
-CREATE INDEX IF NOT EXISTS thread_forum_created
-        ON thread (forumid, created);
+
+
+
+
+
+
+
+-- CREATE INDEX IF NOT EXISTS thread_forum_created
+--         ON thread (forumid, created);
 
 CREATE TABLE post (
         id       SERIAL PRIMARY KEY,
@@ -72,8 +79,15 @@ CREATE TABLE post (
 -- CREATE INDEX IF NOT EXISTS post_id
 --         ON post (threadid, id);
 
-CREATE INDEX IF NOT EXISTS post_id_path
-        ON post (threadid, path);
+
+
+
+
+
+
+
+-- CREATE INDEX IF NOT EXISTS post_id_path
+--         ON post (threadid, path);
 
 
 
@@ -97,8 +111,14 @@ CREATE TABLE users_on_forum (
         forumid     INTEGER,
         UNIQUE (forumid, nickname)
 );
-CREATE UNIQUE INDEX IF NOT EXISTS index_users_on_forum
-        ON users_on_forum (forumid, lower(nickname));
+
+
+
+
+
+
+-- CREATE UNIQUE INDEX IF NOT EXISTS index_users_on_forum
+--         ON users_on_forum (forumid, lower(nickname));
 
 
 CREATE OR REPLACE FUNCTION vote()

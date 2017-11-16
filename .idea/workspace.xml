@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38beb54-e3c0-401b-82fd-ef732d1af4e2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tables.sql" afterPath="$PROJECT_DIR$/tables.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -57,8 +55,8 @@
       <file leaf-file-name="V1__unit.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="55" column="47" lean-forward="true" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+            <state relative-caret-position="249">
+              <caret line="119" column="20" lean-forward="false" selection-start-line="119" selection-start-column="17" selection-end-line="119" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -173,6 +171,7 @@
       <find>update</find>
       <find>index</find>
       <find>INDEX</find>
+      <find>IND</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -492,12 +491,12 @@
       <workItem from="1510637837706" duration="2299000" />
       <workItem from="1510733177136" duration="18702000" />
       <workItem from="1510821566877" duration="13144000" />
-      <workItem from="1510864412188" duration="500000" />
+      <workItem from="1510864412188" duration="658000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178533000" />
+    <option name="totallyTimeSpent" value="178691000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -762,6 +761,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,8 +1027,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__unit.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="55" column="47" lean-forward="true" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+        <state relative-caret-position="249">
+          <caret line="119" column="20" lean-forward="false" selection-start-line="119" selection-start-column="17" selection-end-line="119" selection-end-column="20" />
           <folding />
         </state>
       </provider>
