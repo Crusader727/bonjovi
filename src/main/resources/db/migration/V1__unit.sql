@@ -8,10 +8,10 @@ CREATE TABLE users (
         email    CITEXT        NOT NULL UNIQUE,
         about    TEXT
 );
-CREATE INDEX IF NOT EXISTS users_nickname_id
-        ON users (lower(nickname), id);
-CREATE UNIQUE INDEX IF NOT EXISTS users_nickname
-        ON users (lower(nickname));
+-- CREATE INDEX IF NOT EXISTS users_nickname_id
+--         ON users (lower(nickname), id);
+-- CREATE UNIQUE INDEX IF NOT EXISTS users_nickname
+--         ON users (lower(nickname));
 
 
 CREATE TABLE forum (
@@ -23,15 +23,13 @@ CREATE TABLE forum (
         owner       CITEXT REFERENCES users (nickname)
 );
 
-
-CREATE UNIQUE INDEX IF NOT EXISTS forum_slug
-        ON forum (lower(slug));
-CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_id
-        ON forum (lower(slug), id);
+--
+-- CREATE UNIQUE INDEX IF NOT EXISTS forum_slug
+--         ON forum (lower(slug));
+-- CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_id
+--         ON forum (lower(slug), id);
 -- CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_owner
---   ON forum (lower(slug), lower(owner));
-CREATE UNIQUE INDEX IF NOT EXISTS forum_slug_owner
-        ON forum (id, lower(owner));
+--         ON forum (id, lower(owner));
 
 CREATE TABLE thread (
         tid     SERIAL PRIMARY KEY,
@@ -45,22 +43,16 @@ CREATE TABLE thread (
         votes   BIGINT
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS thread_slug
-        ON thread (lower(slug));
-CREATE UNIQUE INDEX IF NOT EXISTS thread_id_slug
-        ON thread (tid, lower(slug));
+-- CREATE UNIQUE INDEX IF NOT EXISTS thread_slug
+--         ON thread (lower(slug));
+-- CREATE UNIQUE INDEX IF NOT EXISTS thread_id_slug
+--         ON thread (tid, lower(slug));
 -- CREATE INDEX IF NOT EXISTS thread_forum_owner
---   ON thread (lower(owner), lower(forum));
-CREATE INDEX IF NOT EXISTS thread_forum_owner
-        ON thread (lower(owner), forumid);
+--         ON thread (lower(owner), forumid);
 
-
+--
 -- CREATE INDEX IF NOT EXISTS thread_forum
---   ON thread (lower(forum));
-CREATE INDEX IF NOT EXISTS thread_forum
-        ON thread (forumid);
--- CREATE INDEX IF NOT EXISTS thread_forum_created
---   ON thread (lower(forum), created);
+--         ON thread (forumid);
 CREATE INDEX IF NOT EXISTS thread_forum_created
         ON thread (forumid, created);
 
@@ -76,16 +68,14 @@ CREATE TABLE post (
         forumid INTEGER ,
         path     INT []
 );
--- CREATE INDEX IF NOT EXISTS post_forum_owner
---         ON post (lower(owner), forumid);
-CREATE INDEX IF NOT EXISTS post_id
-        ON post (threadid, id, created);
+
+-- CREATE INDEX IF NOT EXISTS post_id
+--         ON post (threadid, id);
 
 CREATE INDEX IF NOT EXISTS post_id_path
-        ON post (threadid, path, id);
+        ON post (threadid, path);
 
--- CREATE INDEX IF NOT EXISTS post_id_threadid
---         ON post (id, threadid);
+
 
 CREATE TABLE vote (
         id       SERIAL PRIMARY KEY,
@@ -94,8 +84,8 @@ CREATE TABLE vote (
         votes    INT
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
-        ON vote (userid, threadid);
+-- CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
+--         ON vote (userid, threadid);
 
 -- for getUsers
 CREATE TABLE users_on_forum (
@@ -107,7 +97,7 @@ CREATE TABLE users_on_forum (
         forumid     INTEGER,
         UNIQUE (forumid, nickname)
 );
-CREATE INDEX IF NOT EXISTS index_users_on_forum
+CREATE UNIQUE INDEX IF NOT EXISTS index_users_on_forum
         ON users_on_forum (forumid, lower(nickname));
 
 
@@ -166,9 +156,7 @@ BEGIN
                  FROM users u
                  WHERE lower(new.owner) = lower(u.nickname))
         ON CONFLICT DO NOTHING;
-        --   UPDATE thread
-        --   SET forumid = (SELECT id from forum where lower(forum.slug) = lower(new.forum))
-        --   WHERE lower(forum.slug) = lower(new.forum);
+
         RETURN new;
 END;
 $$;
@@ -215,24 +203,3 @@ FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
 
--- for forumid in thread
--- CREATE OR REPLACE FUNCTION set_forumid_inThread()
---   RETURNS TRIGGER
--- LANGUAGE plpgsql
--- AS $$
--- BEGIN
---   UPDATE thread
---   SET forumid = (SELECT id from forum where lower(forum.slug) = lower(new.forum))
---   WHERE lower(forum.slug) = lower(new.forum);
---   RETURN new;
--- END;
--- $$;
---
--- DROP TRIGGER IF EXISTS t_setForumID_inThread
--- ON thread;
---
--- CREATE TRIGGER t_setForumID_inThread
--- BEFORE INSERT
---   ON thread
--- FOR EACH ROW
--- EXECUTE PROCEDURE set_forumid_inThread();
