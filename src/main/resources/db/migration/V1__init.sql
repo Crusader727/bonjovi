@@ -222,7 +222,9 @@ BEFORE INSERT
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
--- awawddaw
+
+
+-- awawdadw
 CREATE INDEX thread_forum_created
         ON thread (forumid, created);
 
@@ -232,5 +234,4 @@ CREATE UNIQUE INDEX forum_slug
   ON forum (lower(slug));
 CREATE UNIQUE INDEX users_nickname
   ON users (lower(nickname));
-
 
