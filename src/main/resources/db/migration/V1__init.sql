@@ -86,8 +86,8 @@ CREATE TABLE post (
 
 
 
--- CREATE INDEX IF NOT EXISTS post_id_path
---         ON post (threadid, path);
+CREATE INDEX  post_id_path
+        ON post (threadid, path);
 
 
 
@@ -98,8 +98,8 @@ CREATE TABLE vote (
         votes    INT
 );
 
--- CREATE UNIQUE INDEX IF NOT EXISTS vote_user_thread
---         ON vote (userid, threadid);
+CREATE UNIQUE INDEX  vote_user_thread
+        ON vote (userid, threadid);
 
 -- for getUsers
 CREATE TABLE users_on_forum (
@@ -117,8 +117,8 @@ CREATE TABLE users_on_forum (
 
 
 
--- CREATE UNIQUE INDEX IF NOT EXISTS index_users_on_forum
---         ON users_on_forum (forumid, lower(nickname));
+CREATE UNIQUE INDEX index_users_on_forum
+        ON users_on_forum (forumid, lower(nickname));
 
 
 CREATE OR REPLACE FUNCTION vote()
@@ -221,5 +221,16 @@ BEFORE INSERT
         ON post
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
+
+-- awawddaw
+CREATE INDEX thread_forum_created
+        ON thread (forumid, created);
+
+CREATE UNIQUE INDEX thread_slug
+  ON thread (lower(slug));
+CREATE UNIQUE INDEX forum_slug
+  ON forum (lower(slug));
+CREATE UNIQUE INDEX users_nickname
+  ON users (lower(nickname));
 
 
