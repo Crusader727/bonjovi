@@ -55,14 +55,6 @@ CREATE TABLE vote (
 CREATE UNIQUE INDEX vote_user_thread
   ON vote (userid, threadid);
 
-  CREATE INDEX post_id_path
-  ON post (threadid, path, id);
-
-CREATE INDEX thread_forum_created
-  ON thread (forumid, created);
-
-
-
 -- for getUsers
 CREATE TABLE users_on_forum (
   id       SERIAL PRIMARY KEY,
@@ -73,9 +65,6 @@ CREATE TABLE users_on_forum (
   forumid  INTEGER,
   UNIQUE (forumid, nickname)
 );
-
- CREATE INDEX users_on_forum_forumid_nick
-  ON users_on_forum (forumid, nickname);
 
 
 CREATE OR REPLACE FUNCTION vote()
@@ -180,3 +169,34 @@ BEFORE INSERT
   ON post
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
+
+
+--inderxes
+
+CREATE INDEX post_id_path
+  ON post (threadid, path, id);
+
+CREATE INDEX thread_forum_created
+  ON thread (forumid, created);
+
+
+CREATE INDEX users_on_forum_forumid_nick
+  ON users_on_forum (forumid, nickname);
+
+
+
+CREATE INDEX thread_slug
+  ON thread (slug);
+
+CREATE INDEX post_threadid_iD_created
+  ON post (threadid, id, created);
+
+CREATE INDEX post_parnt_threadid_path_id
+  ON post (parent, threadid, path, id);
+
+
+CREATE INDEX forum_slug
+  ON forum (slug);
+
+CREATE INDEX user_nick
+  ON users (nickname);
