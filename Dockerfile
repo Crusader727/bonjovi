@@ -11,7 +11,7 @@
 
     RUN /etc/init.d/postgresql start &&\
         psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-        createdb -O docker forum_db &&\
+        createdb -O docker docker &&\
         /etc/init.d/postgresql stop
 
     RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$PGVER/main/pg_hba.conf
