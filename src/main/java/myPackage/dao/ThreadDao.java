@@ -76,7 +76,7 @@ public class ThreadDao {
     public Thread getThreadBySlug(String slug) {
         try {
             final Thread th = template.queryForObject(
-                    "SELECT * FROM thread WHERE lower(slug) = lower(?)",
+                    "SELECT * FROM thread WHERE slug = ?::citext",
                     new Object[]{slug}, THREAD_MAPPER);
             return th;
         } catch (DataAccessException e) {
@@ -86,7 +86,7 @@ public class ThreadDao {
 
     public boolean getThreadByForum(String forum) {
         final List<Thread> th = template.query(
-                "SELECT * FROM thread WHERE lower(forum) = lower(?)",
+                "SELECT * FROM thread WHERE forum = ?::citext",
                 new Object[]{forum}, THREAD_MAPPER);
 
         if (th.isEmpty()) {
@@ -240,19 +240,19 @@ public class ThreadDao {
             myObj.add(threadId);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? order by id desc limit ? ) ";
+                    myStr += " and path[1] = ANY(select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? order by id desc limit ? ) ";
 
                 } else {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? order by id limit ? ) ";
+                    myStr += " and path[1] = ANY(select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? order by id limit ? ) ";
                 }
                 myObj.add(since);
                 myObj.add(threadId);
                 myObj.add(limit);
             } else if (limit != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id desc limit ? ) ";
+                    myStr += " and path[1] = ANY(select id  from post where parent = 0 and threadid = ? order by id desc limit ? ) ";
                 } else {
-                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id limit ? ) ";
+                    myStr += " and path[1] = ANY(select id  from post where parent = 0 and threadid = ? order by id limit ? ) ";
                 }
                 myObj.add(threadId);
                 myObj.add(limit);

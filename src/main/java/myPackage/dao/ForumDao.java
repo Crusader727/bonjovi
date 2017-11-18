@@ -53,7 +53,7 @@ public class ForumDao {
     public Forum getForum(String slug) {
         try {
             final Forum fr = template.queryForObject(
-                    "SELECT * FROM forum WHERE LOWER(slug) = LOWER(?)",
+                    "SELECT * FROM forum WHERE slug = ?::citext",
                     new Object[]{slug}, FORUM_MAPPER);
             return fr;
         } catch (DataAccessException e) {

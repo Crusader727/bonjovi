@@ -54,9 +54,11 @@ CREATE TABLE vote (
 
 -- CREATE UNIQUE INDEX vote_user_thread
 --   ON vote (userid, threadid);
-
-  CREATE INDEX post_id_path
+CREATE INDEX post_id_path
   ON post (threadid, path, id);
+
+CREATE INDEX thread_forum_created
+  ON thread (forumid, created); 
 
 -- for getUsers
 CREATE TABLE users_on_forum (

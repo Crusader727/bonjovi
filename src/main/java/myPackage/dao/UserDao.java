@@ -71,7 +71,7 @@ public class UserDao {
     public User getUserByNick(String nickname) {
         try {
             final User fr = template.queryForObject(
-                    "SELECT * FROM users WHERE lower(nickname) = LOWER(?)",
+                    "SELECT * FROM users WHERE nickname = ?::citext;",
                     new Object[]{nickname}, USER_MAPPER);
             return fr;
         } catch (DataAccessException e) {
@@ -81,7 +81,7 @@ public class UserDao {
     public User getUserIDbyNick(String nickname) {
         try {
             final User fr = template.queryForObject(
-                    "SELECT id FROM users WHERE lower(nickname) = LOWER(?)",
+                    "SELECT id FROM users WHERE nickname = ?::citext;",
                     new Object[]{nickname}, USER_MAPPER_ID);
             return fr;
         } catch (DataAccessException e) {
