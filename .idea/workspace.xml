@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38beb54-e3c0-401b-82fd-ef732d1af4e2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources/e0e4101e-9a2a-420e-958f-d08730fd42b8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/myPackage/controllers/RequestLoggingFilterConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/myPackage/controllers/RequestLoggingFilterConfig.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_metadata_/metadata" afterPath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_metadata_/metadata" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_metadata_/metadata.values.at" afterPath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_metadata_/metadata.values.at" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_src_/database/docker/schema/public.zip" afterPath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f/_src_/database/docker/schema/public.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/4e841a1a-770c-4e34-9395-4a113216843f.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__init.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__init.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1__init.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1__init.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -65,7 +62,7 @@
       <file leaf-file-name="V1__init.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__init.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
+            <state relative-caret-position="264">
               <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="3" selection-end-line="55" selection-end-column="32" />
               <folding />
             </state>
@@ -75,8 +72,8 @@
       <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4e841a1a-770c-4e34-9395-4a113216843f/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="15" lean-forward="false" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
+            <state relative-caret-position="540">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -238,8 +235,8 @@
         <option value="$PROJECT_DIR$/src/main/java/myPackage/dao/ForumDao.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/Dockerfile" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/4e841a1a-770c-4e34-9395-4a113216843f/console.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/4e841a1a-770c-4e34-9395-4a113216843f/console.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__init.sql" />
       </list>
     </option>
@@ -511,12 +508,12 @@
       <workItem from="1510733177136" duration="18702000" />
       <workItem from="1510821566877" duration="13144000" />
       <workItem from="1510864412188" duration="658000" />
-      <workItem from="1510998368600" duration="1245000" />
+      <workItem from="1510998368600" duration="2465000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184312000" />
+    <option name="totallyTimeSpent" value="185532000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -539,7 +536,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25146198" sideWeight="0.5214592" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.47854078" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.47854078" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -891,14 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4e841a1a-770c-4e34-9395-4a113216843f/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="15" lean-forward="false" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/2112e553/4e841a1a-770c-4e34-9395-4a113216843f/docker.public.post">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -929,9 +918,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4e841a1a-770c-4e34-9395-4a113216843f/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__init.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
+        <state relative-caret-position="264">
           <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="3" selection-end-line="55" selection-end-column="32" />
           <folding />
         </state>
