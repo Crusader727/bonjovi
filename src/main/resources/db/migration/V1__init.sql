@@ -52,13 +52,16 @@ CREATE TABLE vote (
   votes    INT
 );
 
--- CREATE UNIQUE INDEX vote_user_thread
---   ON vote (userid, threadid);
-CREATE INDEX post_id_path
+CREATE UNIQUE INDEX vote_user_thread
+  ON vote (userid, threadid);
+
+  CREATE INDEX post_id_path
   ON post (threadid, path, id);
 
 CREATE INDEX thread_forum_created
-  ON thread (forumid, created); 
+  ON thread (forumid, created);
+
+
 
 -- for getUsers
 CREATE TABLE users_on_forum (
@@ -70,6 +73,9 @@ CREATE TABLE users_on_forum (
   forumid  INTEGER,
   UNIQUE (forumid, nickname)
 );
+
+ CREATE INDEX users_on_forum_forumid_nick
+  ON users_on_forum (forumid, nickname);
 
 
 CREATE OR REPLACE FUNCTION vote()
