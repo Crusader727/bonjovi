@@ -1,15 +1,17 @@
-    FROM ubuntu:16.04
+    FROM ubuntu:17.04
 
-    RUN apt-get -y update
+    MAINTAINER Ruben Oganesyan
 
-    ENV PGVER 9.5
-    RUN apt-get install -y postgresql-$PGVER
+    RUN apt-get -y update && apt-get install -y wget git
+
+    ENV PGVER 9.6
+    RUN apt-get -f install -y postgresql-$PGVER
 
     USER postgres
 
     RUN /etc/init.d/postgresql start &&\
         psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-        createdb -E UTF8 -T template0 -O docker docker &&\
+        createdb -O docker forum_db &&\
         /etc/init.d/postgresql stop
 
     RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$PGVER/main/pg_hba.conf
