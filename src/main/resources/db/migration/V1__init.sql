@@ -1,4 +1,3 @@
-
 CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TABLE users (
@@ -51,9 +50,6 @@ CREATE TABLE vote (
   threadid INTEGER NOT NULL REFERENCES thread (tid),
   votes    INT
 );
-
-CREATE UNIQUE INDEX vote_user_thread
-  ON vote (userid, threadid);
 
 -- for getUsers
 CREATE TABLE users_on_forum (
@@ -170,33 +166,109 @@ BEFORE INSERT
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
-
 --inderxes
-
-CREATE INDEX post_id_path
-  ON post (threadid, path, id);
-
-CREATE INDEX thread_forum_created
-  ON thread (forumid, created);
+-- CREATE UNIQUE INDEX vote_user_thread
+--   ON vote (userid, threadid);
 
 
-CREATE INDEX users_on_forum_forumid_nick
+-- CREATE INDEX post_id_path
+--   ON post (threadid, path, id);
+--
+-- CREATE INDEX thread_forum_created
+--   ON thread (forumid, created);
+--
+--
+-- CREATE INDEX users_on_forum_forumid_nick
+--   ON users_on_forum (forumid, nickname);
+--
+--
+--
+-- CREATE INDEX thread_slug
+--   ON thread (slug);
+--
+-- CREATE INDEX post_threadid_iD_created
+--   ON post (threadid, id, created);
+--
+-- CREATE INDEX post_parnt_threadid_path_id
+--   ON post (parent, threadid, path, id);
+--
+--
+-- CREATE INDEX forum_slug
+--   ON forum (slug);
+--
+-- CREATE INDEX user_nick
+--   ON users (nickname);
+
+
+CREATE UNIQUE INDEX users_nickname
+  ON users (nickname);
+
+CREATE UNIQUE INDEX users_email
+  ON users (email);
+
+CREATE INDEX user_nickname_email
+  ON users (nickname, email);
+
+
+CREATE UNIQUE INDEX forum_slug
+  ON forum (slug);
+
+CREATE UNIQUE INDEX users_on_forum_forumid_nick
   ON users_on_forum (forumid, nickname);
 
 
-
-CREATE INDEX thread_slug
+CREATE UNIQUE INDEX thread_slug
   ON thread (slug);
 
-CREATE INDEX post_threadid_iD_created
-  ON post (threadid, id, created);
+CREATE INDEX thread_forumid
+  ON thread (forumid);
 
-CREATE INDEX post_parnt_threadid_path_id
-  ON post (parent, threadid, path, id);
+CREATE INDEX thread_created
+  ON thread (created);
+
+CREATE INDEX thread_forumid_created
+  ON thread (forumid, created);
 
 
-CREATE INDEX forum_slug
-  ON forum (slug);
+CREATE INDEX post_id_forumid
+  ON post (id, forumid);
+CREATE INDEX post_id_forum
+  ON post (id, forum);
 
-CREATE INDEX user_nick
-  ON users (nickname);
+CREATE INDEX post_id_tid
+  ON post (id, threadid);
+
+CREATE INDEX post_owner_id
+  ON post (owner, id);
+
+CREATE INDEX post_parent
+  ON post (parent);
+
+
+CREATE INDEX post_id_tid_parent
+  ON post (id, threadid, parent);
+
+CREATE INDEX post_parent_tid
+  ON post (parent, threadid);
+
+CREATE INDEX post_parent_tid_path
+  ON post (parent, threadid, path);
+
+CREATE INDEX post_path_tid
+  ON post (path, threadid);
+
+CREATE INDEX post_path_created
+  ON post (path, created);
+
+CREATE INDEX post_forumid
+  ON post (forumid);
+
+CREATE INDEX post_tid_id
+  ON post (threadid, id);
+
+CREATE INDEX post_tid_path
+  ON post (threadid, path);
+
+
+CREATE UNIQUE INDEX vote_user_thread
+  ON vote (userid, threadid);
