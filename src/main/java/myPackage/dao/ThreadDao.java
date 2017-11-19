@@ -96,9 +96,6 @@ public class ThreadDao {
     }
 
     public Object[] getThreads(Long forumid, Integer limit, String since, Boolean desc) {
-//        if (!getThreadByForum(forum)) {
-//            return null;
-//        }
         try {
             List<Object> myObj = new ArrayList<>();
             String myStr = "select * from thread where forumid = ? ";
@@ -240,13 +237,13 @@ public class ThreadDao {
             myObj.add(threadId);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path < (select path from post where id = ?) and threadid = ? order by id desc limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by id desc limit ? ) ";
 
                 } else {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and path > (select path from post where id = ?) and threadid = ? order by id limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by id limit ? ) ";
                 }
-                myObj.add(since);
                 myObj.add(threadId);
+                myObj.add(since);
                 myObj.add(limit);
             } else if (limit != null) {
                 if (desc != null && desc) {

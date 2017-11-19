@@ -1,4 +1,3 @@
-
 CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TABLE users (
@@ -51,9 +50,6 @@ CREATE TABLE vote (
   threadid INTEGER NOT NULL REFERENCES thread (tid),
   votes    INT
 );
-
-CREATE UNIQUE INDEX vote_user_thread
-  ON vote (userid, threadid);
 
 -- for getUsers
 CREATE TABLE users_on_forum (
@@ -170,33 +166,41 @@ BEFORE INSERT
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
-
 --inderxes
+CREATE UNIQUE INDEX vote_user_thread
+  ON vote (userid, threadid);
 
-CREATE INDEX post_id_path
-  ON post (threadid, path, id);
+
+
 
 CREATE INDEX thread_forum_created
-  ON thread (forumid, created);
+  ON thread (forumid, created); -----+++++
+
+CREATE INDEX thread_slug
+  ON thread (slug); ---++++
 
 
 CREATE INDEX users_on_forum_forumid_nick
-  ON users_on_forum (forumid, nickname);
+  ON users_on_forum (forumid, nickname); -----+++
 
 
 
-CREATE INDEX thread_slug
-  ON thread (slug);
+
 
 CREATE INDEX post_threadid_iD_created
-  ON post (threadid, id, created);
+  ON post (threadid, id, created); --++++
 
-CREATE INDEX post_parnt_threadid_path_id
-  ON post (parent, threadid, path, id);
+CREATE INDEX post_parnt_threadid_path
+  ON post (parent, threadid, path);--++++
+
+CREATE INDEX post_tid_path
+  ON post (threadid, path);--++++
 
 
 CREATE INDEX forum_slug
-  ON forum (slug);
+  ON forum (slug);-----+++++
 
-CREATE INDEX user_nick
-  ON users (nickname);
+CREATE INDEX users_nick
+  ON users (nickname); --++++++
+
+
