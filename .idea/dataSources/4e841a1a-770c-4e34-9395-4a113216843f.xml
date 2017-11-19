@@ -12,8 +12,8 @@
     </database>
     <schema id="4" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-11-19.11:23:36.538</IntrospectionTimestamp>
-      <IntrospectionStateNumber>5732413</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-11-19.17:49:49.121</IntrospectionTimestamp>
+      <IntrospectionStateNumber>5860709</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -33,38 +33,38 @@
       <ObjectId>12381</ObjectId>
     </schema>
     <sequence id="10" parent="4" name="forum_id_seq">
-      <ObjectId>196528</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196714</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <sequence id="11" parent="4" name="post_id_seq">
-      <ObjectId>196569</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196755</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <sequence id="12" parent="4" name="thread_tid_seq">
-      <ObjectId>196546</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196732</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <sequence id="13" parent="4" name="users_id_seq">
-      <ObjectId>196513</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196699</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <sequence id="14" parent="4" name="users_on_forum_id_seq">
-      <ObjectId>196614</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196800</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <sequence id="15" parent="4" name="vote_id_seq">
-      <ObjectId>196596</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196782</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
@@ -76,32 +76,32 @@
       <Definition>-</Definition>
     </object-type>
     <table id="17" parent="4" name="forum">
-      <ObjectId>196530</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196716</ObjectId>
+      <StateNumber>5734614</StateNumber>
     </table>
     <table id="18" parent="4" name="post">
-      <ObjectId>196571</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196757</ObjectId>
+      <StateNumber>5734614</StateNumber>
     </table>
     <table id="19" parent="4" name="schema_version">
-      <ObjectId>196503</ObjectId>
-      <StateNumber>5732410</StateNumber>
+      <ObjectId>196689</ObjectId>
+      <StateNumber>5734610</StateNumber>
     </table>
     <table id="20" parent="4" name="thread">
-      <ObjectId>196548</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196734</ObjectId>
+      <StateNumber>5734614</StateNumber>
     </table>
     <table id="21" parent="4" name="users">
-      <ObjectId>196515</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196701</ObjectId>
+      <StateNumber>5734614</StateNumber>
     </table>
     <table id="22" parent="4" name="users_on_forum">
-      <ObjectId>196616</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196802</ObjectId>
+      <StateNumber>5734613</StateNumber>
     </table>
     <table id="23" parent="4" name="vote">
-      <ObjectId>196598</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196784</ObjectId>
+      <StateNumber>5734614</StateNumber>
     </table>
     <routine id="24" parent="4" name="citext">
       <ObjectId>130793</ObjectId>
@@ -224,7 +224,7 @@
     </routine>
     <routine id="41" parent="4" name="forum_posts_inc">
       <ObjectId>130990</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
       <LanguageName>plpgsql</LanguageName>
@@ -232,7 +232,7 @@
     </routine>
     <routine id="42" parent="4" name="forum_threads_inc">
       <ObjectId>130988</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
       <LanguageName>plpgsql</LanguageName>
@@ -422,7 +422,7 @@
     </routine>
     <routine id="65" parent="4" name="vote">
       <ObjectId>130986</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
       <LanguageName>plpgsql</LanguageName>
@@ -608,7 +608,7 @@
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>forum_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;forum_id_seq&apos;::regclass)</DefaultExpression>
     </column>
@@ -616,58 +616,59 @@
       <Position>2</Position>
       <DataType>citext|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="90" parent="17" name="title">
       <Position>3</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="91" parent="17" name="postcount">
       <Position>4</Position>
       <DataType>bigint|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="92" parent="17" name="threadcount">
       <Position>5</Position>
       <DataType>bigint|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="93" parent="17" name="owner">
       <Position>6</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="94" parent="17" name="forum_pkey">
-      <ObjectId>196537</ObjectId>
+      <ObjectId>196723</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="95" parent="17" name="forum_slug_key">
-      <ObjectId>196539</ObjectId>
+    <index id="95" parent="17" name="forum_slug">
+      <ObjectId>196904</ObjectId>
       <ColNames>slug</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="96" parent="17" name="forum_slug">
-      <ObjectId>196637</ObjectId>
+    <index id="96" parent="17" name="forum_slug_key">
+      <ObjectId>196725</ObjectId>
       <ColNames>slug</ColNames>
+      <Unique>1</Unique>
     </index>
     <key id="97" parent="17" name="forum_pkey">
-      <ObjectId>196538</ObjectId>
+      <ObjectId>196724</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>forum_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <key id="98" parent="17" name="forum_slug_key">
-      <ObjectId>196540</ObjectId>
+      <ObjectId>196726</ObjectId>
       <ColNames>slug</ColNames>
       <UnderlyingIndexName>forum_slug_key</UnderlyingIndexName>
     </key>
     <foreign-key id="99" parent="17" name="forum_owner_fkey">
-      <ObjectId>196541</ObjectId>
+      <ObjectId>196727</ObjectId>
       <ColNames>owner</ColNames>
-      <RefTableId>196515</RefTableId>
+      <RefTableId>196701</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_nickname_key</RefKeyName>
@@ -677,114 +678,115 @@
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>post_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;post_id_seq&apos;::regclass)</DefaultExpression>
     </column>
     <column id="101" parent="18" name="parent">
       <Position>2</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="102" parent="18" name="owner">
       <Position>3</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="103" parent="18" name="message">
       <Position>4</Position>
       <DataType>text|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="104" parent="18" name="isedited">
       <Position>5</Position>
       <DataType>boolean|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="105" parent="18" name="forum">
       <Position>6</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="106" parent="18" name="created">
       <Position>7</Position>
       <DataType>timestamp with time zone|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="107" parent="18" name="threadid">
       <Position>8</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="108" parent="18" name="forumid">
       <Position>9</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="109" parent="18" name="path">
       <Position>10</Position>
       <DataType>integer[]|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="110" parent="18" name="post_pkey">
-      <ObjectId>196579</ObjectId>
+      <ObjectId>196765</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="111" parent="18" name="post_parnt_threadid_path">
-      <ObjectId>196635</ObjectId>
+    <index id="111" parent="18" name="post_threadid_id_created">
+      <ObjectId>196903</ObjectId>
+      <ColNames>threadid
+id
+created</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="112" parent="18" name="post_parnt_threadid_path">
+      <ObjectId>196821</ObjectId>
       <ColNames>parent
 threadid
 path</ColNames>
     </index>
-    <index id="112" parent="18" name="post_threadid_id_created">
-      <ObjectId>196634</ObjectId>
-      <ColNames>threadid
-id
-created</ColNames>
-    </index>
     <index id="113" parent="18" name="post_tid_path">
-      <ObjectId>196636</ObjectId>
+      <ObjectId>196822</ObjectId>
       <ColNames>threadid
 path</ColNames>
     </index>
     <key id="114" parent="18" name="post_pkey">
-      <ObjectId>196580</ObjectId>
+      <ObjectId>196766</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>post_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="115" parent="18" name="post_owner_fkey">
-      <ObjectId>196581</ObjectId>
+      <ObjectId>196767</ObjectId>
       <ColNames>owner</ColNames>
-      <RefTableId>196515</RefTableId>
+      <RefTableId>196701</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_nickname_key</RefKeyName>
       <RefColNames>nickname</RefColNames>
     </foreign-key>
     <foreign-key id="116" parent="18" name="post_forum_fkey">
-      <ObjectId>196586</ObjectId>
+      <ObjectId>196772</ObjectId>
       <ColNames>forum</ColNames>
-      <RefTableId>196530</RefTableId>
+      <RefTableId>196716</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>forum</RefTableName>
       <RefKeyName>forum_slug_key</RefKeyName>
       <RefColNames>slug</RefColNames>
     </foreign-key>
     <foreign-key id="117" parent="18" name="post_threadid_fkey">
-      <ObjectId>196591</ObjectId>
+      <ObjectId>196777</ObjectId>
       <ColNames>threadid</ColNames>
-      <RefTableId>196548</RefTableId>
+      <RefTableId>196734</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>thread</RefTableName>
       <RefKeyName>thread_pkey</RefKeyName>
       <RefColNames>tid</RefColNames>
     </foreign-key>
     <trigger id="118" parent="18" name="t_forum_posts_inc">
-      <ObjectId>196629</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196815</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <Turn>before-row</Turn>
       <Events>I</Events>
       <FireMode>origin</FireMode>
@@ -794,72 +796,72 @@ path</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="120" parent="19" name="version">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="121" parent="19" name="description">
       <Position>3</Position>
       <DataType>varchar(200)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="122" parent="19" name="type">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="123" parent="19" name="script">
       <Position>5</Position>
       <DataType>varchar(1000)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="124" parent="19" name="checksum">
       <Position>6</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="125" parent="19" name="installed_by">
       <Position>7</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="126" parent="19" name="installed_on">
       <Position>8</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
       <DefaultExpression>now()</DefaultExpression>
     </column>
     <column id="127" parent="19" name="execution_time">
       <Position>9</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <column id="128" parent="19" name="success">
       <Position>10</Position>
       <DataType>boolean|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732410</StateNumber>
+      <StateNumber>5734610</StateNumber>
     </column>
     <index id="129" parent="19" name="schema_version_pk">
-      <ObjectId>196510</ObjectId>
+      <ObjectId>196696</ObjectId>
       <ColNames>installed_rank</ColNames>
       <Unique>1</Unique>
     </index>
     <index id="130" parent="19" name="schema_version_s_idx">
-      <ObjectId>196512</ObjectId>
+      <ObjectId>196698</ObjectId>
       <ColNames>success</ColNames>
     </index>
     <key id="131" parent="19" name="schema_version_pk">
-      <ObjectId>196511</ObjectId>
+      <ObjectId>196697</ObjectId>
       <ColNames>installed_rank</ColNames>
       <UnderlyingIndexName>schema_version_pk</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -868,103 +870,104 @@ path</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>thread_tid_seq</SequenceName>
       <DefaultExpression>nextval(&apos;thread_tid_seq&apos;::regclass)</DefaultExpression>
     </column>
     <column id="133" parent="20" name="slug">
       <Position>2</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="134" parent="20" name="owner">
       <Position>3</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="135" parent="20" name="forum">
       <Position>4</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="136" parent="20" name="forumid">
       <Position>5</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="137" parent="20" name="created">
       <Position>6</Position>
       <DataType>timestamp with time zone|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="138" parent="20" name="message">
       <Position>7</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="139" parent="20" name="title">
       <Position>8</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="140" parent="20" name="votes">
       <Position>9</Position>
       <DataType>bigint|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="141" parent="20" name="thread_pkey">
-      <ObjectId>196555</ObjectId>
+      <ObjectId>196741</ObjectId>
       <ColNames>tid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="142" parent="20" name="thread_slug_key">
-      <ObjectId>196557</ObjectId>
+    <index id="142" parent="20" name="thread_slug">
+      <ObjectId>196901</ObjectId>
       <ColNames>slug</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="143" parent="20" name="thread_slug">
-      <ObjectId>196632</ObjectId>
+    <index id="143" parent="20" name="thread_slug_key">
+      <ObjectId>196743</ObjectId>
       <ColNames>slug</ColNames>
+      <Unique>1</Unique>
     </index>
     <index id="144" parent="20" name="thread_forum_created">
-      <ObjectId>196631</ObjectId>
+      <ObjectId>196817</ObjectId>
       <ColNames>forumid
 created</ColNames>
     </index>
     <key id="145" parent="20" name="thread_pkey">
-      <ObjectId>196556</ObjectId>
+      <ObjectId>196742</ObjectId>
       <ColNames>tid</ColNames>
       <UnderlyingIndexName>thread_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <key id="146" parent="20" name="thread_slug_key">
-      <ObjectId>196558</ObjectId>
+      <ObjectId>196744</ObjectId>
       <ColNames>slug</ColNames>
       <UnderlyingIndexName>thread_slug_key</UnderlyingIndexName>
     </key>
     <foreign-key id="147" parent="20" name="thread_owner_fkey">
-      <ObjectId>196559</ObjectId>
+      <ObjectId>196745</ObjectId>
       <ColNames>owner</ColNames>
-      <RefTableId>196515</RefTableId>
+      <RefTableId>196701</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_nickname_key</RefKeyName>
       <RefColNames>nickname</RefColNames>
     </foreign-key>
     <foreign-key id="148" parent="20" name="thread_forum_fkey">
-      <ObjectId>196564</ObjectId>
+      <ObjectId>196750</ObjectId>
       <ColNames>forum</ColNames>
-      <RefTableId>196530</RefTableId>
+      <RefTableId>196716</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>forum</RefTableName>
       <RefKeyName>forum_slug_key</RefKeyName>
       <RefColNames>slug</RefColNames>
     </foreign-key>
     <trigger id="149" parent="20" name="t_forum_threads_inc">
-      <ObjectId>196628</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196814</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <Turn>before-row</Turn>
       <Events>I</Events>
       <FireMode>origin</FireMode>
@@ -974,7 +977,7 @@ created</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>users_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
     </column>
@@ -982,57 +985,58 @@ created</ColNames>
       <Position>2</Position>
       <DataType>citext|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="152" parent="21" name="fullname">
       <Position>3</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="153" parent="21" name="email">
       <Position>4</Position>
       <DataType>citext|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="154" parent="21" name="about">
       <Position>5</Position>
       <DataType>text|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="155" parent="21" name="users_pkey">
-      <ObjectId>196522</ObjectId>
+      <ObjectId>196708</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="156" parent="21" name="users_nickname_key">
-      <ObjectId>196524</ObjectId>
+    <index id="156" parent="21" name="users_nick">
+      <ObjectId>196905</ObjectId>
       <ColNames>nickname</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="157" parent="21" name="users_email_key">
-      <ObjectId>196526</ObjectId>
+    <index id="157" parent="21" name="users_nickname_key">
+      <ObjectId>196710</ObjectId>
+      <ColNames>nickname</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="158" parent="21" name="users_email_key">
+      <ObjectId>196712</ObjectId>
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="158" parent="21" name="users_nick">
-      <ObjectId>196638</ObjectId>
-      <ColNames>nickname</ColNames>
-    </index>
     <key id="159" parent="21" name="users_pkey">
-      <ObjectId>196523</ObjectId>
+      <ObjectId>196709</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <key id="160" parent="21" name="users_nickname_key">
-      <ObjectId>196525</ObjectId>
+      <ObjectId>196711</ObjectId>
       <ColNames>nickname</ColNames>
       <UnderlyingIndexName>users_nickname_key</UnderlyingIndexName>
     </key>
     <key id="161" parent="21" name="users_email_key">
-      <ObjectId>196527</ObjectId>
+      <ObjectId>196713</ObjectId>
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_key</UnderlyingIndexName>
     </key>
@@ -1040,59 +1044,60 @@ created</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>users_on_forum_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;users_on_forum_id_seq&apos;::regclass)</DefaultExpression>
     </column>
     <column id="163" parent="22" name="nickname">
       <Position>2</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="164" parent="22" name="fullname">
       <Position>3</Position>
       <DataType>text|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="165" parent="22" name="email">
       <Position>4</Position>
       <DataType>citext|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="166" parent="22" name="about">
       <Position>5</Position>
       <DataType>text|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="167" parent="22" name="forumid">
       <Position>6</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="168" parent="22" name="users_on_forum_pkey">
-      <ObjectId>196623</ObjectId>
+      <ObjectId>196809</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="169" parent="22" name="users_on_forum_forumid_nickname_key">
-      <ObjectId>196625</ObjectId>
+    <index id="169" parent="22" name="users_on_forum_forumid_nick">
+      <ObjectId>196902</ObjectId>
       <ColNames>forumid
 nickname</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="170" parent="22" name="users_on_forum_forumid_nick">
-      <ObjectId>196633</ObjectId>
+    <index id="170" parent="22" name="users_on_forum_forumid_nickname_key">
+      <ObjectId>196811</ObjectId>
       <ColNames>forumid
 nickname</ColNames>
+      <Unique>1</Unique>
     </index>
     <key id="171" parent="22" name="users_on_forum_pkey">
-      <ObjectId>196624</ObjectId>
+      <ObjectId>196810</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>users_on_forum_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <key id="172" parent="22" name="users_on_forum_forumid_nickname_key">
-      <ObjectId>196626</ObjectId>
+      <ObjectId>196812</ObjectId>
       <ColNames>forumid
 nickname</ColNames>
       <UnderlyingIndexName>users_on_forum_forumid_nickname_key</UnderlyingIndexName>
@@ -1101,7 +1106,7 @@ nickname</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
       <SequenceName>vote_id_seq</SequenceName>
       <DefaultExpression>nextval(&apos;vote_id_seq&apos;::regclass)</DefaultExpression>
     </column>
@@ -1109,57 +1114,57 @@ nickname</ColNames>
       <Position>2</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="175" parent="23" name="threadid">
       <Position>3</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <column id="176" parent="23" name="votes">
       <Position>4</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>5732413</StateNumber>
+      <StateNumber>5734613</StateNumber>
     </column>
     <index id="177" parent="23" name="vote_pkey">
-      <ObjectId>196602</ObjectId>
+      <ObjectId>196788</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <index id="178" parent="23" name="vote_user_thread">
-      <ObjectId>196630</ObjectId>
+      <ObjectId>196816</ObjectId>
       <ColNames>userid
 threadid</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="179" parent="23" name="vote_pkey">
-      <ObjectId>196603</ObjectId>
+      <ObjectId>196789</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>vote_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="180" parent="23" name="vote_userid_fkey">
-      <ObjectId>196604</ObjectId>
+      <ObjectId>196790</ObjectId>
       <ColNames>userid</ColNames>
-      <RefTableId>196515</RefTableId>
+      <RefTableId>196701</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="181" parent="23" name="vote_threadid_fkey">
-      <ObjectId>196609</ObjectId>
+      <ObjectId>196795</ObjectId>
       <ColNames>threadid</ColNames>
-      <RefTableId>196548</RefTableId>
+      <RefTableId>196734</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>thread</RefTableName>
       <RefKeyName>thread_pkey</RefKeyName>
       <RefColNames>tid</RefColNames>
     </foreign-key>
     <trigger id="182" parent="23" name="vote_trigger">
-      <ObjectId>196627</ObjectId>
-      <StateNumber>5732413</StateNumber>
+      <ObjectId>196813</ObjectId>
+      <StateNumber>5734613</StateNumber>
       <Turn>after-row</Turn>
       <Events>IU</Events>
       <FireMode>origin</FireMode>

@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-//@Transactional
 public class ForumDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -26,7 +25,7 @@ public class ForumDao {
         this.namedTemplate = namedTemplate;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createForum(Forum body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -50,6 +49,7 @@ public class ForumDao {
         return 201;
     }
 
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForum(String slug) {
         try {
             final Forum fr = template.queryForObject(
@@ -60,6 +60,8 @@ public class ForumDao {
             return null;
         }
     }
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForumById(Long id) {
         try {
             final Forum fr = template.queryForObject(
@@ -71,6 +73,7 @@ public class ForumDao {
         }
     }
 
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void updateForum(String slug) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -90,6 +93,8 @@ public class ForumDao {
         }
     }
 
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Object[] getUsers(Long forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
@@ -126,7 +131,7 @@ public class ForumDao {
         Long id = res.getLong("id");
         Long threadCount = res.getLong("threadCount");
         String owner = res.getString("owner");
-        return new Forum(id,slug, title, owner, postCount, threadCount);
+        return new Forum(id, slug, title, owner, postCount, threadCount);
     };
 
     private static final RowMapper<User> USER_MAPPER = (res, num) -> {

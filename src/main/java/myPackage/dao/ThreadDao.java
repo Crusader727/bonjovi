@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-//@Transactional
 public class ThreadDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -30,8 +29,7 @@ public class ThreadDao {
         this.namedTemplate = namedTemplate;
     }
 
-    //    @Transactional(isolation = Isolation.REPEATABLE_READ)
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer[] createThread(Thread body) {
         Integer[] result = {0, 0};
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -62,6 +60,7 @@ public class ThreadDao {
         }
     }
 
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadById(long id) {
         try {
             final Thread th = template.queryForObject(
@@ -73,6 +72,8 @@ public class ThreadDao {
         }
     }
 
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadBySlug(String slug) {
         try {
             final Thread th = template.queryForObject(
@@ -84,6 +85,8 @@ public class ThreadDao {
         }
     }
 
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public boolean getThreadByForum(String forum) {
         final List<Thread> th = template.query(
                 "SELECT * FROM thread WHERE forum = ?::citext",
@@ -95,6 +98,7 @@ public class ThreadDao {
         return true;
     }
 
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Object[] getThreads(Long forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
@@ -124,7 +128,7 @@ public class ThreadDao {
         }
     }
 
-
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Boolean vote(Integer tid, String slug, Vote vt) {
         try {
             if (slug == null) {
@@ -156,8 +160,7 @@ public class ThreadDao {
         }
     }
 
-
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer chagenThread(Thread body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -180,6 +183,7 @@ public class ThreadDao {
     }
 
     //*****************************//
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public List<Post> getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
         List<Object> myObj = new ArrayList<>();
         if (sort == null || sort.equals("flat")) {

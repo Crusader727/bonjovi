@@ -24,7 +24,7 @@ public class PostDao {
         this.namedTemplate = namedTemplate;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createPosts(ArrayList<Post> bodyList) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -58,7 +58,7 @@ public class PostDao {
         }
     }
 
-
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
         try {
             final Post pst = template.queryForObject(
@@ -70,7 +70,7 @@ public class PostDao {
         }
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
@@ -86,7 +86,7 @@ public class PostDao {
         }, keyHolder);
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void setPostsPath(Post chuf, Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
-//@Transactional
 public class UserDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;
@@ -22,7 +21,8 @@ public class UserDao {
         this.template = template;
         this.namedTemplate = namedTemplate;
     }
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createUser(User body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -42,7 +42,8 @@ public class UserDao {
         }
         return 201;
     }
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer changeUser(User body) {
         if (getUserByNick(body.getNickname()) == null) {
             return 404;
@@ -68,6 +69,8 @@ public class UserDao {
         }
         return 201;
     }
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByNick(String nickname) {
         try {
             final User fr = template.queryForObject(
@@ -78,6 +81,8 @@ public class UserDao {
             return null;
         }
     }
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserIDbyNick(String nickname) {
         try {
             final User fr = template.queryForObject(
@@ -88,6 +93,8 @@ public class UserDao {
             return null;
         }
     }
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByEmail(String mail) {
         try {
             final User fr = template.queryForObject(

@@ -4,6 +4,7 @@ package myPackage.dao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -17,6 +18,8 @@ public class ServiceDao {
         this.namedTemplate = namedTemplate;
     }
 
+
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public myPackage.models.Service getInfo() {
         return new myPackage.models.Service(template.queryForObject(
                 "select count(*) from users;",
