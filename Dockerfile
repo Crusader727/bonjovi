@@ -17,11 +17,10 @@
     RUN echo "listen_addresses='*'" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
     RUN echo "synchronous_commit=off" >> /etc/postgresql/$PGVER/main/postgresql.conf
-    RUN echo "fsync = 'off'" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
     RUN echo "max_wal_size = 1GB" >> /etc/postgresql/$PGVER/main/postgresql.conf
     RUN echo "shared_buffers = 256MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
-    RUN echo "work_mem = 64MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
+    RUN echo "work_mem = 32MB" >> /etc/postgresql/$PGVER/main/postgresql.conf
 
     EXPOSE 5432
 
@@ -42,5 +41,5 @@
     EXPOSE 5000
 
 
-    CMD service postgresql start && java -Xms512m -Xmx512m -jar target/Db-1.0-SNAPSHOT.jar
+    CMD service postgresql start && java -jar target/Db-1.0-SNAPSHOT.jar
 
