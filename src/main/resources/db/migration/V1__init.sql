@@ -167,8 +167,8 @@ FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
 --inderxes
-CREATE UNIQUE INDEX vote_user_thread
-  ON vote (userid, threadid);
+-- CREATE UNIQUE INDEX vote_user_thread
+--   ON vote (userid, threadid);
 
 CREATE INDEX thread_forum_created
   ON thread (forumid, created); -----+++++
