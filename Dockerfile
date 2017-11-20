@@ -2,7 +2,7 @@
 
     RUN apt-get -y update
 
-    ENV PGVER 9.6
+    ENV PGVER 10
     RUN apt-get install -y postgresql-$PGVER
 
     USER postgres
