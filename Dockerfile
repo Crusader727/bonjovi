@@ -42,4 +42,4 @@
     EXPOSE 5000
 
 
-    CMD service postgresql start && java -Xmx300M -Xmx300M -jar target/Db-1.0-SNAPSHOT.jar
+    CMD service postgresql start && java -Xms100M -Xmx100M -jar target/Db-1.0-SNAPSHOT.jar
