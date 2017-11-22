@@ -63,17 +63,10 @@ public class ThreadDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadById(long id) {
         try {
-//            final Thread th = template.queryForObject(
-//                    "SELECT * FROM thread WHERE tid = ?",
-//                    new Object[]{id}, THREAD_MAPPER);
-//            return th;
-            List<Thread> list = template.query("SELECT * FROM thread WHERE tid = ?", ps -> ps.setLong(1, id), THREAD_MAPPER);
-            if(list.isEmpty()) {
-                return null;
-            }
-            else {
-                return list.get(0);
-            }
+            final Thread th = template.queryForObject(
+                    "SELECT * FROM thread WHERE tid = ?",
+                    new Object[]{id}, THREAD_MAPPER);
+            return th;
         } catch (DataAccessException e) {
             return null;
         }
@@ -83,34 +76,15 @@ public class ThreadDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadBySlug(String slug) {
         try {
-//            final Thread th = template.queryForObject(
-//                    "SELECT * FROM thread WHERE slug = ?::citext",
-//                    new Object[]{slug}, THREAD_MAPPER);
-//            return th;
-            List<Thread> list = template.query( "SELECT * FROM thread WHERE slug = ?::citext", ps -> ps.setString(1, slug), THREAD_MAPPER);
-            if(list.isEmpty()) {
-                return null;
-            }
-            else {
-                return list.get(0);
-            }
+            final Thread th = template.queryForObject(
+                    "SELECT * FROM thread WHERE slug = ?::citext",
+                    new Object[]{slug}, THREAD_MAPPER);
+            return th;
+
         } catch (DataAccessException e) {
             return null;
         }
     }
-
-
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-//    public boolean getThreadByForum(String forum) {
-//        final List<Thread> th = template.query(
-//                "SELECT * FROM thread WHERE forum = ?::citext",
-//                new Object[]{forum}, THREAD_MAPPER);
-//
-//        if (th.isEmpty()) {
-//            return false;
-//        }
-//        return true;
-//    }
 
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Object[] getThreads(Long forumid, Integer limit, String since, Boolean desc) {

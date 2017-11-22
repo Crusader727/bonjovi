@@ -178,7 +178,10 @@ CREATE INDEX post_parnt_threadid_path
   ON post (parent, threadid, path);--++++
 
 CREATE INDEX post_tid_path
-  ON post (threadid, (path[1]));
+  ON post (threadid, (path [1]));
+
+CREATE INDEX post_tid_path_id
+  ON post (threadid, path);
 
 CREATE UNIQUE INDEX thread_slug
   ON thread (slug); ---++++

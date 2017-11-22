@@ -62,22 +62,14 @@ public class PostDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
         try {
-//            final Post pst = template.queryForObject(
-//                    "SELECT * FROM post WHERE id = ?",
-//                    new Object[]{id}, POST_MAPPER);
-//            return pst;
-            List<Post> list = template.query( "SELECT * FROM post WHERE id = ?", ps -> ps.setLong(1, id), POST_MAPPER);
-            if(list.isEmpty()) {
-                return null;
-            }
-            else {
-                return list.get(0);
-            }
+            final Post pst = template.queryForObject(
+                    "SELECT * FROM post WHERE id = ?",
+                    new Object[]{id}, POST_MAPPER);
+            return pst;
         } catch (DataAccessException e) {
             return null;
         }
     }
-
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
