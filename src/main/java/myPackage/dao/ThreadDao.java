@@ -251,6 +251,8 @@ public class ThreadDao {
 
         } else {
             //WORKING HERE
+            //path[1] = any --> join on path[1] = id
+            //mb new column for path[1]
             String myStr = "select * from post where threadid = ? ";
             myObj.add(threadId);
             if (since != null) {
