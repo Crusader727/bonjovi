@@ -29,7 +29,6 @@ public class Forum {
         this.user = user;
     }
 
-
     public long getPosts() {
         return posts;
     }

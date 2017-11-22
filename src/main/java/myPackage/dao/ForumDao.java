@@ -1,6 +1,7 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +9,10 @@ import myPackage.models.Forum;
 import myPackage.models.User;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
 @Service
@@ -25,7 +25,7 @@ public class ForumDao {
         this.namedTemplate = namedTemplate;
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createForum(Forum body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -49,31 +49,46 @@ public class ForumDao {
         return 201;
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForum(String slug) {
         try {
-            final Forum fr = template.queryForObject(
-                    "SELECT * FROM forum WHERE slug = ?::citext",
-                    new Object[]{slug}, FORUM_MAPPER);
-            return fr;
+//            final Forum fr = template.queryForObject(
+//                    "SELECT * FROM forum WHERE slug = ?::citext",
+//                    new Object[]{slug}, FORUM_MAPPER);
+//            return fr;
+            List<Forum> list = template.query("SELECT * FROM forum WHERE slug = ?::citext", ps -> ps.setString(1, slug), FORUM_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForumById(Long id) {
         try {
-            final Forum fr = template.queryForObject(
-                    "SELECT * FROM forum WHERE id = ?;",
-                    new Object[]{id}, FORUM_MAPPER);
-            return fr;
+//            final Forum fr = template.queryForObject(
+//                    "SELECT * FROM forum WHERE id = ?;",
+//                    new Object[]{id}, FORUM_MAPPER);
+//            return fr;
+
+            List<Forum> list = template.query("SELECT * FROM forum WHERE id = ?;", ps -> ps.setLong(1, id), FORUM_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void updateForum(String slug) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -94,7 +109,7 @@ public class ForumDao {
     }
 
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Object[] getUsers(Long forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();

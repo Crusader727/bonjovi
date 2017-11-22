@@ -1,6 +1,7 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
 import myPackage.models.User;
 import org.springframework.dao.*;
@@ -73,10 +74,17 @@ public class UserDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByNick(String nickname) {
         try {
-            final User fr = template.queryForObject(
-                    "SELECT * FROM users WHERE nickname = ?::citext;",
-                    new Object[]{nickname}, USER_MAPPER);
-            return fr;
+//            final User fr = template.queryForObject(
+//                    "SELECT * FROM users WHERE nickname = ?::citext;",
+//                    new Object[]{nickname}, USER_MAPPER);
+//            return fr;
+            List<User> list = template.query( "SELECT * FROM users WHERE nickname = ?::citext;", ps -> ps.setString(1, nickname), USER_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }
@@ -85,10 +93,17 @@ public class UserDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserIDbyNick(String nickname) {
         try {
-            final User fr = template.queryForObject(
-                    "SELECT id FROM users WHERE nickname = ?::citext;",
-                    new Object[]{nickname}, USER_MAPPER_ID);
-            return fr;
+//            final User fr = template.queryForObject(
+//                    "SELECT id FROM users WHERE nickname = ?::citext;",
+//                    new Object[]{nickname}, USER_MAPPER_ID);
+//            return fr;
+            List<User> list = template.query( "SELECT id FROM users WHERE nickname = ?::citext;", ps -> ps.setString(1, nickname), USER_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }
@@ -97,10 +112,17 @@ public class UserDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByEmail(String mail) {
         try {
-            final User fr = template.queryForObject(
-                    "SELECT * FROM users WHERE LOWER(email) = LOWER(?)",
-                    new Object[]{mail}, USER_MAPPER);
-            return fr;
+//            final User fr = template.queryForObject(
+//                    "SELECT * FROM users WHERE LOWER(email) = LOWER(?)",
+//                    new Object[]{mail}, USER_MAPPER);
+//            return fr;
+            List<User> list = template.query( "SELECT * FROM users WHERE LOWER(email) = LOWER(?)", ps -> ps.setString(1, mail), USER_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }

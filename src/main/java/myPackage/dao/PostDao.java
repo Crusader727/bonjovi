@@ -3,6 +3,7 @@ package myPackage.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import myPackage.models.Post;
 import org.springframework.dao.*;
@@ -61,10 +62,17 @@ public class PostDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
         try {
-            final Post pst = template.queryForObject(
-                    "SELECT * FROM post WHERE id = ?",
-                    new Object[]{id}, POST_MAPPER);
-            return pst;
+//            final Post pst = template.queryForObject(
+//                    "SELECT * FROM post WHERE id = ?",
+//                    new Object[]{id}, POST_MAPPER);
+//            return pst;
+            List<Post> list = template.query( "SELECT * FROM post WHERE id = ?", ps -> ps.setLong(1, id), POST_MAPPER);
+            if(list.isEmpty()) {
+                return null;
+            }
+            else {
+                return list.get(0);
+            }
         } catch (DataAccessException e) {
             return null;
         }
