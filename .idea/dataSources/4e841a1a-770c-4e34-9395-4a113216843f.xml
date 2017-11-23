@@ -12,8 +12,8 @@
     </database>
     <schema id="4" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-11-23.00:32:16.334</IntrospectionTimestamp>
-      <IntrospectionStateNumber>11904751</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-11-23.23:57:12.286</IntrospectionTimestamp>
+      <IntrospectionStateNumber>11904774</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -733,29 +733,30 @@
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="111" parent="18" name="post_threadid_id_created">
-      <ObjectId>214771</ObjectId>
-      <ColNames>threadid
-id
-created</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="112" parent="18" name="post_parnt_threadid_path">
-      <ObjectId>214767</ObjectId>
+    <index id="111" parent="18" name="post_patent_threadid_id">
+      <ObjectId>246431</ObjectId>
       <ColNames>parent
 threadid
-path</ColNames>
+id</ColNames>
     </index>
-    <index id="113" parent="18" name="post_tid_path">
-      <ObjectId>221821</ObjectId>
+    <index id="112" parent="18" name="new_index_onpost">
+      <ObjectId>246426</ObjectId>
       <ColNames>threadid
-&#x1b;(path[1])</ColNames>
-      <FunctionBased>1</FunctionBased>
+parent
+path
+id</ColNames>
+    </index>
+    <index id="113" parent="18" name="post_threadid_created_id">
+      <ObjectId>246428</ObjectId>
+      <ColNames>threadid
+created
+id</ColNames>
     </index>
     <index id="114" parent="18" name="post_tid_path_id">
-      <ObjectId>238205</ObjectId>
+      <ObjectId>246427</ObjectId>
       <ColNames>threadid
-path</ColNames>
+path
+id</ColNames>
     </index>
     <key id="115" parent="18" name="post_pkey">
       <ObjectId>214715</ObjectId>
