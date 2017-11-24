@@ -175,21 +175,21 @@ CREATE INDEX thread_forum_created
 
 
 
-CREATE UNIQUE INDEX thread_slug
-  ON thread (slug); ---++++
+-- CREATE UNIQUE INDEX thread_slug
+--   ON thread (slug); ---++++
 
 
-CREATE UNIQUE INDEX users_on_forum_forumid_nick
-  ON users_on_forum (forumid, nickname); -----+++
+-- CREATE UNIQUE INDEX users_on_forum_forumid_nick
+--   ON users_on_forum (forumid, nickname); -----+++
 
 
 
 
-CREATE UNIQUE INDEX forum_slug
-  ON forum (slug);-----+++++
+-- CREATE UNIQUE INDEX forum_slug
+--   ON forum (slug);-----+++++
 
-CREATE UNIQUE INDEX users_nick
-  ON users (nickname); --++++++
+-- CREATE UNIQUE INDEX users_nick
+--   ON users (nickname); --++++++
 
 
 CREATE INDEX new_index_onPost
