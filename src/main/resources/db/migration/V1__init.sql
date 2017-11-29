@@ -167,31 +167,6 @@ FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
 --inderxes
-
-
-CREATE INDEX thread_forum_created
-  ON thread (forumid, created); -----+++++
-
-
-
-
--- CREATE UNIQUE INDEX thread_slug
---   ON thread (slug); ---++++
-
-
--- CREATE UNIQUE INDEX users_on_forum_forumid_nick
---   ON users_on_forum (forumid, nickname); -----+++
-
-
-
-
--- CREATE UNIQUE INDEX forum_slug
---   ON forum (slug);-----+++++
-
--- CREATE UNIQUE INDEX users_nick
---   ON users (nickname); --++++++
-
-
 CREATE INDEX new_index_onPost
   ON post (threadid, parent, path, id);
 
@@ -205,4 +180,13 @@ CREATE INDEX post_threadid_created_id
 
 CREATE INDEX post_patent_threadid_id
   ON post (parent, threadid, id);
+
+CREATE INDEX thread_forum_created
+  ON thread (forumid, created); -----+++++
+
+CREATE UNIQUE INDEX vote_user_thread
+ ON vote (userid, threadid);
+
+CREATE INDEX POST_THREADID_PATH
+  ON post (threadid, (path [1]));
 

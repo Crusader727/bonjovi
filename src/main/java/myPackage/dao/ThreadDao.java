@@ -224,31 +224,33 @@ public class ThreadDao {
             return result;
 
         } else {
-            //WORKING HERE
-            //path[1] = any --> join on path[1] = id
-            //mb new column for path[1]
+
             String myStr = "select * from post where threadid = ? ";
             myObj.add(threadId);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by id desc limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc, threadid desc  limit ? ) ";
 
                 } else {
-                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by id limit ? ) ";
+                    myStr += " and path[1] = ANY (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path , threadid  limit ? ) ";
                 }
                 myObj.add(threadId);
                 myObj.add(since);
                 myObj.add(limit);
             } else if (limit != null) {
                 if (desc != null && desc) {
-                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id desc limit ? ) ";
+                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by path desc, threadid desc limit ? ) ";
                 } else {
-                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by id limit ? ) ";
+                    myStr += " and path[1] = ANY (select id  from post where parent = 0 and threadid = ? order by path , threadid  limit ? ) ";
                 }
                 myObj.add(threadId);
                 myObj.add(limit);
             }
             myStr += " order by path ";
+            if (desc != null && desc) {
+                myStr += " desc ";
+            }
+            myStr += " ,threadid ";
             if (desc != null && desc) {
                 myStr += " desc ";
             }
