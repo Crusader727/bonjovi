@@ -187,3 +187,4 @@ CREATE INDEX thread_forum_created
 CREATE UNIQUE INDEX vote_user_thread
  ON vote (userid, threadid);
 
+
