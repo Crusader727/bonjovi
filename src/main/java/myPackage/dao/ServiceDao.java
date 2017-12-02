@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class ServiceDao {
     private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate namedTemplate;

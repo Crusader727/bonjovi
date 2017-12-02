@@ -52,17 +52,10 @@ public class ForumDao {
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForum(String slug) {
         try {
-//            final Forum fr = template.queryForObject(
-//                    "SELECT * FROM forum WHERE slug = ?::citext",
-//                    new Object[]{slug}, FORUM_MAPPER);
-//            return fr;
-            List<Forum> list = template.query("SELECT * FROM forum WHERE slug = ?::citext", ps -> ps.setString(1, slug), FORUM_MAPPER);
-            if(list.isEmpty()) {
-                return null;
-            }
-            else {
-                return list.get(0);
-            }
+            final Forum fr = template.queryForObject(
+                    "SELECT * FROM forum WHERE slug = ?::citext",
+                    new Object[]{slug}, FORUM_MAPPER);
+            return fr;
         } catch (DataAccessException e) {
             return null;
         }
@@ -71,18 +64,10 @@ public class ForumDao {
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForumById(Long id) {
         try {
-//            final Forum fr = template.queryForObject(
-//                    "SELECT * FROM forum WHERE id = ?;",
-//                    new Object[]{id}, FORUM_MAPPER);
-//            return fr;
-
-            List<Forum> list = template.query("SELECT * FROM forum WHERE id = ?;", ps -> ps.setLong(1, id), FORUM_MAPPER);
-            if(list.isEmpty()) {
-                return null;
-            }
-            else {
-                return list.get(0);
-            }
+            final Forum fr = template.queryForObject(
+                    "SELECT * FROM forum WHERE id = ?;",
+                    new Object[]{id}, FORUM_MAPPER);
+            return fr;
         } catch (DataAccessException e) {
             return null;
         }
@@ -113,25 +98,26 @@ public class ForumDao {
     public Object[] getUsers(Long forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
-            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ";
+            StringBuilder myStr = new StringBuilder("SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ");
+//            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ";
             myObj.add(forumid);
             if (since != null) {
                 if (desc != null && desc) {
-                    myStr += " AND nickname < ?::citext ";
+                    myStr.append(" AND nickname < ?::citext ");
                 } else {
-                    myStr += " AND nickname > ?::citext ";
+                    myStr.append( " AND nickname > ?::citext ");
                 }
                 myObj.add(since);
             }
-            myStr += " order by nickname ";
+            myStr.append( " order by nickname ");
             if (desc != null && desc) {
-                myStr += " desc ";
+                myStr.append( " desc ");
             }
             if (limit != null) {
-                myStr += " limit ? ";
+                myStr.append( " limit ? ");
                 myObj.add(limit);
             }
-            List<User> result = template.query(myStr
+            List<User> result = template.query(myStr.toString()
                     , myObj.toArray(), USER_MAPPER);
             return result.toArray();
         } catch (DataAccessException e) {

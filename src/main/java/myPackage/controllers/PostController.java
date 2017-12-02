@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 
 @RestController
 @RequestMapping("/api/post")
@@ -51,14 +53,14 @@ public class PostController {
         }
         Details dt = new Details(null, null, buf, null);
         if (related != null) {
-            for (String st : related) {
-                if (st.equals("user")) {
-                    dt.setAuthor(udao.getUserByNick(buf.getAuthor()));
-                } else if (st.equals("forum")) {
-                    dt.setForum(fdao.getForumById(buf.getForumid()));
-                } else if (st.equals("thread")) {
-                    dt.setThread(tdao.getThreadById((int) buf.getThread()));
-                }
+            if (Arrays.asList(related).contains("user")) {
+                dt.setAuthor(udao.getUserByNick(buf.getAuthor()));
+            }
+            if (Arrays.asList(related).contains("forum")) {
+                dt.setForum(fdao.getForumById(buf.getForumid()));
+            }
+            if (Arrays.asList(related).contains("thread")) {
+                dt.setThread(tdao.getThreadById((int) buf.getThread()));
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(dt);
