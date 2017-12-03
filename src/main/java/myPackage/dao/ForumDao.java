@@ -7,6 +7,7 @@ import java.util.List;
 
 import myPackage.models.Forum;
 import myPackage.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
@@ -18,11 +19,10 @@ import org.springframework.jdbc.core.RowMapper;
 @Service
 public class ForumDao {
     private final JdbcTemplate template;
-    private final NamedParameterJdbcTemplate namedTemplate;
 
-    public ForumDao(JdbcTemplate template, NamedParameterJdbcTemplate namedTemplate) {
+    @Autowired
+    public ForumDao(JdbcTemplate template) {
         this.template = template;
-        this.namedTemplate = namedTemplate;
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
@@ -99,7 +99,6 @@ public class ForumDao {
         try {
             List<Object> myObj = new ArrayList<>();
             StringBuilder myStr = new StringBuilder("SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ");
-//            String myStr = "SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ";
             myObj.add(forumid);
             if (since != null) {
                 if (desc != null && desc) {

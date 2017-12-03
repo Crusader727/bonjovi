@@ -1,6 +1,7 @@
 package myPackage.dao;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ServiceDao {
     private final JdbcTemplate template;
-    private final NamedParameterJdbcTemplate namedTemplate;
 
-    public ServiceDao(JdbcTemplate template, NamedParameterJdbcTemplate namedTemplate) {
+    @Autowired
+    public ServiceDao(JdbcTemplate template) {
         this.template = template;
-        this.namedTemplate = namedTemplate;
+
     }
 
 

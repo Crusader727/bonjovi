@@ -8,6 +8,7 @@ import java.util.List;
 
 import myPackage.models.Post;
 import myPackage.models.Vote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 
 import myPackage.models.Thread;
@@ -22,11 +23,11 @@ import org.springframework.jdbc.core.RowMapper;
 @Service
 public class ThreadDao {
     private final JdbcTemplate template;
-    private final NamedParameterJdbcTemplate namedTemplate;
 
-    public ThreadDao(JdbcTemplate template, NamedParameterJdbcTemplate namedTemplate) {
+    @Autowired
+    public ThreadDao(JdbcTemplate template) {
         this.template = template;
-        this.namedTemplate = namedTemplate;
+
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt

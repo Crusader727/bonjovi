@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import myPackage.models.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -18,11 +19,10 @@ import org.springframework.jdbc.core.RowMapper;
 @Service
 public class PostDao {
     private final JdbcTemplate template;
-    private final NamedParameterJdbcTemplate namedTemplate;
 
-    public PostDao(JdbcTemplate template, NamedParameterJdbcTemplate namedTemplate) {
+    @Autowired
+    public PostDao(JdbcTemplate template ) {
         this.template = template;
-        this.namedTemplate = namedTemplate;
     }
 
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
