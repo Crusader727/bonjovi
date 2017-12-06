@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
+@Transactional
 @Service
 public class ThreadDao {
     private final JdbcTemplate template;
