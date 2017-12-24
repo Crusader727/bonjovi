@@ -19,8 +19,10 @@ public class PostController {
     private final UserDao udao;
     private final ForumDao fdao;
     private final ThreadDao tdao;
+    private final Message err;
 
     public PostController(PostDao pdao, UserDao udao, ForumDao fdao, ThreadDao tdao) {
+        err = new Message("---");
         this.pdao = pdao;
         this.fdao = fdao;
         this.tdao = tdao;
@@ -49,7 +51,7 @@ public class PostController {
                                         @RequestParam(value = "related", required = false) String[] related) {
         Post buf = pdao.getPostById(id);
         if (buf == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("cant find such user"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
         Details dt = new Details(null, null, buf, null);
         if (related != null) {

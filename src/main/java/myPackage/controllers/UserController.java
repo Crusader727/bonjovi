@@ -13,9 +13,11 @@ import myPackage.models.User;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserDao udao;
+    private final Message err;
 
     public UserController(UserDao udao) {
         this.udao = udao;
+        err = new Message("---");
     }
 
     @RequestMapping(path = "/{nickname}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -44,7 +46,7 @@ public class UserController {
     public ResponseEntity<?> userProfile(@PathVariable("nickname") String nick) {
         User result = udao.getUserByNick(nick);
         if (result == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such user"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }

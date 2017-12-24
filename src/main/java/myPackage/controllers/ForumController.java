@@ -18,8 +18,10 @@ public class ForumController {
     private final ForumDao fdao;
     private final ThreadDao tdao;
     private final UserDao udao;
+    private final Message err;
 
     public ForumController(ForumDao fdao, UserDao udao, ThreadDao tdao) {
+        err = new Message("--");
         this.fdao = fdao;
         this.udao = udao;
         this.tdao = tdao;
@@ -46,7 +48,7 @@ public class ForumController {
     public ResponseEntity<?> forumDetails(@PathVariable("slug") String sl) {
         Forum result = fdao.getForum(sl);
         if (result == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such forum"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
@@ -78,7 +80,7 @@ public class ForumController {
         if (fr != null) {
             return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fr, limit, since, desc));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such forum"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
     }
 
@@ -91,7 +93,7 @@ public class ForumController {
 //        Forum fr = fdao.getForum(forum);
         Integer fr = fdao.getForumIdBySlug(forum);
         if (fr == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
         return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fr, limit, since, desc));
     }

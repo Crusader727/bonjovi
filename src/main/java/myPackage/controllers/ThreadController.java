@@ -17,11 +17,14 @@ public class ThreadController {
     private final ThreadDao tdao;
     private final PostDao pdao;
     private final UserDao udao;
+    private final Message errorMessage;
+
 
     public ThreadController(ThreadDao tdao, PostDao pdao, UserDao udao) {
         this.tdao = tdao;
         this.pdao = pdao;
         this.udao = udao;
+        this.errorMessage = new Message("---");
     }
 
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -92,7 +95,7 @@ public class ThreadController {
             buf = tdao.getThreadBySlug(key.slug);
         }
         if (buf == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         return ResponseEntity.status(HttpStatus.OK).body(buf);
     }
@@ -135,7 +138,7 @@ public class ThreadController {
 //        }
         Integer buf = tdao.getThreadIDbySlugOrID(new SlugOrID(slug_or_id));
         if (buf == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf, limit, since, sort, desc));
     }
