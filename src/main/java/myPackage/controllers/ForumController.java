@@ -72,10 +72,11 @@ public class ForumController {
     public ResponseEntity<?> getThreads(@PathVariable String forum,
                                         @RequestParam(value = "limit", required = false) Integer limit,
                                         @RequestParam(value = "since", required = false) String since,
-                                        @RequestParam(value = "desc", required = false) Boolean desc) {
-        Forum fr = fdao.getForum(forum);
+                                        @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc) {
+//        Forum fr = fdao.getForum(forum);
+        Integer fr = fdao.getForumIdBySlug(forum);
         if (fr != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fr.getId(), limit, since, desc));
+            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fr, limit, since, desc));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such forum"));
         }
@@ -86,12 +87,13 @@ public class ForumController {
     public ResponseEntity<?> getUsers(@PathVariable String forum,
                                       @RequestParam(value = "limit", required = false) Integer limit,
                                       @RequestParam(value = "since", required = false) String since,
-                                      @RequestParam(value = "desc", required = false) Boolean desc) {
-        Forum fr = fdao.getForum(forum);
+                                      @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc) {
+//        Forum fr = fdao.getForum(forum);
+        Integer fr = fdao.getForumIdBySlug(forum);
         if (fr == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("u dont have might here"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fr.getId(), limit, since, desc));
+        return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fr, limit, since, desc));
     }
 
 }

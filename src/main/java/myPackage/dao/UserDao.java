@@ -76,11 +76,9 @@ public class UserDao {
 //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByNick(String nickname) {
         try {
-            final User fr = template.queryForObject(
+            return template.queryForObject(
                     "SELECT * FROM users WHERE nickname = ?::citext;",
-                    new Object[]{nickname}, USER_MAPPER);
-            return fr;
-
+                     USER_MAPPER, nickname);
         } catch (DataAccessException e) {
             return null;
         }

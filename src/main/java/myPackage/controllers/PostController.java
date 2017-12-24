@@ -60,7 +60,7 @@ public class PostController {
                 dt.setForum(fdao.getForumById(buf.getForumid()));
             }
             if (Arrays.asList(related).contains("thread")) {
-                dt.setThread(tdao.getThreadById((int) buf.getThread()));
+                dt.setThread(tdao.getThreadById(buf.getThread()));
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(dt);

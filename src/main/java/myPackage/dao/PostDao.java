@@ -22,11 +22,11 @@ public class PostDao {
     private final JdbcTemplate template;
 
     @Autowired
-    public PostDao(JdbcTemplate template ) {
+    public PostDao(JdbcTemplate template) {
         this.template = template;
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createPosts(ArrayList<Post> bodyList) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -60,18 +60,18 @@ public class PostDao {
         }
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
         try {
-            final Post pst = template.queryForObject(
+            return template.queryForObject(
                     "SELECT * FROM post WHERE id = ?",
-                    new Object[]{id}, POST_MAPPER);
-            return pst;
+                    POST_MAPPER, id);
         } catch (DataAccessException e) {
             return null;
         }
     }
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
@@ -87,7 +87,7 @@ public class PostDao {
         }, keyHolder);
     }
 
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void setPostsPath(Post chuf, Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
@@ -120,6 +120,6 @@ public class PostDao {
         String forum = res.getString("forum");
         Array path = res.getArray("path");
         Timestamp created = res.getTimestamp("created");
-        return new Post(id,forumid, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
+        return new Post(id, forumid, parent, threadid, isedited, owner, message, forum, created, (Object[]) path.getArray());
     };
 }

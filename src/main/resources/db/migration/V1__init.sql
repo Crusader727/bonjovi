@@ -185,8 +185,13 @@ CREATE INDEX thread_forum_created
   ON thread (forumid, created); -----+++++
 
 CREATE UNIQUE INDEX vote_user_thread
- ON vote (userid, threadid);
+  ON vote (userid, threadid);
 
 CREATE INDEX POST_THREADID_PATH
   ON post (threadid, (path [1]));
 
+CREATE UNIQUE INDEX forum_slug_id
+  ON forum (slug, id);
+
+CREATE UNIQUE INDEX thread_slug_id
+  ON thread (slug, tid);

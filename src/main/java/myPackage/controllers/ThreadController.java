@@ -52,35 +52,35 @@ public class ThreadController {
 
     }
 
-@RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
-                              @RequestBody Vote body) {
-    SlugOrID key = new SlugOrID(slug_or_id);
-    Boolean flag  = false;
-    if (key.IsLong) {
-        flag = tdao.vote(key.id, null, body);
-    } else {
-        flag = tdao.vote(null, key.slug, body);
-    }
-    Thread thread;
-    if(key.IsLong) {
-        thread = tdao.getThreadById(key.id);
-    } else {
-        thread = tdao.getThreadBySlug(key.slug);
-    }
-    if(flag) {
+    @RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
+                                  @RequestBody Vote body) {
+        SlugOrID key = new SlugOrID(slug_or_id);
+        Boolean flag = false;
+        if (key.IsLong) {
+            flag = tdao.vote(key.id, null, body);
+        } else {
+            flag = tdao.vote(null, key.slug, body);
+        }
+        Thread thread;
+        if (key.IsLong) {
+            thread = tdao.getThreadById(key.id);
+        } else {
+            thread = tdao.getThreadBySlug(key.slug);
+        }
+        if (flag) {
             return ResponseEntity.status(HttpStatus.OK).body(thread);
-    } else {
-        if (thread == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+        } else {
+            if (thread == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
+            }
+            User user = udao.getUserIDbyNick(body.getNickname());
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
+            }
         }
-        User user = udao.getUserIDbyNick(body.getNickname());
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(thread);
     }
-    return ResponseEntity.status(HttpStatus.OK).body(thread);
-}
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
@@ -122,21 +122,22 @@ public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
     @RequestMapping(path = "/{slug_or_id}/posts", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getPosts(@PathVariable("slug_or_id") String slug_or_id,
                                       @RequestParam(value = "limit", required = false) Integer limit,
-                                      @RequestParam(value = "sort", required = false) String sort,
-                                      @RequestParam(value = "desc", required = false) boolean desc,
+                                      @RequestParam(value = "sort", required = false, defaultValue = "flat") String sort,
+                                      @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc,
                                       @RequestParam(value = "since", required = false) Integer since) {
 
-        SlugOrID key = new SlugOrID(slug_or_id);
-        Thread buf;
-        if (key.IsLong) {
-            buf = tdao.getThreadById(key.id);
-        } else {
-            buf = tdao.getThreadBySlug(key.slug);
-        }
+//        SlugOrID key = new SlugOrID(slug_or_id);
+//        Thread buf;
+//        if (key.IsLong) {
+//            buf = tdao.getThreadById(key.id);
+//        } else {
+//            buf = tdao.getThreadBySlug(key.slug);
+//        }
+        Integer buf = tdao.getThreadIDbySlugOrID(new SlugOrID(slug_or_id));
         if (buf == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf.getId(), limit, since, sort, desc));
+        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf, limit, since, sort, desc));
     }
 
 

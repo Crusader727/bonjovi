@@ -54,10 +54,19 @@ public class ForumDao {
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForum(String slug) {
         try {
-            final Forum fr = template.queryForObject(
+            return template.queryForObject(
                     "SELECT * FROM forum WHERE slug = ?::citext",
-                    new Object[]{slug}, FORUM_MAPPER);
-            return fr;
+                    FORUM_MAPPER, slug);
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
+    public Integer getForumIdBySlug(String slug) {
+        try {
+            return template.queryForObject(
+                    "SELECT id FROM forum WHERE slug = ?::citext",
+                    Integer.class, slug);
         } catch (DataAccessException e) {
             return null;
         }
@@ -66,10 +75,9 @@ public class ForumDao {
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForumById(Long id) {
         try {
-            final Forum fr = template.queryForObject(
+            return template.queryForObject(
                     "SELECT * FROM forum WHERE id = ?;",
-                    new Object[]{id}, FORUM_MAPPER);
-            return fr;
+                    FORUM_MAPPER, id);
         } catch (DataAccessException e) {
             return null;
         }
@@ -97,30 +105,29 @@ public class ForumDao {
 
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-    public Object[] getUsers(Long forumid, Integer limit, String since, Boolean desc) {
+    public List<User> getUsers(Integer forumid, Integer limit, String since, Boolean desc) {
         try {
             List<Object> myObj = new ArrayList<>();
             StringBuilder myStr = new StringBuilder("SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ");
             myObj.add(forumid);
             if (since != null) {
-                if (desc != null && desc) {
+                if (desc) {
                     myStr.append(" AND nickname < ?::citext ");
                 } else {
-                    myStr.append( " AND nickname > ?::citext ");
+                    myStr.append(" AND nickname > ?::citext ");
                 }
                 myObj.add(since);
             }
-            myStr.append( " order by nickname ");
-            if (desc != null && desc) {
-                myStr.append( " desc ");
+            myStr.append(" order by nickname ");
+            if (desc) {
+                myStr.append(" desc ");
             }
             if (limit != null) {
-                myStr.append( " limit ? ");
+                myStr.append(" limit ? ");
                 myObj.add(limit);
             }
-            List<User> result = template.query(myStr.toString()
+            return template.query(myStr.toString()
                     , myObj.toArray(), USER_MAPPER);
-            return result.toArray();
         } catch (DataAccessException e) {
             return null;
         }
