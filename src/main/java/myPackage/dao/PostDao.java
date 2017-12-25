@@ -71,6 +71,16 @@ public class PostDao {
         }
     }
 
+    public Post getPostByIdPerf(long id) {
+//        try {
+        return template.queryForObject(
+                "SELECT * FROM post WHERE id = ?",
+                POST_MAPPER, id);
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
+    }
+
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();

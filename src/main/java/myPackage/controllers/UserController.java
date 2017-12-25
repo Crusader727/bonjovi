@@ -3,6 +3,7 @@ package myPackage.controllers;
 
 import myPackage.dao.UserDao;
 import myPackage.models.Message;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,11 +45,17 @@ public class UserController {
 
     @RequestMapping(path = "/{nickname}/profile", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> userProfile(@PathVariable("nickname") String nick) {
-        User result = udao.getUserByNick(nick);
-        if (result == null) {
+
+//        User result = udao.getUserByNick(nick);
+//        if (result == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.OK).body(result);
+//        }
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(udao.getUserByNickPerf(nick));
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(result);
         }
     }
 

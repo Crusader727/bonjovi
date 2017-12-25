@@ -5,6 +5,7 @@ import myPackage.dao.PostDao;
 import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
 import myPackage.models.*;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,14 +50,20 @@ public class PostController {
     @RequestMapping(path = "/{id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("id") long id,
                                         @RequestParam(value = "related", required = false) String[] related) {
-        Post buf = pdao.getPostById(id);
-        if (buf == null) {
+//        Post buf = pdao.getPostById(id);
+//        if (buf == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+//        }
+        Post buf;
+        try {
+            buf = pdao.getPostByIdPerf(id);
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
         Details dt = new Details(null, null, buf, null);
         if (related != null) {
             if (Arrays.asList(related).contains("user")) {
-                dt.setAuthor(udao.getUserByNick(buf.getAuthor()));
+                dt.setAuthor(udao.getUserByNickPerf(buf.getAuthor()));
             }
             if (Arrays.asList(related).contains("forum")) {
                 dt.setForum(fdao.getForumById(buf.getForumid()));

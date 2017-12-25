@@ -5,6 +5,7 @@ import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
 import myPackage.models.Message;
 import myPackage.models.User;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,11 +47,10 @@ public class ForumController {
 
     @RequestMapping(path = "/{slug}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> forumDetails(@PathVariable("slug") String sl) {
-        Forum result = fdao.getForum(sl);
-        if (result == null) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(fdao.getForumPerf(sl));
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(result);
         }
     }
 
@@ -76,12 +76,13 @@ public class ForumController {
                                         @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc) {
 //        Forum fr = fdao.getForum(forum);
-        Integer fr = fdao.getForumIdBySlug(forum);
-        if (fr != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fr, limit, since, desc));
-        } else {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fdao.getForumIdBySlug(forum), limit, since, desc));
+
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
+
     }
 
 
@@ -91,11 +92,11 @@ public class ForumController {
                                       @RequestParam(value = "since", required = false) String since,
                                       @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc) {
 //        Forum fr = fdao.getForum(forum);
-        Integer fr = fdao.getForumIdBySlug(forum);
-        if (fr == null) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fdao.getForumIdBySlug(forum), limit, since, desc));
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(fdao.getUsers(fr, limit, since, desc));
     }
 
 }

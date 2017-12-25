@@ -5,6 +5,7 @@ import myPackage.dao.ThreadDao;
 import myPackage.dao.UserDao;
 import myPackage.models.*;
 import myPackage.models.Thread;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,17 +88,22 @@ public class ThreadController {
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
-        SlugOrID key = new SlugOrID(slug_or_id);
-        Thread buf;
-        if (key.IsLong) {
-            buf = tdao.getThreadById(key.id);
-        } else {
-            buf = tdao.getThreadBySlug(key.slug);
-        }
-        if (buf == null) {
+//        SlugOrID key = new SlugOrID(slug_or_id);
+//        Thread buf;
+//        if (key.IsLong) {
+//            buf = tdao.getThreadById(key.id);
+//        } else {
+//            buf = tdao.getThreadBySlug(key.slug);
+//        }
+//        if (buf == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(buf);
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(buf);
     }
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -136,11 +142,12 @@ public class ThreadController {
 //        } else {
 //            buf = tdao.getThreadBySlug(key.slug);
 //        }
-        Integer buf = tdao.getThreadIDbySlugOrID(new SlugOrID(slug_or_id));
-        if (buf == null) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(tdao.getThreadIDbySlugOrID(new SlugOrID(slug_or_id)), limit, since, sort, desc));
+        } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(buf, limit, since, sort, desc));
+
     }
 
 

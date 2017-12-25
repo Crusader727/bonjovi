@@ -62,14 +62,24 @@ public class ForumDao {
         }
     }
 
+    public Forum getForumPerf(String slug) {
+//        try {
+        return template.queryForObject(
+                "SELECT * FROM forum WHERE slug = ?::citext",
+                FORUM_MAPPER, slug);
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
+    }
+
     public Integer getForumIdBySlug(String slug) {
-        try {
-            return template.queryForObject(
-                    "SELECT id FROM forum WHERE slug = ?::citext",
-                    Integer.class, slug);
-        } catch (DataAccessException e) {
-            return null;
-        }
+//        try {
+        return template.queryForObject(
+                "SELECT id FROM forum WHERE slug = ?::citext",
+                Integer.class, slug);
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt

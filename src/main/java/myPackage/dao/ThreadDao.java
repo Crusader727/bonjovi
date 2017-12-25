@@ -76,7 +76,7 @@ public class ThreadDao {
 
 
     public Integer getThreadIDbySlugOrID(SlugOrID key) {
-        try {
+//        try {
             if (key.IsLong) {
                 return template.queryForObject(
                         "SELECT tid FROM thread WHERE tid = ?",
@@ -87,9 +87,26 @@ public class ThreadDao {
                         Integer.class, key.slug);
 
             }
-        } catch (DataAccessException e) {
-            return null;
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
+
+    }
+    public Thread getThreadbySlugOrID(SlugOrID key) {
+//        try {
+        if (key.IsLong) {
+            return template.queryForObject(
+                    "SELECT * FROM thread WHERE tid = ?",
+                    THREAD_MAPPER, key.id);
+        } else {
+            return template.queryForObject(
+                    "SELECT * FROM thread WHERE slug = ?::citext",
+                    THREAD_MAPPER, key.slug);
+
         }
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
 
     }
 
