@@ -1,20 +1,16 @@
 package myPackage.dao;
 
 import java.sql.PreparedStatement;
-import java.util.List;
 
 import myPackage.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.jdbc.core.RowMapper;
 
-@Transactional
+//@Transactional
 @Service
 public class UserDao {
     private final JdbcTemplate template;
@@ -76,9 +72,9 @@ public class UserDao {
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByNick(String nickname) {
         try {
-        return template.queryForObject(
-                "SELECT * FROM users WHERE nickname = ?::citext;",
-                USER_MAPPER, nickname);
+            return template.queryForObject(
+                    "SELECT * FROM users WHERE nickname = ?::citext;",
+                    USER_MAPPER, nickname);
         } catch (DataAccessException e) {
             return null;
         }
@@ -86,9 +82,9 @@ public class UserDao {
 
     public User getUserByNickPerf(String nickname) {
 //        try {
-            return template.queryForObject(
-                    "SELECT * FROM users WHERE nickname = ?::citext;",
-                    USER_MAPPER, nickname);
+        return template.queryForObject(
+                "SELECT * FROM users WHERE nickname = ?::citext;",
+                USER_MAPPER, nickname);
 //        } catch (DataAccessException e) {
 //            return null;
 //        }
