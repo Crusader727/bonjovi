@@ -282,8 +282,8 @@ public class ThreadDao {
                 }
                 myStr.append(" order by path ");
                 myStr.append(orderBy);
-                myStr.append(" ,threadid ");
-                myStr.append(orderBy);
+//                myStr.append(" ,threadid ");
+//                myStr.append(orderBy);
 
                 break;
         }
