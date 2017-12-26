@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import myPackage.models.Post;
+import myPackage.models.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,10 +24,13 @@ public class PostDao {
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-    public Integer createPosts(ArrayList<Post> bodyList) {
+    public Integer createPosts(ArrayList<Post> bodyList, Thread th) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             for (Post body : bodyList) {
+                body.setForum(th.getForum());
+                body.setThread(th.getId());
+                body.setForumid(th.getForumid());
                 body.setCreated(bodyList.get(0).getCreated());
                 Post chuf = getPostById(body.getParent());
                 if ((chuf == null && body.getParent() != 0) || (chuf != null && chuf.getThread() != body.getThread())) {

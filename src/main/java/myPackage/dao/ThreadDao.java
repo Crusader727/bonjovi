@@ -74,21 +74,22 @@ public class ThreadDao {
 
     public Integer getThreadIDbySlugOrID(SlugOrID key) {
 //        try {
-            if (key.IsLong) {
-                return template.queryForObject(
-                        "SELECT tid FROM thread WHERE tid = ?",
-                        Integer.class, key.id);
-            } else {
-                return template.queryForObject(
-                        "SELECT tid FROM thread WHERE slug = ?::citext",
-                        Integer.class, key.slug);
+        if (key.IsLong) {
+            return template.queryForObject(
+                    "SELECT tid FROM thread WHERE tid = ?",
+                    Integer.class, key.id);
+        } else {
+            return template.queryForObject(
+                    "SELECT tid FROM thread WHERE slug = ?::citext",
+                    Integer.class, key.slug);
 
-            }
+        }
 //        } catch (DataAccessException e) {
 //            return null;
 //        }
 
     }
+
     public Thread getThreadbySlugOrID(SlugOrID key) {
 //        try {
         if (key.IsLong) {
@@ -203,90 +204,98 @@ public class ThreadDao {
     }
 
     //*****************************//
-//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public List<Post> getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
-        List<Object> myObj = new ArrayList<>();
-        if (sort.equals("flat")) {
-            StringBuilder myStr = new StringBuilder("select * from post where threadid = ?");
-            myObj.add(threadId);
-            if (since != null) {
+        final List<Object> myObj = new ArrayList<>();
+        final String compareSign;
+        final String orderBy;
+        final StringBuilder myStr = new StringBuilder();
+        switch (sort) {
+            case "flat":
+                myStr.append("select * from post where threadid = ?");
                 if (desc) {
-                    myStr.append(" and id < ?");
+                    compareSign = " and id < ?";
+                    orderBy = " desc, id desc ";
                 } else {
-                    myStr.append(" and id > ?");
-                }
-                myObj.add(since);
-            }
-            myStr.append(" order by created ");
-            if (desc) {
-                myStr.append(" desc, id desc ");
-            } else {
-                myStr.append(", id");
-            }
-            if (limit != null) {
-                myStr.append(" limit ? ");
-                myObj.add(limit);
-            }
-
-            return template.query(myStr.toString()
-                    , myObj.toArray(), POST_MAPPER);
-        } else if (sort.equals("tree")) {
-            StringBuilder myStr = new StringBuilder("select * from post where threadid = ?");
-            myObj.add(threadId);
-            if (since != null) {
-                if (desc) {
-                    myStr.append(" and path < (select path from post where id = ?) ");
-                } else {
-                    myStr.append(" and path > (select path from post where id = ?) ");
-                }
-                myObj.add(since);
-            }
-            myStr.append(" order by path ");
-            if (desc) {
-                myStr.append(" desc, id desc ");
-            }
-            if (limit != null) {
-                myStr.append(" limit ? ");
-                myObj.add(limit);
-            }
-
-            return template.query(myStr.toString()
-                    , myObj.toArray(), POST_MAPPER);
-        } else {
-
-            StringBuilder myStr = new StringBuilder("select * from post join ");
-            if (since != null) {
-                if (desc) {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc, threadid desc  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
-
-                } else {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                    compareSign = " and id > ?";
+                    orderBy = ", id";
                 }
                 myObj.add(threadId);
-                myObj.add(since);
-                myObj.add(limit);
-                myObj.add(threadId);
-            } else if (limit != null) {
-                if (desc) {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path desc, threadid desc limit ? ) as TT on threadid = ? and path[1] = TT.id ");
-                } else {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                if (since != null) {
+                    myStr.append(compareSign);
+                    myObj.add(since);
                 }
+                myStr.append(" order by created ");
+                myStr.append(orderBy);
+                if (limit != null) {
+                    myStr.append(" limit ? ");
+                    myObj.add(limit);
+                }
+//                return template.query(myStr.toString()
+//                        , myObj.toArray(), POST_MAPPER);
+                break;
+            case "tree":
+                myStr.append("select * from post where threadid = ?");
                 myObj.add(threadId);
-                myObj.add(limit);
-                myObj.add(threadId);
-            }
-            myStr.append(" order by path ");
-            if (desc) {
-                myStr.append(" desc ");
-            }
-            myStr.append(" ,threadid ");
-            if (desc) {
-                myStr.append(" desc ");
-            }
-            return template.query(myStr.toString()
-                    , myObj.toArray(), POST_MAPPER);
+                if (desc) {
+                    compareSign = " and path < (select path from post where id = ?) ";
+                    orderBy = " desc, id desc ";
+                } else {
+                    compareSign = " and path > (select path from post where id = ?) ";
+                    orderBy = "";
+                }
+                if (since != null) {
+                    myStr.append(compareSign);
+                    myObj.add(since);
+                }
+                myStr.append(" order by path ");
+                myStr.append(orderBy);
+                if (limit != null) {
+                    myStr.append(" limit ? ");
+                    myObj.add(limit);
+                }
+//                return template.query(myStr.toString()
+//                        , myObj.toArray(), POST_MAPPER);
+                break;
+            default:
+                myStr.append("select * from post join ");
+                final String sinceNull;
+                if (desc) {
+                    compareSign = " (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc, threadid desc  limit ? ) as TT on threadid = ? and path[1] = TT.id ";
+                    orderBy = " desc ";
+                    sinceNull = " (select id  from post where parent = 0 and threadid = ? order by path desc, threadid desc limit ? ) as TT on threadid = ? and path[1] = TT.id ";
+                } else {
+                    compareSign = " (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ";
+                    orderBy = "";
+                    sinceNull = " (select id  from post where parent = 0 and threadid = ? order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ";
+                }
+                if (since != null) {
+                    myStr.append(compareSign);
+                    myObj.add(threadId);
+                    myObj.add(since);
+                    myObj.add(limit);
+                    myObj.add(threadId);
+                } else if (limit != null) {
+                    myStr.append(sinceNull);
+                    myObj.add(threadId);
+                    myObj.add(limit);
+                    myObj.add(threadId);
+                }
+                myStr.append(" order by path ");
+                myStr.append(orderBy);
+                myStr.append(" ,threadid ");
+                myStr.append(orderBy);
+
+                break;
         }
+        return template.query(myStr.toString()
+                , myObj.toArray(), POST_MAPPER);
+//        if (sort.equals("flat")) {
+
+//        } else if (sort.equals("tree")) {
+
+//        } else {
+
+//    }
 
     }
     //*****************************//
@@ -307,9 +316,8 @@ public class ThreadDao {
         long votes = res.getLong("votes");
         long id = res.getLong("id");
         Integer threadid = res.getInt("threadid");
-        String nickname = null;
         Integer userid = res.getInt("userid");
-        return new Vote(id, userid, nickname, votes, threadid);
+        return new Vote(id, userid, null, votes, threadid);
     };
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");
