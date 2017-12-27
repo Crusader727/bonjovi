@@ -183,9 +183,9 @@ public class ThreadDao {
 
     public void vote(SlugOrID key, Vote vt) {
             if (key.IsLong) {
-                template.update("INSERT INTO vote (userid, threadid, votes)  SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid, ?, ?  ON CONFLICT (userid, threadid) DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.id, vt.getVoice());
+                template.update("INSERT INTO vote (userid, threadid, votes)  SELECT( SELECT id FROM users WHERE nickname = ?::citext) AS uid, ?, ?  ON CONFLICT (userid, threadid) DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.id, vt.getVoice());
             } else {
-                template.update("INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id FROM users WHERE lower(nickname) = lower(?)), (SELECT tid FROM thread WHERE lower(slug) =  lower(?)), ON CONFLICT (userid, threadid)   DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.slug, vt.getVoice());
+                template.update("INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id FROM users WHERE nickname = ?::citext), (SELECT tid FROM thread WHERE slug =  ?::citext),(?)) ON CONFLICT (userid, threadid)   DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.slug, vt.getVoice());
             }
     }
 
