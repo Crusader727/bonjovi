@@ -150,36 +150,45 @@ public class ThreadDao {
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-    public Boolean vote(Integer tid, String slug, Vote vt) {
-        try {
-            if (slug == null) {
-                String sql = "INSERT INTO vote (userid, threadid, votes)" +
-                        "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
-                        " ?, " +
-                        "    ? " +
-                        "    ON CONFLICT (userid, threadid)" +
-                        "    DO UPDATE SET votes = EXCLUDED.votes;";
-                template.update(sql, vt.getNickname(), tid, vt.getVoice());
+//    public Boolean vote(Integer tid, String slug, Vote vt) {
+//        try {
+//            if (slug == null) {
+//                String sql = "INSERT INTO vote (userid, threadid, votes)" +
+//                        "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+//                        " ?, " +
+//                        "    ? " +
+//                        "    ON CONFLICT (userid, threadid)" +
+//                        "    DO UPDATE SET votes = EXCLUDED.votes;";
+//                template.update(sql, vt.getNickname(), tid, vt.getVoice());
+//
+//            } else {
+//                String sql = "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+//                        "                                                    FROM users " +
+//                        "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+//                        "                                                                                                      FROM thread " +
+//                        "                                                                                                      WHERE " +
+//                        "                                                                                                        lower(slug) = " +
+//                        "                                                                                                        lower(?)), " +
+//                        "                                                   (?)) " +
+//                        "ON CONFLICT (userid, threadid) " +
+//                        "  DO UPDATE SET votes = EXCLUDED.votes;";
+//                template.update(sql, vt.getNickname(), slug, vt.getVoice());
+//            }
+//
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
+    public void vote(SlugOrID key, Vote vt) {
+            if (key.IsLong) {
+                template.update("INSERT INTO vote (userid, threadid, votes)  SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid, ?, ?  ON CONFLICT (userid, threadid) DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.id, vt.getVoice());
             } else {
-                String sql = "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
-                        "                                                    FROM users " +
-                        "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
-                        "                                                                                                      FROM thread " +
-                        "                                                                                                      WHERE " +
-                        "                                                                                                        lower(slug) = " +
-                        "                                                                                                        lower(?)), " +
-                        "                                                   (?)) " +
-                        "ON CONFLICT (userid, threadid) " +
-                        "  DO UPDATE SET votes = EXCLUDED.votes;";
-                template.update(sql, vt.getNickname(), slug, vt.getVoice());
+                template.update("INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id FROM users WHERE lower(nickname) = lower(?)), (SELECT tid FROM thread WHERE lower(slug) =  lower(?)), ON CONFLICT (userid, threadid)   DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.slug, vt.getVoice());
             }
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
+
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer chagenThread(Thread body) {
