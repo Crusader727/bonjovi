@@ -143,6 +143,11 @@ BEGIN
   UPDATE forum
   SET postCount = postCount + 1
   WHERE forum.id = new.forumid;
+  UPDATE post
+  SET
+    path = (SELECT path
+                         FROM post
+                         WHERE id = new.parent) || new.id where post.id = new.id;
   INSERT INTO users_on_forum (nickname, forumid, fullname, email, about)
     (SELECT
        new.owner,
@@ -161,7 +166,7 @@ DROP TRIGGER IF EXISTS t_forum_posts_inc
 ON post;
 
 CREATE TRIGGER t_forum_posts_inc
-BEFORE INSERT
+AFTER INSERT
   ON post
 FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();

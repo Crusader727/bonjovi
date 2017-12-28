@@ -52,13 +52,14 @@ public class PostDao {
                     return pst;
                 }, keyHolder);
                 body.setId(keyHolder.getKey().intValue());
-                setPostsPath(chuf, body);
+//                setPostsPath(chuf, body);
             }
             return 201;
         } catch (Exception e) {
             return 404;
         }
     }
+
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
@@ -116,7 +117,6 @@ public class PostDao {
             pst.setLong(2, body.getId());
             return pst;
         }, keyHolder);
-
     }
 
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
