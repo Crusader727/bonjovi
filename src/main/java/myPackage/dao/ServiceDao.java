@@ -46,8 +46,8 @@ public class ServiceDao {
         );
     }
 
-    @Transactional
-    public Details getPostFull(String[] related, Post buf) {
+//    @Transactional
+    /*public Details getPostFull(String[] related, Post buf) {
         Details dt = new Details(null, null, buf, null);
         if (related != null) {
             if (Arrays.asList(related).contains("user")) {
@@ -67,7 +67,7 @@ public class ServiceDao {
             }
         }
         return dt;
-    }
+    }*/
 
     private static final RowMapper<Thread> THREAD_MAPPER = (res, num) -> {
         long votes = res.getLong("votes");

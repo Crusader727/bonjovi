@@ -14,19 +14,19 @@ import java.util.Arrays;
 @RequestMapping("/api/post")
 public class PostController {
     private final PostDao pdao;
-    //    private final UserDao udao;
-//    private final ForumDao fdao;
-//    private final ThreadDao tdao;
+    private final UserDao udao;
+    private final ForumDao fdao;
+    private final ThreadDao tdao;
     private final ServiceDao sdao;
     private final Message err;
 
-    //    public PostController(PostDao pdao, UserDao udao, ForumDao fdao, ThreadDao tdao, ServiceDao sdao) {
-    public PostController(PostDao pdao, ServiceDao sdao) {
+    public PostController(PostDao pdao, UserDao udao, ForumDao fdao, ThreadDao tdao, ServiceDao sdao) {
+//    public PostController(PostDao pdao, ServiceDao sdao) {
         err = new Message("---");
         this.pdao = pdao;
-//        this.fdao = fdao;
-//        this.tdao = tdao;
-//        this.udao = udao;
+        this.fdao = fdao;
+        this.tdao = tdao;
+        this.udao = udao;
         this.sdao = sdao;
     }
 
@@ -60,19 +60,20 @@ public class PostController {
         } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
         }
-//        Details dt = new Details(null, null, buf, null);
-//        if (related != null) {
-//            if (Arrays.asList(related).contains("user")) {
-//                dt.setAuthor(udao.getUserByNickPerf(buf.getAuthor()));
-//            }
-//            if (Arrays.asList(related).contains("forum")) {
-//                dt.setForum(fdao.getForumById(buf.getForumid()));
-//            }
-//            if (Arrays.asList(related).contains("thread")) {
-//                dt.setThread(tdao.getThreadById(buf.getThread()));
-//            }
-//        }
-        return ResponseEntity.status(HttpStatus.OK).body(sdao.getPostFull(related, buf));
+        Details dt = new Details(null, null, buf, null);
+        if (related != null) {
+            if (Arrays.asList(related).contains("user")) {
+                dt.setAuthor(udao.getUserByNickPerf(buf.getAuthor()));
+            }
+            if (Arrays.asList(related).contains("forum")) {
+                dt.setForum(fdao.getForumById(buf.getForumid()));
+            }
+            if (Arrays.asList(related).contains("thread")) {
+                dt.setThread(tdao.getThreadById(buf.getThread()));
+            }
+        }
+//        return ResponseEntity.status(HttpStatus.OK).body(sdao.getPostFull(related, buf));
+        return ResponseEntity.status(HttpStatus.OK).body(dt);
     }
 
 }
