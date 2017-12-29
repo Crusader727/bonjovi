@@ -74,21 +74,22 @@ public class ThreadDao {
 
     public Integer getThreadIDbySlugOrID(SlugOrID key) {
 //        try {
-            if (key.IsLong) {
-                return template.queryForObject(
-                        "SELECT tid FROM thread WHERE tid = ?",
-                        Integer.class, key.id);
-            } else {
-                return template.queryForObject(
-                        "SELECT tid FROM thread WHERE slug = ?::citext",
-                        Integer.class, key.slug);
+        if (key.IsLong) {
+            return template.queryForObject(
+                    "SELECT tid FROM thread WHERE tid = ?",
+                    Integer.class, key.id);
+        } else {
+            return template.queryForObject(
+                    "SELECT tid FROM thread WHERE slug = ?::citext",
+                    Integer.class, key.slug);
 
-            }
+        }
 //        } catch (DataAccessException e) {
 //            return null;
 //        }
 
     }
+
     public Thread getThreadbySlugOrID(SlugOrID key) {
 //        try {
         if (key.IsLong) {
@@ -149,35 +150,30 @@ public class ThreadDao {
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-    public Boolean vote(Integer tid, String slug, Vote vt) {
-        try {
-            if (slug == null) {
-                String sql = "INSERT INTO vote (userid, threadid, votes)" +
-                        "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
-                        " ?, " +
-                        "    ? " +
-                        "    ON CONFLICT (userid, threadid)" +
-                        "    DO UPDATE SET votes = EXCLUDED.votes;";
-                template.update(sql, vt.getNickname(), tid, vt.getVoice());
+    public void vote(SlugOrID key, Vote vt) {
+        if (key.IsLong) {
+            String sql = "INSERT INTO vote (userid, threadid, votes)" +
+                    "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+                    " ?, " +
+                    "    ? " +
+                    "    ON CONFLICT (userid, threadid)" +
+                    "    DO UPDATE SET votes = EXCLUDED.votes;";
+            template.update(sql, vt.getNickname(), key.id, vt.getVoice());
 
-            } else {
-                String sql = "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
-                        "                                                    FROM users " +
-                        "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
-                        "                                                                                                      FROM thread " +
-                        "                                                                                                      WHERE " +
-                        "                                                                                                        lower(slug) = " +
-                        "                                                                                                        lower(?)), " +
-                        "                                                   (?)) " +
-                        "ON CONFLICT (userid, threadid) " +
-                        "  DO UPDATE SET votes = EXCLUDED.votes;";
-                template.update(sql, vt.getNickname(), slug, vt.getVoice());
-            }
-
-            return true;
-        } catch (Exception e) {
-            return false;
+        } else {
+            String sql = "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+                    "                                                    FROM users " +
+                    "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+                    "                                                                                                      FROM thread " +
+                    "                                                                                                      WHERE " +
+                    "                                                                                                        lower(slug) = " +
+                    "                                                                                                        lower(?)), " +
+                    "                                                   (?)) " +
+                    "ON CONFLICT (userid, threadid) " +
+                    "  DO UPDATE SET votes = EXCLUDED.votes;";
+            template.update(sql, vt.getNickname(), key.slug, vt.getVoice());
         }
+
     }
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt

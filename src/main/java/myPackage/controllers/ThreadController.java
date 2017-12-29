@@ -59,31 +59,12 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/vote", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> vote(@PathVariable("slug_or_id") String slug_or_id,
                                   @RequestBody Vote body) {
-        SlugOrID key = new SlugOrID(slug_or_id);
-        Boolean flag = false;
-        if (key.IsLong) {
-            flag = tdao.vote(key.id, null, body);
-        } else {
-            flag = tdao.vote(null, key.slug, body);
+        try {
+            tdao.vote(new SlugOrID(slug_or_id), body);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such user"));
         }
-        Thread thread;
-        if (key.IsLong) {
-            thread = tdao.getThreadById(key.id);
-        } else {
-            thread = tdao.getThreadBySlug(key.slug);
-        }
-        if (flag) {
-            return ResponseEntity.status(HttpStatus.OK).body(thread);
-        } else {
-            if (thread == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
-            }
-            User user = udao.getUserIDbyNick(body.getNickname());
-            if (user == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such User"));
-            }
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(thread);
+        return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
     }
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
