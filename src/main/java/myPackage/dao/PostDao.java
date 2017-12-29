@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import myPackage.models.Post;
+import myPackage.models.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,11 +23,13 @@ public class PostDao {
         this.template = template;
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
-    public Integer createPosts(ArrayList<Post> bodyList) {
+    public Integer createPosts(ArrayList<Post> bodyList, Thread th) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             for (Post body : bodyList) {
+                body.setForum(th.getForum());
+                body.setThread(th.getId());
+                body.setForumid(th.getForumid());
                 body.setCreated(bodyList.get(0).getCreated());
                 Post chuf = getPostById(body.getParent());
                 if ((chuf == null && body.getParent() != 0) || (chuf != null && chuf.getThread() != body.getThread())) {
@@ -56,7 +59,6 @@ public class PostDao {
         }
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Post getPostById(long id) {
         try {
             return template.queryForObject(
@@ -68,16 +70,12 @@ public class PostDao {
     }
 
     public Post getPostByIdPerf(long id) {
-//        try {
         return template.queryForObject(
                 "SELECT * FROM post WHERE id = ?",
                 POST_MAPPER, id);
-//        } catch (DataAccessException e) {
-//            return null;
-//        }
+
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void changePost(Post body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
@@ -93,15 +91,12 @@ public class PostDao {
         }, keyHolder);
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void setPostsPath(Post chuf, Post body) {
-        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
             PreparedStatement pst = con.prepareStatement(
                     "update post set" +
                             "  path = ? " +
-                            "where id = ?",
-                    PreparedStatement.RETURN_GENERATED_KEYS);
+                            "where id = ?");
             if (body.getParent() == 0) {
                 pst.setArray(1, con.createArrayOf("INT", new Object[]{body.getId()}));//String.valueOf(body.getId()));
             } else {
@@ -111,7 +106,7 @@ public class PostDao {
             }
             pst.setLong(2, body.getId());
             return pst;
-        }, keyHolder);
+        });
 
     }
 

@@ -31,26 +31,17 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createPost(@PathVariable("slug_or_id") String slug_or_id,
                                         @RequestBody ArrayList<Post> bodyList) {
-        SlugOrID key = new SlugOrID(slug_or_id);
         Thread buf;
-        if (key.IsLong) {
-            buf = tdao.getThreadById(key.id);
-        } else {
-            buf = tdao.getThreadBySlug(key.slug);
+        try {
+            buf = tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id));
+        } catch (DataAccessException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        if (buf == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
-        }
-        for (Post body : bodyList) {
-            body.setForum(buf.getForum());
-            body.setThread(buf.getId());
-            body.setForumid(buf.getForumid());
-        }
-        Integer res = pdao.createPosts(bodyList);
+        Integer res = pdao.createPosts(bodyList, buf);
         if (res == 409) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new Message("cant find parent"));
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
         } else if (res == 404) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such user"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(bodyList);
 
@@ -62,24 +53,13 @@ public class ThreadController {
         try {
             tdao.vote(new SlugOrID(slug_or_id), body);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such user"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
     }
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
-//        SlugOrID key = new SlugOrID(slug_or_id);
-//        Thread buf;
-//        if (key.IsLong) {
-//            buf = tdao.getThreadById(key.id);
-//        } else {
-//            buf = tdao.getThreadBySlug(key.slug);
-//        }
-//        if (buf == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(buf);
         try {
             return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
         } catch (DataAccessException e) {
