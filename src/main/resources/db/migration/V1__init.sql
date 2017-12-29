@@ -172,9 +172,9 @@ FOR EACH ROW
 EXECUTE PROCEDURE forum_posts_inc();
 
 --inderxes
-CREATE INDEX new_index_onPost
-  ON post (threadid, parent, path, id);
-
+-- CREATE INDEX new_index_onPost
+--   ON post (threadid, parent, path, id);
+--
 
 CREATE INDEX post_tid_path_id
   ON post (threadid, path, id);
@@ -183,11 +183,11 @@ CREATE INDEX post_tid_path_id
 CREATE INDEX post_threadid_created_id
   ON post (threadid, created, id);
 
-CREATE INDEX post_patent_threadid_id
-  ON post (parent, threadid, id);
+-- CREATE INDEX post_patent_threadid_id
+--   ON post (parent, threadid, id);
 
 CREATE INDEX thread_forum_created
-  ON thread (forumid, created); -----+++++
+  ON thread (forumid, created);
 
 CREATE UNIQUE INDEX vote_user_thread
   ON vote (userid, threadid);
@@ -200,3 +200,10 @@ CREATE UNIQUE INDEX forum_slug_id
 
 CREATE UNIQUE INDEX thread_slug_id
   ON thread (slug, tid);
+
+CREATE INDEX post_id_path
+  ON post (id, path);
+
+CREATE INDEX post_partial_index2
+  ON post (threadid, path, id)
+  WHERE (parent = 0);

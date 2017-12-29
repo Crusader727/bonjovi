@@ -216,10 +216,10 @@ public class ThreadDao {
             StringBuilder myStr = new StringBuilder("select * from post join ");
             if (since != null) {
                 if (desc) {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc, threadid desc  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
 
                 } else {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path   limit ? ) as TT on path[1] = TT.id AND threadid = ? ");
                 }
                 myObj.add(threadId);
                 myObj.add(since);
@@ -227,19 +227,15 @@ public class ThreadDao {
                 myObj.add(threadId);
             } else if (limit != null) {
                 if (desc) {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path desc, threadid desc limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path desc limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
                 } else {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
+                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path   limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
                 }
                 myObj.add(threadId);
                 myObj.add(limit);
                 myObj.add(threadId);
             }
             myStr.append(" order by path ");
-            if (desc) {
-                myStr.append(" desc ");
-            }
-            myStr.append(" ,threadid ");
             if (desc) {
                 myStr.append(" desc ");
             }

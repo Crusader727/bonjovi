@@ -31,27 +31,12 @@ public class ThreadController {
     @RequestMapping(path = "/{slug_or_id}/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> createPost(@PathVariable("slug_or_id") String slug_or_id,
                                         @RequestBody ArrayList<Post> bodyList) {
-//        SlugOrID key = new SlugOrID(slug_or_id);
-//        Thread buf;
-//        if (key.IsLong) {
-//            buf = tdao.getThreadById(key.id);
-//        } else {
-//            buf = tdao.getThreadBySlug(key.slug);
-//        }
-//        if (buf == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("No such thread"));
-//        }
         Thread buf;
         try {
             buf = tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id));
         } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-//        for (Post body : bodyList) {
-//            body.setForum(buf.getForum());
-//            body.setThread(buf.getId());
-//            body.setForumid(buf.getForumid());
-//        }
         Integer res = pdao.createPosts(bodyList, buf);
         if (res == 409) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
