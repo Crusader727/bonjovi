@@ -18,6 +18,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.RowMapper;
 
+//@Transactional
 @Service
 public class ThreadDao {
     private final JdbcTemplate template;
@@ -28,6 +29,7 @@ public class ThreadDao {
 
     }
 
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer[] createThread(Thread body) {
         Integer[] result = {0, 0};
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -58,6 +60,7 @@ public class ThreadDao {
         }
     }
 
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadById(long id) {
         try {
             return template.queryForObject(
@@ -70,19 +73,24 @@ public class ThreadDao {
 
 
     public Integer getThreadIDbySlugOrID(SlugOrID key) {
-        if (key.IsLong) {
-            return template.queryForObject(
-                    "SELECT tid FROM thread WHERE tid = ?",
-                    Integer.class, key.id);
-        } else {
-            return template.queryForObject(
-                    "SELECT tid FROM thread WHERE slug = ?::citext",
-                    Integer.class, key.slug);
+//        try {
+            if (key.IsLong) {
+                return template.queryForObject(
+                        "SELECT tid FROM thread WHERE tid = ?",
+                        Integer.class, key.id);
+            } else {
+                return template.queryForObject(
+                        "SELECT tid FROM thread WHERE slug = ?::citext",
+                        Integer.class, key.slug);
 
-        }
+            }
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
+
     }
-
     public Thread getThreadbySlugOrID(SlugOrID key) {
+//        try {
         if (key.IsLong) {
             return template.queryForObject(
                     "SELECT * FROM thread WHERE tid = ?",
@@ -93,10 +101,14 @@ public class ThreadDao {
                     THREAD_MAPPER, key.slug);
 
         }
+//        } catch (DataAccessException e) {
+//            return null;
+//        }
 
     }
 
 
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Thread getThreadBySlug(String slug) {
         try {
             return template.queryForObject(
@@ -107,40 +119,68 @@ public class ThreadDao {
         }
     }
 
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public List<Thread> getThreads(Integer forumid, Integer limit, String since, Boolean desc) {
-        List<Object> myObj = new ArrayList<>();
-        final StringBuilder myStr = new StringBuilder("select * from thread where forumid = ? ");
-        myObj.add(forumid);
-        if (since != null) {
-            if (desc) {
-                myStr.append(" and created <= ?::timestamptz ");
-            } else {
-                myStr.append(" and created >= ?::timestamptz ");
+        try {
+            List<Object> myObj = new ArrayList<>();
+            final StringBuilder myStr = new StringBuilder("select * from thread where forumid = ? ");
+            myObj.add(forumid);
+            if (since != null) {
+                if (desc) {
+                    myStr.append(" and created <= ?::timestamptz ");
+                } else {
+                    myStr.append(" and created >= ?::timestamptz ");
+                }
+                myObj.add(since);
             }
-            myObj.add(since);
-        }
-        myStr.append(" order by created ");
-        if (desc) {
-            myStr.append(" desc ");
-        }
-        if (limit != null) {
-            myStr.append(" limit ? ");
-            myObj.add(limit);
-        }
-        return template.query(myStr.toString()
-                , myObj.toArray(), THREAD_MAPPER);
-    }
-
-
-    public void vote(SlugOrID key, Vote vt) {
-        if (key.IsLong) {
-            template.update("INSERT INTO vote (userid, threadid, votes)  SELECT( SELECT id FROM users WHERE nickname = ?::citext) AS uid, ?, ?  ON CONFLICT (userid, threadid) DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.id, vt.getVoice());
-        } else {
-            template.update("INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id FROM users WHERE nickname = ?::citext), (SELECT tid FROM thread WHERE slug =  ?::citext),(?)) ON CONFLICT (userid, threadid)   DO UPDATE SET votes = EXCLUDED.votes;", vt.getNickname(), key.slug, vt.getVoice());
+            myStr.append(" order by created ");
+            if (desc) {
+                myStr.append(" desc ");
+            }
+            if (limit != null) {
+                myStr.append(" limit ? ");
+                myObj.add(limit);
+            }
+            return template.query(myStr.toString()
+                    , myObj.toArray(), THREAD_MAPPER);
+        } catch (DataAccessException e) {
+            return null;
         }
     }
 
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
+    public Boolean vote(Integer tid, String slug, Vote vt) {
+        try {
+            if (slug == null) {
+                String sql = "INSERT INTO vote (userid, threadid, votes)" +
+                        "    SELECT( SELECT id FROM users WHERE lower(nickname) = lower(?)) AS uid," +
+                        " ?, " +
+                        "    ? " +
+                        "    ON CONFLICT (userid, threadid)" +
+                        "    DO UPDATE SET votes = EXCLUDED.votes;";
+                template.update(sql, vt.getNickname(), tid, vt.getVoice());
 
+            } else {
+                String sql = "INSERT INTO vote (userid, threadid, votes) VALUES ((SELECT id " +
+                        "                                                    FROM users " +
+                        "                                                    WHERE lower(nickname) = lower(?)), (SELECT tid " +
+                        "                                                                                                      FROM thread " +
+                        "                                                                                                      WHERE " +
+                        "                                                                                                        lower(slug) = " +
+                        "                                                                                                        lower(?)), " +
+                        "                                                   (?)) " +
+                        "ON CONFLICT (userid, threadid) " +
+                        "  DO UPDATE SET votes = EXCLUDED.votes;";
+                template.update(sql, vt.getNickname(), slug, vt.getVoice());
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer chagenThread(Thread body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -163,6 +203,7 @@ public class ThreadDao {
     }
 
     //*****************************//
+//    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public List<Post> getPosts(long threadId, Integer limit, Integer since, String sort, Boolean desc) {
         List<Object> myObj = new ArrayList<>();
         if (sort.equals("flat")) {
@@ -216,10 +257,10 @@ public class ThreadDao {
             StringBuilder myStr = new StringBuilder("select * from post join ");
             if (since != null) {
                 if (desc) {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
+                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path < (select path from post where id = ?)  order by path desc, threadid desc  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
 
                 } else {
-                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path   limit ? ) as TT on path[1] = TT.id AND threadid = ? ");
+                    myStr.append(" (select id from post where parent = 0 and threadid = ? and path > (select path from post where id = ?)  order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
                 }
                 myObj.add(threadId);
                 myObj.add(since);
@@ -227,15 +268,19 @@ public class ThreadDao {
                 myObj.add(threadId);
             } else if (limit != null) {
                 if (desc) {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path desc limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
+                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path desc, threadid desc limit ? ) as TT on threadid = ? and path[1] = TT.id ");
                 } else {
-                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path   limit ? ) as TT on  path[1] = TT.id AND threadid = ? ");
+                    myStr.append(" (select id  from post where parent = 0 and threadid = ? order by path , threadid  limit ? ) as TT on threadid = ? and path[1] = TT.id ");
                 }
                 myObj.add(threadId);
                 myObj.add(limit);
                 myObj.add(threadId);
             }
             myStr.append(" order by path ");
+            if (desc) {
+                myStr.append(" desc ");
+            }
+            myStr.append(" ,threadid ");
             if (desc) {
                 myStr.append(" desc ");
             }
@@ -262,8 +307,9 @@ public class ThreadDao {
         long votes = res.getLong("votes");
         long id = res.getLong("id");
         Integer threadid = res.getInt("threadid");
+        String nickname = null;
         Integer userid = res.getInt("userid");
-        return new Vote(id, userid, null, votes, threadid);
+        return new Vote(id, userid, nickname, votes, threadid);
     };
     private static final RowMapper<Post> POST_MAPPER = (res, num) -> {
         Long id = res.getLong("id");

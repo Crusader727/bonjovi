@@ -1,6 +1,9 @@
 package myPackage.controllers;
 
-import myPackage.dao.*;
+import myPackage.dao.ForumDao;
+import myPackage.dao.PostDao;
+import myPackage.dao.ThreadDao;
+import myPackage.dao.UserDao;
 import myPackage.models.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -17,17 +20,14 @@ public class PostController {
     private final UserDao udao;
     private final ForumDao fdao;
     private final ThreadDao tdao;
-    private final ServiceDao sdao;
     private final Message err;
 
-    public PostController(PostDao pdao, UserDao udao, ForumDao fdao, ThreadDao tdao, ServiceDao sdao) {
-//    public PostController(PostDao pdao, ServiceDao sdao) {
+    public PostController(PostDao pdao, UserDao udao, ForumDao fdao, ThreadDao tdao) {
         err = new Message("---");
         this.pdao = pdao;
         this.fdao = fdao;
         this.tdao = tdao;
         this.udao = udao;
-        this.sdao = sdao;
     }
 
 
@@ -72,7 +72,6 @@ public class PostController {
                 dt.setThread(tdao.getThreadById(buf.getThread()));
             }
         }
-//        return ResponseEntity.status(HttpStatus.OK).body(sdao.getPostFull(related, buf));
         return ResponseEntity.status(HttpStatus.OK).body(dt);
     }
 

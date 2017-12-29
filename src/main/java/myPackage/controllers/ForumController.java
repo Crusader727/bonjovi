@@ -75,6 +75,7 @@ public class ForumController {
                                         @RequestParam(value = "limit", required = false) Integer limit,
                                         @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc) {
+//        Forum fr = fdao.getForum(forum);
         try {
             return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreads(fdao.getForumIdBySlug(forum), limit, since, desc));
 
