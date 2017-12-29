@@ -13,7 +13,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.RowMapper;
 
-//@Transactional
 @Service
 public class ForumDao {
     private final JdbcTemplate template;
@@ -23,7 +22,6 @@ public class ForumDao {
         this.template = template;
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createForum(Forum body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -47,7 +45,6 @@ public class ForumDao {
         return 201;
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForum(String slug) {
         try {
             return template.queryForObject(
@@ -59,26 +56,17 @@ public class ForumDao {
     }
 
     public Forum getForumPerf(String slug) {
-//        try {
         return template.queryForObject(
                 "SELECT * FROM forum WHERE slug = ?::citext",
                 FORUM_MAPPER, slug);
-//        } catch (DataAccessException e) {
-//            return null;
-//        }
     }
 
     public Integer getForumIdBySlug(String slug) {
-//        try {
         return template.queryForObject(
                 "SELECT id FROM forum WHERE slug = ?::citext",
                 Integer.class, slug);
-//        } catch (DataAccessException e) {
-//            return null;
-//        }
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Forum getForumById(Long id) {
         try {
             return template.queryForObject(
@@ -89,7 +77,6 @@ public class ForumDao {
         }
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public void updateForum(String slug) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -110,9 +97,7 @@ public class ForumDao {
     }
 
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public List<User> getUsers(Integer forumid, Integer limit, String since, Boolean desc) {
-        try {
             List<Object> myObj = new ArrayList<>();
             StringBuilder myStr = new StringBuilder("SELECT id, nickname, fullname, email, about from users_on_forum  WHERE forumid = ? ");
             myObj.add(forumid);
@@ -134,9 +119,6 @@ public class ForumDao {
             }
             return template.query(myStr.toString()
                     , myObj.toArray(), USER_MAPPER);
-        } catch (DataAccessException e) {
-            return null;
-        }
     }
 
     private static final RowMapper<Forum> FORUM_MAPPER = (res, num) -> {

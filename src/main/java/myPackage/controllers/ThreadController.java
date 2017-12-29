@@ -67,7 +67,7 @@ public class ThreadController {
                                   @RequestBody Vote body) {
         try {
             tdao.vote(new SlugOrID(slug_or_id), body);
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Message("no such user"));
         }
         return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
@@ -75,17 +75,6 @@ public class ThreadController {
 
     @RequestMapping(path = "/{slug_or_id}/details", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getDetails(@PathVariable("slug_or_id") String slug_or_id) {
-//        SlugOrID key = new SlugOrID(slug_or_id);
-//        Thread buf;
-//        if (key.IsLong) {
-//            buf = tdao.getThreadById(key.id);
-//        } else {
-//            buf = tdao.getThreadBySlug(key.slug);
-//        }
-//        if (buf == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(buf);
         try {
             return ResponseEntity.status(HttpStatus.OK).body(tdao.getThreadbySlugOrID(new SlugOrID(slug_or_id)));
         } catch (DataAccessException e) {
@@ -121,14 +110,6 @@ public class ThreadController {
                                       @RequestParam(value = "sort", required = false, defaultValue = "flat") String sort,
                                       @RequestParam(value = "desc", required = false, defaultValue = "false") Boolean desc,
                                       @RequestParam(value = "since", required = false) Integer since) {
-
-//        SlugOrID key = new SlugOrID(slug_or_id);
-//        Thread buf;
-//        if (key.IsLong) {
-//            buf = tdao.getThreadById(key.id);
-//        } else {
-//            buf = tdao.getThreadBySlug(key.slug);
-//        }
         try {
             return ResponseEntity.status(HttpStatus.OK).body(tdao.getPosts(tdao.getThreadIDbySlugOrID(new SlugOrID(slug_or_id)), limit, since, sort, desc));
         } catch (DataAccessException e) {

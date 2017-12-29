@@ -10,7 +10,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.RowMapper;
 
-//@Transactional
 @Service
 public class UserDao {
     private final JdbcTemplate template;
@@ -21,7 +20,6 @@ public class UserDao {
 
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer createUser(User body) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         try {
@@ -42,7 +40,6 @@ public class UserDao {
         return 201;
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public Integer changeUser(User body) {
         if (getUserByNick(body.getNickname()) == null) {
             return 404;
@@ -69,7 +66,6 @@ public class UserDao {
         return 201;
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByNick(String nickname) {
         try {
             return template.queryForObject(
@@ -81,16 +77,12 @@ public class UserDao {
     }
 
     public User getUserByNickPerf(String nickname) {
-//        try {
         return template.queryForObject(
                 "SELECT * FROM users WHERE nickname = ?::citext;",
                 USER_MAPPER, nickname);
-//        } catch (DataAccessException e) {
-//            return null;
-//        }
+
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserIDbyNick(String nickname) {
         try {
             final User fr = template.queryForObject(
@@ -103,7 +95,6 @@ public class UserDao {
         }
     }
 
-    //    @Transactional(isolation = Isolation.READ_COMMITTED)// TODO UNCOMMEnt
     public User getUserByEmail(String mail) {
         try {
             final User fr = template.queryForObject(
